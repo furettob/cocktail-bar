@@ -1,43 +1,23 @@
 import { useState } from 'react'
-import logo from './logo.svg'
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import AllCocktails from './pages/AllCocktails'
 import './App.css'
+import './cocktail-bar.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+        <Router>
+          <div className="cb-content">
+            <Switch>
+              <Route path="/allevents" render={ () => <AllCocktails myEvents={false} key={0}/> } />
+              <Route path="/myevents" render={ () => <AllCocktails myEvents={true} key={1}/> } />
+              <Route render={() => (<Redirect to="/allevents" />)}/>
+            </Switch>
+          </div>
+        </Router>
     </div>
   )
 }
