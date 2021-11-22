@@ -1,10 +1,11 @@
 import * as React from 'react'
 
-function Row(props) {
+function Row({children, intro}) {
  
     return  (
         <div className="te-filters-row">
-            {props.children}
+            <h4>{intro}</h4>
+            {children}
         </div>
     )
 }

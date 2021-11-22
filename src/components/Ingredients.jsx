@@ -1,28 +1,22 @@
 import * as React from 'react'
+import {Fragment} from "react";
 
-function Ingredients({drink}) {
+function Ingredients({ingredients}) {
 
-    const ingredients = Array.from(Array(25).keys()).map( (elem, index) => {
-        if (drink["strIngredient" + index]) {
-            return {
-                "ingredient": drink["strIngredient" + index],
-                "measure": drink["strMeasure" + index] ? drink["strMeasure" + index].trim() : null
-            }
-        }
-    }
-    ).filter(elem => !!elem)
-
-    console.log(ingredients)
     return (
-      ingredients.map((elem, index) => {
-        return (<span>
+        <Fragment>
+            <span>{ingredients.length} ingredients: </span>
+            {ingredients.map((elem, index) => <span>
             <span>{elem.ingredient}</span>
-            {elem.measure && " "}
-            {elem.measure && <span className={"cb-copy--muted"}>({elem.measure})</span>}
-            {index < ingredients.length -1 ? ", " : ""}
-        </span>)
-      }
-    ))
+            {elem.measure && <span className={"cb-copy--muted"}>
+                &nbsp;({elem.measure})
+            </span>}
+            {index < ingredients.length -1 ? ", " : "."}
+        </span>)}
+        </Fragment>
+    )
 }
 
 export default Ingredients
+
+
