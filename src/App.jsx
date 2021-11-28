@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import AllCocktails from './pages/AllCocktails'
 import DrinkDetail from './pages/DrinkDetail'
+import Colophon from './components/ColophonComponents'
 import './App.css'
 import './cocktail-bar.css'
 
@@ -15,6 +16,7 @@ function App() {
               <Route path="/drink/:id" render={ () => <DrinkDetail key={1}/> } />
               <Route render={() => (<Redirect to="/drinks" />)}/>
             </Switch>
+            <Colophon/>
           </div>
         </Router>
     </div>
