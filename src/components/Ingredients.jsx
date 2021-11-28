@@ -1,19 +1,19 @@
 import * as React from 'react'
-import {Fragment} from "react";
+import IngredientSummary from './IngredientSummary'
+import IngredientDetailed from './IngredientDetailed'
 
-function Ingredients({ingredients}) {
-
+function Ingredients({ingredients, summary}) {
     return (
-        <Fragment>
-            <span>{ingredients.length} ingredients: </span>
-            {ingredients.map((elem, index) => <span>
-            <span>{elem.ingredient}</span>
-            {elem.measure && <span className={"cb-copy--muted"}>
-                &nbsp;({elem.measure})
-            </span>}
-            {index < ingredients.length -1 ? ", " : "."}
-        </span>)}
-        </Fragment>
+        <div className={!summary && "cb-ingredient-grid"}>
+            {ingredients.map((elem, index) => summary ?
+                <span>
+                    <IngredientSummary ingredient={elem} key={elem.ingredient}/>
+                    {index < ingredients.length -1 ? ", " : "."}
+                </span>
+                :
+                <IngredientDetailed ingredient={elem} key={elem.ingredient}/>
+            )}
+        </div>
     )
 }
 

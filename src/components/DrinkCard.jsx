@@ -3,13 +3,15 @@ import {Fragment, useState} from 'react'
 import Ingredients from './Ingredients'
 import Tag from './Tag'
 import TagClass from './TagClass'
-import 'font-awesome/css/font-awesome.min.css';
+import DrinkHeader from "./DrinkHeader"
+import 'font-awesome/css/font-awesome.min.css'
+import {getIngredients} from "../utils/dataHub"
 
-function DrinkCard({drink}) {
+function DrinkCard({drink, isDetail}) {
 
     const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
     const [favourite, setFavourite] = useState(false)
-    const [infoShown, setInfoShown] = useState(false)
+    const [infoShown, setInfoShown] = useState(isDetail)
     const cb_favourite_clicked = () => {
         setFavourite(!favourite)
     }
@@ -17,29 +19,12 @@ function DrinkCard({drink}) {
         setInfoShown(!infoShown)
     }
 
-    const ingredients = Array.from(Array(25).keys()).map( (elem, index) => {
-            if (drink["strIngredient" + index]) {
-                return {
-                    "ingredient": drink["strIngredient" + index],
-                    "measure": drink["strMeasure" + index] ? drink["strMeasure" + index].trim() : null
-                }
-            }
-        }
-    ).filter(elem => !!elem)
+    const ingredients = getIngredients(drink)
 
     return (
       <div className={"cb-drink-card"}>
           {/* Header */}
-          <div className={"cb-drink-card__header"}>
-              <div className={"cb-drink-card__favourite-button"} onClick={cb_favourite_clicked}>
-                  <i className={"fa fa-glass"}/>
-              </div>
-          </div>
-
-          {/* Thumb image */}
-          <div className="cb-drink-card__thumb-container">
-              <div className="cb-drink-card__thumb" style={{backgroundImage: `url(${drink.strDrinkThumb})`}}/>
-          </div>
+          <DrinkHeader drink={drink}/>
 
           {/* Text info */}
           <div className="cb-drink-card__text-container">
@@ -49,16 +34,20 @@ function DrinkCard({drink}) {
                   {drink.strDrink}
               </h2>
               {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
-              <p><Ingredients ingredients={ingredients}/></p>
+              <p>{ingredients.length} ingredients: </p>
+              <Ingredients ingredients={ingredients} summary={!isDetail} withIntro/>
 
               {/* Info button */}
-              <p>
-                  <span className={"cb-copy--muted"} onClick={cb_info_clicked}>
-                      <i className={"fa fa-info-circle"}/>&nbsp;
-                      {infoShown ? "Hide" : "Show more"}
-                      {/* ESE-3 ternary operator <i className={"fa fa-chevron-up"}/> */}
-                  </span>
-              </p>
+              {!isDetail && (
+                  <p>
+                      <span className={"cb-copy--muted"} onClick={cb_info_clicked}>
+                          <i className={"fa fa-info-circle"}/>
+                          &nbsp;
+                          {infoShown ? "Hide" : "Show more"}
+                          {/* ESE-3 ternary operator <i className={"fa fa-chevron-up"}/> */}
+                      </span>
+                  </p>
+              )}
 
               {/* Details info */}
               { infoShown && (
@@ -68,13 +57,13 @@ function DrinkCard({drink}) {
                           {drink.strTags && drink.strTags.split(",").map( elem => <Tag key={elem} name={elem.trim()}/> )}
                           {drink.strIBA && <Tag name={drink.strIBA} />}
                           {drink.strCategory && <Tag name={drink.strCategory} />}
-                          {drink.strGlass && <TagClass icon={"fa-glass"} name={drink.strGlass} />}
+                           {drink.strGlass && <TagClass icon={"fa-glass"} name={drink.strGlass} />}
                       </p>
                       {drink.strInstructions && <p>{drink.strInstructions}</p>}
                   </Fragment>
               )}
 
-              {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (Long Island Tea) */}
+              {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
           </div>
       </div>
     )
