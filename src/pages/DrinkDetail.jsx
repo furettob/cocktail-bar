@@ -1,34 +1,29 @@
 import * as React from 'react'
 import Row from '../components/Row'
 import {useEffect, useState} from "react"
-import {getCocktails, getRandomCocktail} from '../utils/dataHub'
+import {useParams} from "react-router-dom"
+import {getDrinkById} from '../utils/dataHub'
+import DrinkCard from "../components/DrinkCard";
 
-function DrinkDetail({drink, match}) {
-    const { id } = match.params.filter
-    const [filters, setFilters] = useState({})
+function DrinkDetail(props) {
+    const { id } = useParams()
 
-    const [drinks, setDrinks] = useState(null)
-    const [randomDrink, setRandomDrink] = useState(null)
+    const [drink, setDrink] = useState(props?.drink)
 
     useEffect( async () => {
-        console.log("RANDOM DRINK AAAAAA: ")
-        const randomDrink = await getRandomCocktail()
-        console.log("RANDOM DRINK: ", randomDrink)
-        setRandomDrink(randomDrink)
+        if (!drink) {
+            const drink = await getDrinkById(id)
+            console.log("FOUND DRINK BY ID: ", drink)
+            setDrink(drink)
+        }
     }, []
     )
 
-    const cbSearchCallback = async searchStr => {
-        const drinks = await getCocktails(searchStr)
-        console.log("DRINKS: ", drinks)
-        setDrinks(drinks)
-    }
-
     return (
       <div>
-        <h1>{id}</h1>
+        <h1>Details for drink {id} {drink && ` - ${drink.strDrink}`}</h1>
           <Row>
-              ddddd
+              {drink ? <DrinkCard drink={drink} isDetail/> : "Loading..."}
           </Row>
       </div>
     )
