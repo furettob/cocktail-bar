@@ -12,7 +12,7 @@ function App() {
           <div className="cb-content">
             <Switch>
               <Route path="/drinks" render={ () => <AllCocktails favourite={false} key={0}/> } />
-              <Route path="/drink/:id" render={ () => <DrinkDetail drink={null} key={1}/> } />
+              <Route path="/drink/:id" render={ () => <DrinkDetail key={1}/> } />
               <Route render={() => (<Redirect to="/drinks" />)}/>
             </Switch>
           </div>
