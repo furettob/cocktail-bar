@@ -3,7 +3,7 @@ import * as React from 'react'
 function Row({children, intro}) {
  
     return  (
-        <div className="te-filters-row">
+        <div className="cb-row">
             <h4>{intro}</h4>
             {children}
         </div>
