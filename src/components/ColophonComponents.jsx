@@ -1,72 +1,62 @@
 import * as React from 'react'
-import {Fragment, useState} from 'react'
-import Ingredients from './Ingredients'
-import Tag from './Tag'
-import TagClass from './TagClass'
-import DrinkHeader from "./DrinkHeader"
 import 'font-awesome/css/font-awesome.min.css'
-import {getIngredients} from "../utils/dataHub"
+import UserCard from './UserCard'
+import Row from './Row'
 
-function DrinkCard({drink, isDetail}) {
+function ColophonComponents() {
 
-    const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
-    const [favourite, setFavourite] = useState(false)
-    const [infoShown, setInfoShown] = useState(isDetail)
-    const cb_favourite_clicked = () => {
-        setFavourite(!favourite)
-    }
-    const cb_info_clicked = () => {
-        setInfoShown(!infoShown)
-    }
-
-    const ingredients = getIngredients(drink)
+    const authors = [
+        {
+            name: "Marco",
+            lastname: "Corradetti",
+            jobPosition: "Frontend developer",
+            company: "Docsity",
+            avatarUrl: "/img/marco_avatar.png",
+            role: "Author",
+            links: [
+                {name: "Github", logo: "fa fa-github", url:"https://github.com/corradetti-s"},
+                {name: "Linkedin", logo: "fa fa-linkedin", url:"https://www.linkedin.com/in/sspensieri/"},
+                {name: "Docsity", logo: "fa fa-globe", url:"https://www.docsity.com"},
+            ]
+        },
+        {
+            name: "Stefano",
+            lastname: "Spensieri",
+            jobPosition: "Frontend developer",
+            company: "Docsity",
+            avatarUrl: "/img/stefano_avatar.jpeg",
+            role: "Author",
+            links: [
+                {name: "Github", logo: "fa fa-github", url:"https://github.com/spensieri-s"},
+                {name: "Linkedin", logo: "fa fa-linkedin", url:"https://www.linkedin.com/in/sspensieri/"},
+                {name: "Docsity", logo: "fa fa-globe", url:"https://www.docsity.com"},
+            ]
+        },
+        {
+            name: "Computer Science Students",
+            lastname: null,
+            company: "Corso Interazione Uomo Macchina e Tecnologie Web",
+            avatarUrl: "/img/unito.png",
+            jobPosition: "Computer Science Students",
+            role: "Editors",
+            links: [
+                {name: "Università di Torino", logo: "fa fa-university", url:"https://www.unito.it/"}
+            ]
+        },
+    ]
 
     return (
-      <div className={"cb-drink-card"}>
-          {/* Header */}
-          <DrinkHeader drink={drink}/>
-
-          {/* Text info */}
-          <div className="cb-drink-card__text-container">
-
-              {/* Basic info ... ESE-1: add strImageAttribution */}
-              <h2 className={"cb-drink-card__title"}>
-                  {drink.strDrink}
-              </h2>
-              {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
-              <p>{ingredients.length} ingredients: </p>
-              <Ingredients ingredients={ingredients} summary={!isDetail} withIntro/>
-
-              {/* Info button */}
-              {!isDetail && (
-                  <p>
-                      <span className={"cb-copy--muted"} onClick={cb_info_clicked}>
-                          <i className={"fa fa-info-circle"}/>
-                          &nbsp;
-                          {infoShown ? "Hide" : "Show more"}
-                          {/* ESE-3 ternary operator <i className={"fa fa-chevron-up"}/> */}
-                      </span>
-                  </p>
+      <div className={"cb-colophon"}>
+          <Row>
+              <p className={"cb-copy cb-copy--muted"}>
+                  Little web app made and updated with <i className={"fa fa-heart"}/> from:
+              </p>
+              {authors.map((author, index) =>
+                  <UserCard user={author} key={author?.name || index}/>
               )}
-
-              {/* Details info */}
-              { infoShown && (
-                  <Fragment>
-                      <p>
-                          <Tag name={isAlcoholic ? "Alcoholic" : "Not alcoholic"} type={isAlcoholic ? "warning" : "success"}/>
-                          {drink.strTags && drink.strTags.split(",").map( elem => <Tag key={elem} name={elem.trim()}/> )}
-                          {drink.strIBA && <Tag name={drink.strIBA} />}
-                          {drink.strCategory && <Tag name={drink.strCategory} />}
-                           {drink.strGlass && <TagClass icon={"fa-glass"} name={drink.strGlass} />}
-                      </p>
-                      {drink.strInstructions && <p>{drink.strInstructions}</p>}
-                  </Fragment>
-              )}
-
-              {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
-          </div>
+          </Row>
       </div>
     )
 }
 
-export default DrinkCard
+export default ColophonComponents
