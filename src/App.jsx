@@ -3,10 +3,8 @@ import AllCocktails from './pages/AllCocktails'
 import DrinkDetail from './pages/DrinkDetail'
 import Colophon from './components/ColophonComponents'
 import './App.css'
-import './cocktail-bar.css'
 
 function App() {
-
   return (
     <div className="App">
         <Router>
