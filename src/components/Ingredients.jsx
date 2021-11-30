@@ -1,6 +1,6 @@
-import * as React from "react";
-import IngredientSummary from "./IngredientSummary";
-import IngredientDetailed from "./IngredientDetailed";
+import * as React from "react"
+import IngredientSummary from "./IngredientSummary"
+import IngredientDetailed from "./IngredientDetailed"
 
 function Ingredients({ ingredients, summary }) {
   return (
@@ -16,7 +16,7 @@ function Ingredients({ ingredients, summary }) {
         )
       )}
     </div>
-  );
+  )
 }
 
-export default Ingredients;
+export default Ingredients

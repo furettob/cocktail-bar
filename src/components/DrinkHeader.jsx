@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Fragment, useState } from "react";
-import "font-awesome/css/font-awesome.min.css";
-import { Link } from "react-router-dom";
+import * as React from "react"
+import { Fragment, useState } from "react"
+import "font-awesome/css/font-awesome.min.css"
+import { Link } from "react-router-dom"
 
 function DrinkHeader({ drink }) {
-  const [favourite, setFavourite] = useState(false);
+  const [favourite, setFavourite] = useState(false)
   const cb_favourite_clicked = () => {
-    setFavourite(!favourite);
-  };
+    setFavourite(!favourite)
+  }
 
   return (
     <Fragment>
@@ -35,7 +35,7 @@ function DrinkHeader({ drink }) {
         />
       </div>
     </Fragment>
-  );
+  )
 }
 
-export default DrinkHeader;
+export default DrinkHeader

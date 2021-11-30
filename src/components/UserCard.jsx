@@ -1,6 +1,5 @@
-import * as React from "react";
-import { Fragment } from "react";
-import "font-awesome/css/font-awesome.min.css";
+import * as React from "react"
+import "font-awesome/css/font-awesome.min.css"
 
 function UserCard({ user }) {
   return (
@@ -30,11 +29,11 @@ function UserCard({ user }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 {
   /* ESE-7 Create a media object to abstract the behaviour of this component and IngredientDetailed */
 }
 
-export default UserCard;
+export default UserCard

@@ -1,25 +1,26 @@
-import * as React from "react";
-import { Fragment, useState } from "react";
-import Ingredients from "./Ingredients";
-import Tag from "./Tag";
-import TagClass from "./TagClass";
-import DrinkHeader from "./DrinkHeader";
-import "font-awesome/css/font-awesome.min.css";
-import { getIngredients } from "../utils/dataHub";
+import * as React from "react"
+import { Fragment, useState } from "react"
+import Ingredients from "./Ingredients"
+import Tag from "./Tag"
+import TagClass from "./TagClass"
+import DrinkHeader from "./DrinkHeader"
+import "font-awesome/css/font-awesome.min.css"
+import { getIngredients } from "../utils/dataHub"
 
 function DrinkCard({ drink, isDetail }) {
-  const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic";
-  const [favourite, setFavourite] = useState(false);
-  const [infoShown, setInfoShown] = useState(isDetail);
-  
-  const cb_favourite_clicked = () => {
-    setFavourite(!favourite);
-  };
-  const cb_info_clicked = () => {
-    setInfoShown(!infoShown);
-  };
+  const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
+  const [favourite, setFavourite] = useState(false)
+  const [infoShown, setInfoShown] = useState(isDetail)
 
-  const ingredients = getIngredients(drink);
+  const cb_favourite_clicked = () => {
+    setFavourite(!favourite)
+  }
+
+  const cb_info_clicked = () => {
+    setInfoShown(!infoShown)
+  }
+
+  const ingredients = getIngredients(drink)
 
   return (
     <div className={"cb-drink-card"}>
@@ -62,7 +63,7 @@ function DrinkCard({ drink, isDetail }) {
               {drink.strTags &&
                 drink.strTags
                   .split(",")
-                  .map((elem) => <Tag key={elem} name={elem.trim()} />)}
+                  .map(elem => <Tag key={elem} name={elem.trim()} />)}
               {drink.strIBA && <Tag name={drink.strIBA} />}
               {drink.strCategory && <Tag name={drink.strCategory} />}
               {drink.strGlass && (
@@ -76,7 +77,7 @@ function DrinkCard({ drink, isDetail }) {
         {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
       </div>
     </div>
-  );
+  )
 }
 
-export default DrinkCard;
+export default DrinkCard
