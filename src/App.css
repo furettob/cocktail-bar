@@ -73,6 +73,11 @@ a {
   justify-items: stretch;
   gap: 8px;
 }
+@media screen and (max-width: 576px) {
+  .cb-ingredient-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 .cb-copy {
   color: #363d43;
