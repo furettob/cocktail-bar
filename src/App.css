@@ -230,6 +230,14 @@ a {
   color: #0a6a36;
   border-color: #0a6a36;
 }
+.cb-tag--disabled {
+  background-color: #f7f8fa;
+  color: #5d6974;
+  border-color: #5d6974;
+}
+.cb-tag--underline {
+  text-decoration: underline;
+}
 
 /* IngredintDetailed */
 .cb-ingredient {
@@ -259,6 +267,12 @@ a {
   margin-bottom: 16px;
   overflow: hidden;
   background-image: -webkit-linear-gradient(13deg, #0477d2 13%, #23282c 13%);
+}
+@media screen and (max-width: 768px){
+  .cb-uc {
+
+    background-image: -webkit-linear-gradient(320deg, #0477d2 23%, #23282c 23%);
+  }
 }
 .cb-uc__text {
   flex-grow: 2;
@@ -330,6 +344,10 @@ a {
   opacity: 0;
   height: 0;
   width: 0;
+}
+
+.cb-ct--pointer {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1280px) {
