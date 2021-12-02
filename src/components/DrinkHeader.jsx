@@ -3,11 +3,7 @@ import { Fragment, useState } from "react"
 import "font-awesome/css/font-awesome.min.css"
 import { Link } from "react-router-dom"
 
-function DrinkHeader({ drink }) {
-  const [favourite, setFavourite] = useState(false)
-  const cb_favourite_clicked = () => {
-    setFavourite(!favourite)
-  }
+function DrinkHeader({ drink, favourite, cb_favourite_clicked }) {
 
   return (
     <Fragment>
@@ -16,7 +12,11 @@ function DrinkHeader({ drink }) {
           className={"cb-drink-card__favourite-button"}
           onClick={cb_favourite_clicked}
         >
-          <i className={"fa fa-glass"} />
+          <div
+            className={"cb-ct--pointer"}
+          >
+          <i className={"fa " + (favourite ? "fa-heart" : "fa-heart-o")} />
+          </div>
         </div>
         <div>
           <Link to={`/drink/${drink.idDrink}`} params={{ drink: drink }}>
