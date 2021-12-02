@@ -5,7 +5,7 @@ function Tag({ name, type, icon }) {
 
   const [selected, setSelected] = useState(false)
 
-  /* ESE-1 State: add state to manage selection */
+  /* ESE-5 State: add state to manage selection */
 
   return (
     <span

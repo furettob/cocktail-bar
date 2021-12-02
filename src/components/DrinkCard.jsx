@@ -29,7 +29,6 @@ function DrinkCard({ drink, isDetail }) {
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">
-        {/* Basic info ... ESE-1: add strImageAttribution */}
         <h2 className={"cb-drink-card__title"}>{drink.strDrink}</h2>
         {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
         <p className="cb-copy--muted cb-copy--bold">
