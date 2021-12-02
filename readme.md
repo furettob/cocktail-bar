@@ -53,3 +53,12 @@ pages/AllCocktails.jsx
 Cambia il testo "No cocktail found for your query." in modo che riporti quale query è stata cercata. 
 
 Parti dal file "pages/AllCocktails.jsx"
+
+
+
+### E6 - usa un componente dalla libreria react-router-dom
+
+Prendendo spunto dal link "Details" crea un link "Back to all" che rimandi
+dal dettaglio di un cocktail alla lista in "homepage"
+
+Parti dal file "pages/DrinkDetail.jsx"
