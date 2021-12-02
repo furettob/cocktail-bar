@@ -11,7 +11,6 @@ function AllCocktails({ myEvents, key }) {
   const [randomDrink, setRandomDrink] = useState(null)
 
   useEffect(async () => {
-    console.log("RANDOM DRINK AAAAAA: ")
     const randomDrink = await getRandomCocktail()
     console.log("RANDOM DRINK: ", randomDrink)
     setRandomDrink(randomDrink)
