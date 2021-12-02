@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Fragment, useState } from "react"
 import Ingredients from "./Ingredients"
-import Tag from "./Tag"
+import Tag from "./TagSolution"
 import TagClass from "./TagClass"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
@@ -25,7 +25,7 @@ function DrinkCard({ drink, isDetail }) {
   return (
     <div className={"cb-drink-card"}>
       {/* Header */}
-      <DrinkHeader drink={drink} />
+      <DrinkHeader drink={drink} favourite={favourite} cb_favourite_clicked={cb_favourite_clicked}/>
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">
@@ -44,10 +44,10 @@ function DrinkCard({ drink, isDetail }) {
               className={"cb-drink-card__show-more"}
               onClick={cb_info_clicked}
             >
-              <i className={infoShown ? "fa fa-minus" : "fa fa-plus"} />
+              <i className={"fa fa-info-circle"} />
               &nbsp;
               {infoShown ? "Less info" : "More info"}
-              {/* ESE-3 ternary operator <i className={"fa fa-chevron-up"}/> */}
+              {/* ESE-3 ternary operator <i className={"fa fa-minus fa-plus"}/> */}
             </span>
           </p>
         )}
@@ -58,7 +58,7 @@ function DrinkCard({ drink, isDetail }) {
             <p>
               <Tag
                 name={isAlcoholic ? "Alcoholic" : "Not alcoholic"}
-                type={isAlcoholic ? "warning" : "success"}
+                type={isAlcoholic ? {className: "warning", decoration:"underline"} : {className: "success"}}
               />
               {drink.strTags &&
                 drink.strTags
@@ -69,6 +69,9 @@ function DrinkCard({ drink, isDetail }) {
               {drink.strGlass && (
                 <TagClass icon={"fa-glass"} name={drink.strGlass} />
               )}
+              <span onClick={cb_favourite_clicked}>
+                <Tag icon={"fa-heart"} name={favourite ? "Favourite" : "Make favourite"} type={favourite ? {className: "success"} : {className: "disabled"}} />
+              </span>
             </p>
             {drink.strInstructions && <p>{drink.strInstructions}</p>}
           </Fragment>
