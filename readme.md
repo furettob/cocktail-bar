@@ -7,7 +7,7 @@ _Per l'installazione in locale fare riferimento a questa [guida](./install.md)_
 
 --------
 
-### E1 - "Challenging" "Simple" a seconda del numero di ingredienti
+### E1 - OK - "Challenging" "Simple" a seconda del numero di ingredienti
 
 Utilizza il **ternary operator** per aggiungere una dicitura nella cocktail card,
 prima del numero di ingredienti.
@@ -18,7 +18,7 @@ Il testo deve dire:
 Parti dal file "DrinkCard.jsx"
 
 
-### E2 - aggiungi un testo che indica la proprietà/il copyright dell'immagine del cocktail
+### E2 - OK - aggiungi un testo che indica la proprietà/il copyright dell'immagine del cocktail
 
 Utilizza lo **short circuit** per mostrare gli attributi strImageAttribution e strCreativeCommonsConfirmed
 ove presenti.

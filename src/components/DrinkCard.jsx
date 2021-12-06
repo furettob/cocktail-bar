@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Fragment, useState } from "react"
 import Ingredients from "./Ingredients"
-import Tag from "./TagSolution"
+import Tag from "./Tag"
 import TagClass from "./TagClass"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
@@ -32,7 +32,7 @@ function DrinkCard({ drink, isDetail }) {
         <h2 className={"cb-drink-card__title"}>{drink.strDrink}</h2>
         {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
         <p className="cb-copy--muted cb-copy--bold">
-          {ingredients.length} ingredients:
+          {ingredients.length >= 5 ? "Challenging" : "Simple"} - {ingredients.length} ingredients:
         </p>
         <Ingredients ingredients={ingredients} summary={!isDetail} withIntro />
 
@@ -77,6 +77,15 @@ function DrinkCard({ drink, isDetail }) {
         )}
 
         {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
+        {strImageAttribution && (
+          <div>
+            Image by: {drink.strImageAttribution}
+            {drink.strCreativeCommonsConfirmed ?
+              <Tag name={"Creative common"} icon={"fa-ok"} type={{className: "success"}}/> :
+              <Tag name={"Private"} icon={"fa-close"} type={{className: "warning"}}/>
+            }
+          </div>
+        )}
       </div>
     </div>
   )
