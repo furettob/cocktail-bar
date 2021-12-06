@@ -3,9 +3,9 @@
 ## Prima d'iniziare
 Per poter utilizzare sulla propria macchina questo esercizio occorre installare la versione LTS più recente di [Node.js](https://nodejs.org/it/)
 
-- Windows: https://www.nodeacademy.it/installare-node-js-windows/
-- Mac: https://www.nodeacademy.it/installare-node-js-mac-os-x/
-- Linux: https://www.nodeacademy.it/installare-node-js-ubuntu-linux/
+- Windows: https://docs.microsoft.com/it-it/windows/dev-environment/javascript/nodejs-on-windows
+- Mac: https://github.com/nvm-sh/nvm#installing-and-updating
+- Linux: https://github.com/nvm-sh/nvm#installing-and-updating
 
 ## Installazione dipendenze
 Una volta installato node aprire con il terminale il progetto e lanciare il comando:
