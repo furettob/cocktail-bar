@@ -1,6 +1,8 @@
 import * as React from "react"
 import { Component } from "react"
 
+{/* Questo è lo STESSO componente Tag, ma espresso come Class component invece che come Functional component */}
+
 export default class TagClass extends Component {
   constructor(props) {
     super(props)
@@ -8,7 +10,6 @@ export default class TagClass extends Component {
   }
 
   onClick = () => {
-    console.log("clicked!!!")
     this.setState(prevState => ({ clicked: !prevState.clicked }))
   }
 
@@ -17,7 +18,8 @@ export default class TagClass extends Component {
       <span
         className={
           "cb-tag" +
-          (this.props.type ? " cb-tag--" + this.props.type : "") +
+          (type?.className ? " cb-tag--" + type.className : "") +
+          (type?.decoration ? " cb-tag--" + type.decoration : "") +
           (this.state.clicked ? " cb-tag--selected" : "")
         }
         onClick={this.onClick}

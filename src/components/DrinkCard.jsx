@@ -43,10 +43,10 @@ function DrinkCard({ drink, isDetail }) {
               className={"cb-drink-card__show-more"}
               onClick={cb_info_clicked}
             >
+              {/* ESE-3 fa-minus oppure fa-plus */}
               <i className={"fa fa-info-circle"} />
               &nbsp;
               {infoShown ? "Less info" : "More info"}
-              {/* ESE-3 ternary operator <i className={"fa fa-minus fa-plus"}/> */}
             </span>
           </p>
         )}
