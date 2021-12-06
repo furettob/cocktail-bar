@@ -1,6 +1,11 @@
 # Readme - CocktailBar App
+Spunti per esericizi/esempi da svolgere sull'app. 
 
-Spunti per esericizi/esempi da svolgere sull'app
+--------
+
+_Per l'installazione in locale fare riferimento a questa [guida](./install.md)_
+
+--------
 
 ### E1 - "Challenging" "Simple" a seconda del numero di ingredienti
 
