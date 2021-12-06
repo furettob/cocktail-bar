@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
 
-function AllCocktails({ myEvents, key }) {
+function AllCocktails() {
   const [drinks, setDrinks] = useState(null)
   const [randomDrink, setRandomDrink] = useState(null)
 
@@ -18,7 +18,7 @@ function AllCocktails({ myEvents, key }) {
 
   const cbSearchCallback = async searchStr => {
     const drinks = await getCocktails(searchStr)
-    console.log("DRINKS: ", drinks)
+    console.log("DRINKS FROM QUERY: ", drinks)
     setDrinks(drinks)
   }
 

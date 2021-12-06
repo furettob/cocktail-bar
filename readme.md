@@ -32,8 +32,8 @@ Parti dal file "DrinkCard.jsx"
 
 Al momento l'icona mostra sempre la "i" di info.
 Cambia il tag in modo che sia
-- un "meno" quando il testo dice "Show Less"
-- un "più" quando il testo dice "Show more"
+- un "meno" "fa-minus" quando il testo dice "Show Less"
+- un "più" "fa-plus" quando il testo dice "Show more"
 
 Parti dal file "DrinkCard.jsx"
 

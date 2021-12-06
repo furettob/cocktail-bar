@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Fragment, useState } from "react"
 import Ingredients from "./Ingredients"
-import Tag from "./TagSolution"
+import Tag from "./Tag"
 import TagClass from "./TagClass"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
