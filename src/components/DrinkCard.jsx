@@ -25,7 +25,7 @@ function DrinkCard({ drink, isDetail }) {
   return (
     <div className={"cb-drink-card"}>
       {/* Header */}
-      <DrinkHeader drink={drink} favourite={favourite} cb_favourite_clicked={cb_favourite_clicked}/>
+      <DrinkHeader drink={drink} favourite={favourite} cb_favourite_clicked={cb_favourite_clicked} isDetail={isDetail}/>
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">
@@ -44,7 +44,7 @@ function DrinkCard({ drink, isDetail }) {
               onClick={cb_info_clicked}
             >
               {/* ESE-3 fa-minus oppure fa-plus */}
-              <i className={"fa fa-info-circle"} />
+              {infoShown ? <i className={"fa fa-minus"} /> : <i className={"fa fa-plus"} />}
               &nbsp;
               {infoShown ? "Less info" : "More info"}
             </span>
@@ -75,18 +75,18 @@ function DrinkCard({ drink, isDetail }) {
             {drink.strInstructions && <p>{drink.strInstructions}</p>}
           </Fragment>
         )}
-
-        {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
-        {strImageAttribution && (
-          <div>
-            Image by: {drink.strImageAttribution}
-            {drink.strCreativeCommonsConfirmed ?
-              <Tag name={"Creative common"} icon={"fa-ok"} type={{className: "success"}}/> :
-              <Tag name={"Private"} icon={"fa-close"} type={{className: "warning"}}/>
-            }
-          </div>
-        )}
       </div>
+      {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
+      {drink.strImageAttribution && (
+        <div className={"cb-ph-16 cb-pv-8"}>
+          <hr/>
+          <span class={"cb-copy cb-copy--muted"}>Image by: {drink.strImageAttribution}</span>&nbsp;
+          {drink.strCreativeCommonsConfirmed ?
+            <Tag name={"Creative common"} icon={"fa-check"} type={{className: "success"}}/> :
+            <Tag name={"Private"} icon={"fa-close"} type={{className: "warning"}}/>
+          }
+        </div>
+      )}
     </div>
   )
 }

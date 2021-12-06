@@ -18,8 +18,8 @@ export default class TagClass extends Component {
       <span
         className={
           "cb-tag" +
-          (type?.className ? " cb-tag--" + type.className : "") +
-          (type?.decoration ? " cb-tag--" + type.decoration : "") +
+          (this.props.type?.className ? " cb-tag--" + this.props.type.className : "") +
+          (this.props.type?.decoration ? " cb-tag--" + this.props.type.decoration : "") +
           (this.state.clicked ? " cb-tag--selected" : "")
         }
         onClick={this.onClick}

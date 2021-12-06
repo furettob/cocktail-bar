@@ -3,7 +3,7 @@ import { Fragment, useState } from "react"
 import "font-awesome/css/font-awesome.min.css"
 import { Link } from "react-router-dom"
 
-function DrinkHeader({ drink, favourite, cb_favourite_clicked }) {
+function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
 
   return (
     <Fragment>
@@ -19,11 +19,19 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked }) {
           </div>
         </div>
         <div>
-          <Link to={`/drink/${drink.idDrink}`} params={{ drink: drink }}>
-            <i className={"fa fa-list-ul"} />
-            &nbsp;
-            <span className={"cb-copy cb-copy--white"}>Details</span>
-          </Link>
+          {
+            isDetail ? (
+              <Link to={`/drinks`} params={{ drink: drink }}>
+                <i className={"fa fa-backward"} />
+                &nbsp;
+                <span className={"cb-copy cb-copy--white"}>Back to search</span>
+              </Link>
+            ) : (<Link to={`/drink/${drink.idDrink}`} params={{ drink: drink }}>
+              <i className={"fa fa-list-ul"} />
+              &nbsp;
+              <span className={"cb-copy cb-copy--white"}>Details</span>
+            </Link>)
+          }
         </div>
       </div>
 

@@ -32,14 +32,14 @@ Parti dal file "DrinkCard.jsx"
 
 Al momento l'icona mostra sempre la "i" di info.
 Cambia il tag in modo che sia
-- un "meno" quando il testo dice "Show Less"
-- un "più" quando il testo dice "Show more"
+- un "meno" "fa-minus" quando il testo dice "Show Less"
+- un "più" "fa-plus" quando il testo dice "Show more"
 
 Parti dal file "DrinkCard.jsx"
 
 
 
-### E4 - gestione dello stato
+### E4 - OK - gestione dello stato
 
 Aggiungi uno stato "selected" nel file Tag.jsx. 
 Il componente con classe "cb-tag" deve avere:
@@ -52,7 +52,7 @@ Parti dal file "Tag.jsx"
 
 
 
-### E5 - gestione dello stato
+### E5 - OK - gestione dello stato
 
 Aggiungi uno stato "queryString" che salvi la stringa cercata nel file
 pages/AllCocktails.jsx
@@ -63,7 +63,7 @@ Parti dal file "pages/AllCocktails.jsx"
 
 
 
-### E6 - usa un componente dalla libreria react-router-dom
+### E6 - OK - usa un componente dalla libreria react-router-dom
 
 Prendendo spunto dal link "Details" crea un link "Back to all" che rimandi
 dal dettaglio di un cocktail alla lista in "homepage"

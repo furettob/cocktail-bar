@@ -6,9 +6,10 @@ import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
 
-function AllCocktails({ myEvents, key }) {
+function AllCocktails() {
   const [drinks, setDrinks] = useState(null)
   const [randomDrink, setRandomDrink] = useState(null)
+  const [queryString, setQueryString] = useState("")
 
   useEffect(async () => {
     const randomDrink = await getRandomCocktail()
@@ -17,8 +18,9 @@ function AllCocktails({ myEvents, key }) {
   }, [])
 
   const cbSearchCallback = async searchStr => {
+    setQueryString(searchStr)
     const drinks = await getCocktails(searchStr)
-    console.log("DRINKS: ", drinks)
+    console.log("DRINKS FROM QUERY: ", drinks)
     setDrinks(drinks)
   }
 
@@ -36,7 +38,7 @@ function AllCocktails({ myEvents, key }) {
           ))}
           {drinks.length === 0 && (
             <div>
-              <p className={"cb-copy"}>No cocktail found for your query.</p>
+              <p className={"cb-copy"}>No cocktail found for the query "{queryString}".</p>
               <p className={"cb-copy"}>Try a new research.</p>
             </div>
           )}
