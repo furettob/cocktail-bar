@@ -7,7 +7,7 @@ _Per l'installazione in locale fare riferimento a questa [guida](./install.md)_
 
 --------
 
-### E1 - "Challenging" "Simple" a seconda del numero di ingredienti
+### E1 - OK - "Challenging" "Simple" a seconda del numero di ingredienti
 
 Utilizza il **ternary operator** per aggiungere una dicitura nella cocktail card,
 prima del numero di ingredienti.
@@ -18,7 +18,7 @@ Il testo deve dire:
 Parti dal file "DrinkCard.jsx"
 
 
-### E2 - aggiungi un testo che indica la proprietà/il copyright dell'immagine del cocktail
+### E2 - OK - aggiungi un testo che indica la proprietà/il copyright dell'immagine del cocktail
 
 Utilizza lo **short circuit** per mostrare gli attributi strImageAttribution e strCreativeCommonsConfirmed
 ove presenti.
@@ -39,7 +39,7 @@ Parti dal file "DrinkCard.jsx"
 
 
 
-### E4 - gestione dello stato
+### E4 - OK - gestione dello stato
 
 Aggiungi uno stato "selected" nel file Tag.jsx. 
 Il componente con classe "cb-tag" deve avere:
@@ -52,7 +52,7 @@ Parti dal file "Tag.jsx"
 
 
 
-### E5 - gestione dello stato
+### E5 - OK - gestione dello stato
 
 Aggiungi uno stato "queryString" che salvi la stringa cercata nel file
 pages/AllCocktails.jsx
@@ -63,7 +63,7 @@ Parti dal file "pages/AllCocktails.jsx"
 
 
 
-### E6 - usa un componente dalla libreria react-router-dom
+### E6 - OK - usa un componente dalla libreria react-router-dom
 
 Prendendo spunto dal link "Details" crea un link "Back to all" che rimandi
 dal dettaglio di un cocktail alla lista in "homepage"
