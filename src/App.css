@@ -1,7 +1,5 @@
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
 }
 
 .App-header {
@@ -96,6 +94,24 @@ a {
 /************************************************************************/
 /* COMPONENTS
 /************************************************************************/
+
+/* HEADER */
+.cb-header {
+  background-color: #034d86;
+  color: #fff;
+  padding: 24px;
+}
+.cb-navlink {
+  padding: 8px 16px;
+  margin: 16px;
+  border-radius: 100px;
+  box-sizing: border-box;
+}
+.cb-navlink--active {
+  border: 1px solid #f90;
+  font-weight: bold;
+  color: #f90;
+}
 
 /* SEARCHBAR */
 .cb-searchbar {

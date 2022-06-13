@@ -39,9 +39,9 @@ export async function getDrinkById(id) {
     return { error: resp }
   }
 
-  console.log("DRINK DATA:::: ", resp.data.drinks[0])
+  console.log("DRINK DATA:::: ", resp.data.drinks && resp.data.drinks[0])
 
-  return resp.data.drinks[0]
+  return resp.data.drinks?.[0]
 }
 
 export function getIngredients(drink) {
