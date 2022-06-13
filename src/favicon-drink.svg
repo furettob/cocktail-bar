@@ -26,8 +26,8 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="419.17548"
-     inkscape:cx="385.29587"
+     inkscape:cy="455.54097"
+     inkscape:cx="575.20455"
      inkscape:zoom="0.98994949"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -52,12 +52,15 @@
      inkscape:groupmode="layer"
      inkscape:label="Livello 1">
     <rect
+       inkscape:export-filename="/Users/stefanospensieri/rect833.png"
+       inkscape:export-ydpi="25.4"
+       inkscape:export-xdpi="25.4"
        y="64"
        x="64"
        height="64"
        width="64"
        id="rect833"
-       style="fill:#002255;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round" />
+       style="fill:#ff6600;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round" />
     <path
        id="path837"
        d="m 82.398808,222.74144 -21.355653,0.18899 19.654761,-5.48066 0.188989,-26.83631 -19.465774,-31.75 34.206844,0.37798 -12.284226,31.75 0.377976,32.12797 z"
@@ -66,28 +69,42 @@
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 82.895674,222.74144 21.355676,0.18899 -19.654784,-5.48066 -0.188989,-26.83631 19.465793,-31.75 -34.206863,0.37798 12.284226,31.75 -0.377976,32.12797 z"
        id="path839" />
-    <g
-       transform="translate(3.9825128,1.5483197)"
-       id="g853">
-      <circle
-         style="fill:#ff9955;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round"
-         id="path846"
-         cx="82.835464"
-         cy="83.108116"
-         r="8" />
-      <rect
-         style="fill:#ff9955;fill-opacity:1;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round"
-         id="rect848"
-         width="2.6726952"
-         height="30.468725"
-         x="121.6577"
-         y="28.669287"
-         transform="rotate(20.00378)" />
-      <path
-         id="path841"
-         style="fill:#d5f6ff;stroke:none;stroke-width:0.264584px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 80.355348,82.432582 13.109345,18.782858 -0.127373,15.87615 -13.23637,3.24237 c 10.463498,0.0531 18.635066,-0.0814 29.09856,0 L 95.962775,117.09159 95.835749,101.21544 108.94477,82.432582 94.650063,82.571375 Z"
-         sodipodi:nodetypes="cccccccccc" />
-    </g>
+    <circle
+       r="10.094428"
+       cy="77.847198"
+       cx="84.414085"
+       id="path846"
+       style="fill:#2b2200;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       transform="rotate(20.00378)"
+       y="24.983532"
+       x="127.714"
+       height="30.548862"
+       width="2.6163239"
+       id="rect848"
+       style="fill:#2b2200;fill-opacity:1;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round" />
+    <path
+       sodipodi:nodetypes="cccccccccc"
+       d="m 81.284673,76.994802 16.541417,23.700278 -0.16072,20.03257 -16.701698,4.09124 c 13.202878,0.067 23.513788,-0.10269 36.716668,0 l -16.70216,-4.09124 -0.16028,-20.03257 16.541,-23.700278 -18.037106,0.175129 z"
+       style="fill:#d5f6ff;stroke:none;stroke-width:0.264584px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="path841" />
+    <circle
+       r="32"
+       style="fill:#ffcc00;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round"
+       id="circle885"
+       cx="199.59673"
+       cy="134.23055" />
+    <circle
+       r="29"
+       cy="134.23055"
+       cx="199.59673"
+       id="circle887"
+       style="fill:#ffffff;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round" />
+    <circle
+       cx="199.59673"
+       cy="134.23055"
+       r="29"
+       style="fill:#ffff00;stroke:none;stroke-width:0.661458;stroke-linecap:round;stroke-linejoin:round"
+       id="circle889" />
   </g>
 </svg>
