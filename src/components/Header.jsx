@@ -11,6 +11,12 @@ function Header(props) {
         >
         Drinks
       </NavLink>
+      <NavLink
+        to={"/drink/11728"}
+        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
+      >
+        Martini
+      </NavLink>
     </div>
   )
 }
