@@ -6,6 +6,8 @@ import TagClass from "./TagClass"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
 import { getIngredients } from "../utils/dataHub"
+import { Pantry } from "../context/PantryContext"
+import { LanguageContext } from "../context/LanguageContext"
 
 function DrinkCard({ drink, isDetail }) {
   const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
@@ -34,7 +36,7 @@ function DrinkCard({ drink, isDetail }) {
         <p className="cb-copy--muted cb-copy--bold">
           {ingredients.length >= 5 ? "Challenging" : "Simple"} - {ingredients.length} ingredients:
         </p>
-        <Ingredients ingredients={ingredients} summary={!isDetail} withIntro />
+        <Ingredients ingredients={ingredients} summary={!isDetail} />
 
         {/* Info button */}
         {!isDetail && (
@@ -72,7 +74,22 @@ function DrinkCard({ drink, isDetail }) {
                 <Tag icon={"fa-heart"} name={favourite ? "Favourite" : "Make favourite"} type={favourite ? {className: "success"} : {className: "disabled"}} />
               </span>
             </p>
-            {drink.strInstructions && <p>{drink.strInstructions}</p>}
+            <LanguageContext.Consumer>
+              {value => {
+                console.log("LANG val is ", value)
+                let instr = "strInstructions"
+                if (value !== "en") {
+                  instr = "strInstructions" + value.toUpperCase()
+                }
+                console.log("INSTR val is ", instr)
+
+                return drink[instr] ?
+                  <p>{drink[instr]}</p> :
+                  drink["strInstructions"] ?
+                    <p>{drink["strInstructions"]}</p> :
+                    <p>No description available</p>
+              }}
+            </LanguageContext.Consumer>
           </Fragment>
         )}
       </div>

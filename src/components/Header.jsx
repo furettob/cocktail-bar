@@ -3,7 +3,7 @@ import { Fragment } from "react"
 import "font-awesome/css/font-awesome.min.css"
 import { NavLink } from "react-router-dom"
 
-function DrinkHeader(props) {
+function DrinkHeader({onLanguageSwitch, currentLang}) {
 
   return (
     <Fragment>
@@ -11,7 +11,6 @@ function DrinkHeader(props) {
         <NavLink
           to="/drinks"
           className={ isActive => {
-            console.log(">>>>>>>>>>> ", isActive)
             return "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")
           }}
         >
@@ -33,6 +32,13 @@ function DrinkHeader(props) {
         >
           Favourites
         </NavLink>
+        {["en", "de", "it", "es", "fr"].map( elem =>
+          <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
+                onClick={ () => onLanguageSwitch(elem.toLocaleLowerCase())}
+                key={elem}>
+            {elem.toUpperCase()}
+          </span>
+        ) }
       </div>
     </Fragment>
   )
