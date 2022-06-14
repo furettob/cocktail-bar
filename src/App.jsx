@@ -9,6 +9,7 @@ import {
 } from "react-router-dom"
 import "./App.css"
 import Header from "./components/Header"
+import PreferitiPage from "./pages/PreferitiPage"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               path="/search/:query"
               render={() => <AllCocktails />}/>
             <Route path="/drink/:id" render={() => <DrinkDetail />} />
+            <Route path="/favourites" render={() => <PreferitiPage />} />
             <Route render={() => <Redirect to="/drinks" />} />
           </Switch>
         <Colophon />

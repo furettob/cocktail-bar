@@ -17,6 +17,12 @@ function Header(props) {
       >
         Martini
       </NavLink>
+      <NavLink
+        to={"/favourites"}
+        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
+      >
+        Favourites
+      </NavLink>
     </div>
   )
 }
