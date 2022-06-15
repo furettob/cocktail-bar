@@ -1,6 +1,6 @@
 import React from "react";
 
-const initialLang = "en"
+const initialLang = "sono il default value"
 
 export const LanguageContext = React.createContext({lang:initialLang});
 

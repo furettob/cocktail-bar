@@ -30,7 +30,7 @@ function DrinkCard({ drink, isDetail }) {
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">
-        <h2 className={"cb-drink-card__title"}>{drink.strDrink}</h2>
+        <h2 className={"cb-drink-card__title"}>{drink.strDrink} - {drink.idDrink}</h2>
         {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
         <p className="cb-copy--muted cb-copy--bold">
           {ingredients.length >= 5 ? "Challenging" : "Simple"} - {ingredients.length} ingredients:

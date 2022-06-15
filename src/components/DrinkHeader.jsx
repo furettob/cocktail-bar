@@ -2,22 +2,33 @@ import * as React from "react"
 import { Fragment } from "react"
 import "font-awesome/css/font-awesome.min.css"
 import { Link } from "react-router-dom"
+import {FavouriteContext} from "../context/FavouriteContext"
 
 function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
+
+  const isFavourite = (id, array) => array.indexOf(id) > -1
 
   return (
     <Fragment>
       <div className={"cb-drink-card__header"}>
-        <div
-          className={"cb-drink-card__favourite-button"}
-          onClick={cb_favourite_clicked}
-        >
-          <div
-            className={"cb-ct--pointer"}
-          >
-          <i className={"fa " + (favourite ? "fa-heart" : "fa-heart-o")} />
-          </div>
-        </div>
+        <FavouriteContext.Consumer>
+          {
+            ({favouriteList, toggleFavouriteFunction}) => {
+              console.log("VAL: ", favouriteList)
+              return (
+                <div
+                  className={"cb-drink-card__favourite-button"}
+                  onClick={() => toggleFavouriteFunction(drink.idDrink)}
+                >
+                  <div
+                    className={"cb-ct--pointer"}
+                  >
+                    <i className={"fa " + (isFavourite(drink.idDrink, favouriteList) ? "fa-heart" : "fa-heart-o")} />
+                  </div>
+                </div>)
+            }
+          }
+        </FavouriteContext.Consumer>
         <div>
           {
             isDetail ?

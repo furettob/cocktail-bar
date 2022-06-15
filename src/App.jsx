@@ -10,8 +10,8 @@ import {
 import "./App.css"
 import Header from "./components/Header"
 import PreferitiPage from "./pages/PreferitiPage"
-import { LanguageContext, LanguageProvider } from "./context/LanguageContext"
-import { FavouriteContext, FavouriteProvider } from "./context/FavouriteContext"
+import { LanguageProvider} from "./context/LanguageContext"
+import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState} from "react"
 
 
@@ -20,7 +20,11 @@ function App() {
 
   return (
     <div className="App">
-      <FavouriteContext value={{favouriteList:[], state:"loading"}}>
+      <FavouriteProvider value={
+        {
+          favouriteList: ["11728"]
+        }
+      }>
         <LanguageProvider value={lang}>
           <Router>
             <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
@@ -40,7 +44,7 @@ function App() {
             </div>
           </Router>
         </LanguageProvider>
-      </FavouriteContext>
+      </FavouriteProvider>
     </div>
   )
 }
