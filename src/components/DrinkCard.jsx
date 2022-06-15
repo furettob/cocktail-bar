@@ -10,11 +10,12 @@ import { LanguageContext } from "../context/LanguageContext"
 
 function DrinkCard({ drink, isDetail }) {
   const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
-  const [favourite, setFavourite] = useState(false)
   const [infoShown, setInfoShown] = useState(isDetail)
 
+  const favourite = false
   const cb_favourite_clicked = () => {
     setFavourite(!favourite)
+    toggleFavourite(drink.idDrink)
   }
 
   const cb_info_clicked = () => {
@@ -26,7 +27,7 @@ function DrinkCard({ drink, isDetail }) {
   return (
     <div className={"cb-drink-card"}>
       {/* Header */}
-      <DrinkHeader drink={drink} favourite={favourite} cb_favourite_clicked={cb_favourite_clicked} isDetail={isDetail}/>
+      <DrinkHeader drink={drink} isDetail={isDetail}/>
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">
@@ -35,7 +36,7 @@ function DrinkCard({ drink, isDetail }) {
         <p className="cb-copy--muted cb-copy--bold">
           {ingredients.length >= 5 ? "Challenging" : "Simple"} - {ingredients.length} ingredients:
         </p>
-        <Ingredients ingredients={ingredients} summary={!isDetail} withIntro />
+        <Ingredients ingredients={ingredients} summary={!isDetail} />
 
         {/* Info button */}
         {!isDetail && (
@@ -75,7 +76,6 @@ function DrinkCard({ drink, isDetail }) {
             </p>
             <LanguageContext.Consumer>
               {value => {
-                console.log("LANG val is ", value)
                 let instr = "strInstructions"
                 if (value !== "en") {
                   instr = "strInstructions" + value.toUpperCase()

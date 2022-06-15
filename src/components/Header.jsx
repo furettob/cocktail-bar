@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Fragment } from "react"
 import { NavLink } from "react-router-dom"
 
 function Header({onLanguageSwitch, currentLang}) {
