@@ -5,8 +5,11 @@ import Searchbar from "../components/Searchbar"
 import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
+import {useParams} from "react-router-dom";
 
 function AllCocktails() {
+  const { query } = useParams()
+
   const [drinks, setDrinks] = useState(null)
   const [randomDrink, setRandomDrink] = useState(null)
   const [queryString, setQueryString] = useState("")
@@ -15,13 +18,21 @@ function AllCocktails() {
     const randomDrink = await getRandomCocktail()
     console.log("RANDOM DRINK: ", randomDrink)
     setRandomDrink(randomDrink)
+
+    if (query && query !== '') {
+      await searchDrink(query);
+    }
   }, [])
 
-  const cbSearchCallback = async searchStr => {
+  const searchDrink = async searchStr => {
     setQueryString(searchStr)
     const drinks = await getCocktails(searchStr)
     console.log("DRINKS FROM QUERY: ", drinks)
     setDrinks(drinks)
+  }
+
+  const cbSearchCallback = async searchStr => {
+    await searchDrink(searchStr);
   }
 
   return (

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import "font-awesome/css/font-awesome.min.css"
 import { Link } from "react-router-dom"
 
@@ -19,19 +19,7 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
           </div>
         </div>
         <div>
-          {
-            isDetail ? (
-              <Link to={`/drinks`} params={{ drink: drink }}>
-                <i className={"fa fa-backward"} />
-                &nbsp;
-                <span className={"cb-copy cb-copy--white"}>Back to search</span>
-              </Link>
-            ) : (<Link to={`/drink/${drink.idDrink}`} params={{ drink: drink }}>
-              <i className={"fa fa-list-ul"} />
-              &nbsp;
-              <span className={"cb-copy cb-copy--white"}>Details</span>
-            </Link>)
-          }
+          &nbsp;
         </div>
       </div>
 

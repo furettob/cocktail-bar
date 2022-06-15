@@ -81,7 +81,6 @@ function DrinkCard({ drink, isDetail }) {
                 if (value !== "en") {
                   instr = "strInstructions" + value.toUpperCase()
                 }
-                console.log("INSTR val is ", instr)
 
                 return drink[instr] ?
                   <p>{drink[instr]}</p> :

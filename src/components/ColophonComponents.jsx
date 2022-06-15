@@ -10,7 +10,7 @@ function ColophonComponents() {
       <div className={"cb-colophon"}>
           <Row>
               <p className={"cb-copy cb-copy--muted"}>
-                  Little web app made and updated with <i className={"fa fa-heart"}/> from:
+                  Little web app made and updated with <i className={"fa fa-heart"}/> by:
               </p>
               {authors.map((author, index) =>
                   <UserCard user={author} key={author?.name || index}/>
