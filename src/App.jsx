@@ -10,7 +10,8 @@ import {
 import "./App.css"
 import Header from "./components/Header"
 import PreferitiPage from "./pages/PreferitiPage"
-import { LanguageProvider } from "./context/LanguageContext"
+import { LanguageContext, LanguageProvider } from "./context/LanguageContext"
+import { FavouriteContext, FavouriteProvider } from "./context/FavouriteContext"
 import {useState} from "react"
 
 
@@ -19,25 +20,27 @@ function App() {
 
   return (
     <div className="App">
-      <LanguageProvider value={lang}>
-        <Router>
-          <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
-          <div className="cb-content">
-            <Switch>
-              <Route
-                path="/drinks"
-                render={() => <AllCocktails />}/>
-              <Route
-                path="/search/:query"
-                render={() => <AllCocktails />}/>
-              <Route path="/drink/:id" render={() => <DrinkDetail />} />
-              <Route path="/favourites" render={() => <PreferitiPage />} />
-              <Route render={() => <Redirect to="/drinks" />} />
-            </Switch>
-            <Colophon />
-          </div>
-        </Router>
-      </LanguageProvider>
+      <FavouriteContext value={{favouriteList:[], state:"loading"}}>
+        <LanguageProvider value={lang}>
+          <Router>
+            <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
+            <div className="cb-content">
+              <Switch>
+                <Route
+                  path="/drinks"
+                  render={() => <AllCocktails />}/>
+                <Route
+                  path="/search/:query"
+                  render={() => <AllCocktails />}/>
+                <Route path="/drink/:id" render={() => <DrinkDetail />} />
+                <Route path="/favourites" render={() => <PreferitiPage />} />
+                <Route render={() => <Redirect to="/drinks" />} />
+              </Switch>
+              <Colophon />
+            </div>
+          </Router>
+        </LanguageProvider>
+      </FavouriteContext>
     </div>
   )
 }
