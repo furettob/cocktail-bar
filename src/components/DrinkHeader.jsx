@@ -19,7 +19,15 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
           </div>
         </div>
         <div>
-          &nbsp;
+          {
+            isDetail ?
+              <Link to={"/drinks/aaaa"}>
+                Back
+              </Link> :
+              <Link to={"/drink/" + drink.idDrink}>
+                Details
+              </Link>
+          }
         </div>
       </div>
 
