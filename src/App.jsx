@@ -2,7 +2,8 @@ import AllCocktails from "./pages/AllCocktails"
 import DrinkDetail from "./pages/DrinkDetail"
 import Colophon from "./components/ColophonComponents"
 import {
-  BrowserRouter as Router,
+  Router,
+  HashRouter,
   Route,
   Switch,
   Redirect
@@ -14,7 +15,13 @@ import PreferitiPage from "./pages/PreferitiPage"
 function App() {
   return (
     <div className="App">
-      <Router>
+      {/*
+      Utilizzo HashRouter perché con Router ottengo l'errore:
+
+      TypeError: Cannot read properties of undefined (reading 'location')
+
+      */}
+      <HashRouter>
         <Header />
         <div className="cb-content">
           <Switch>
@@ -30,7 +37,7 @@ function App() {
           </Switch>
         <Colophon />
         </div>
-      </Router>
+      </HashRouter>
     </div>
   )
 }
