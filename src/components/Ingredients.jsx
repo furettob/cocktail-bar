@@ -31,7 +31,7 @@ function Ingredients({ ingredients, summary }) {
         )
       )}
       <Pantry.Consumer>
-        {value => getShoppingListDescription(value, ingredients)}
+        { value => getShoppingListDescription(value, ingredients)}
       </Pantry.Consumer>
     </div>
   )
