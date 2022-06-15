@@ -2,7 +2,7 @@ import * as React from "react"
 import { Fragment } from "react"
 import { NavLink } from "react-router-dom"
 
-function Header(props) {
+function Header({onLanguageSwitch, currentLang}) {
   return (
     <div className="cb-header">
       <NavLink
@@ -23,6 +23,13 @@ function Header(props) {
       >
         Favourites
       </NavLink>
+      {["en", "de", "it", "es", "fr"].map( elem =>
+        <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
+              onClick={ () => onLanguageSwitch(elem.toLocaleLowerCase())}
+              key={elem}>
+            {elem.toUpperCase()}
+          </span>
+      ) }
     </div>
   )
 }
