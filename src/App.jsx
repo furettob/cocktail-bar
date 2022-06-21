@@ -15,6 +15,7 @@ import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState} from "react"
 import {getFavourites} from "./utils/utils"
 import IngredientsPage from "./pages/IngredientsPage"
+import { PantryProvider } from "./context/PantryContext"
 
 function App() {
   const [lang, setLang] = useState("en")
@@ -23,24 +24,26 @@ function App() {
     <div className="App">
       <FavouriteProvider value={getFavourites()}>
         <LanguageProvider value={lang}>
-          <Router>
-            <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
-            <div className="cb-content">
-              <Switch>
-                <Route
-                  path="/drinks"
-                  render={() => <AllCocktails />}/>
-                <Route
-                  path="/search/:query"
-                  render={() => <AllCocktails />}/>
-                <Route path="/drink/:id" render={() => <DrinkDetail />} />
-                <Route path="/favourites" render={() => <PreferitiPage />} />
-                <Route path="/ingredients" render={() => <IngredientsPage />} />
-                <Route render={() => <Redirect to="/drinks" />} />
-              </Switch>
-              <Colophon />
-            </div>
-          </Router>
+          <PantryProvider value={ {pantryList:['Rum', 'Light rum', 'Sugar']} }>
+            <Router>
+              <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
+              <div className="cb-content">
+                <Switch>
+                  <Route
+                    path="/drinks"
+                    render={() => <AllCocktails />}/>
+                  <Route
+                    path="/search/:query"
+                    render={() => <AllCocktails />}/>
+                  <Route path="/drink/:id" render={() => <DrinkDetail />} />
+                  <Route path="/favourites" render={() => <PreferitiPage />} />
+                  <Route path="/ingredients" render={() => <IngredientsPage />} />
+                  <Route render={() => <Redirect to="/drinks" />} />
+                </Switch>
+                <Colophon />
+              </div>
+            </Router>
+          </PantryProvider>
         </LanguageProvider>
       </FavouriteProvider>
     </div>

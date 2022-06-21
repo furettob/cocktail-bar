@@ -1,7 +1,7 @@
 // setter
 function setInLocalStorage(name, value) {
   const v = typeof value === "string" ? value : JSON.stringify(value)
-  console.log("Setting: ", v)
+  //console.log("Setting: ", v)
   localStorage.setItem(name, v);
   return v
 }

@@ -62,29 +62,25 @@ function DrinkCard({ drink, isDetail }) {
                 type={isAlcoholic ? {className: "warning", decoration:"underline"} : {className: "success"}}
               />
               {drink.strTags &&
-                drink.strTags
-                  .split(",")
-                  .map(elem => <Tag key={elem} name={elem.trim()} />)}
+              drink.strTags
+                .split(",")
+                .map(elem => <Tag key={elem} name={elem.trim()} />)}
               {drink.strIBA && <Tag name={drink.strIBA} />}
               {drink.strCategory && <Tag name={drink.strCategory} />}
               {drink.strGlass && (
                 <TagClass icon={"fa-glass"} name={drink.strGlass} />
               )}
-          <FavouriteContext.Consumer>
-            {
-              ({favouriteList, toggleFavouriteFunction}) => {
-                console.log("VAL: ", favouriteList)
-                  return (
-                      <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
-                 {isFavourite(drink.idDrink, favouriteList) 
-                ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} /> 
-                : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
-                 }
+              <FavouriteContext.Consumer>
+                {
+                  ({favouriteList, toggleFavouriteFunction}) =>
+                    <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
+                         {isFavourite(drink.idDrink, favouriteList)
+                           ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} />
+                           : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
+                         }
                   </span>
-                  )
-               }
-            }
-          </FavouriteContext.Consumer>
+                }
+              </FavouriteContext.Consumer>
             </p>
             <LanguageContext.Consumer>
               {value => {

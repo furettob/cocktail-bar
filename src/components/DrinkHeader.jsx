@@ -13,10 +13,8 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
       <div className={"cb-drink-card__header"}>
         <FavouriteContext.Consumer>
           {
-            ({favouriteList, toggleFavouriteFunction}) => {
-              console.log("VAL: ", favouriteList)
-              return (
-                <div
+            ({favouriteList, toggleFavouriteFunction}) =>
+              <div
                   className={"cb-drink-card__favourite-button"}
                   onClick={() => toggleFavouriteFunction(drink.idDrink)}
                 >
@@ -25,8 +23,7 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
                   >
                     <i className={"fa " + (isFavourite(drink.idDrink, favouriteList) ? "fa-heart" : "fa-heart-o")} />
                   </div>
-                </div>)
-            }
+                </div>
           }
         </FavouriteContext.Consumer>
         <div>

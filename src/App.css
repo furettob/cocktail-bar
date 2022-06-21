@@ -236,6 +236,11 @@ a {
   white-space: nowrap;
   display: inline-block;
 }
+.cb-tag--big {
+  font-size: 16px;
+  margin: 0 12px 12px 0;
+  padding: 8px 16px;
+}
 .cb-tag--selected {
   font-weight: bold;
 }
