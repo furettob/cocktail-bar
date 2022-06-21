@@ -77,7 +77,7 @@ function DrinkCard({ drink, isDetail }) {
                   return (
                       <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
                  {isFavourite(drink.idDrink, favouriteList) 
-                ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"disabled"}} /> 
+                ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} /> 
                 : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
                  }
                   </span>
