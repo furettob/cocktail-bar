@@ -84,6 +84,9 @@ a {
 .cb-copy--white {
   color: #f7f8fa;
 }
+.cb-copy--green {
+  color: #458314;
+}
 .cb-copy--bold {
   font-weight: bold;
 }

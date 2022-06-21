@@ -21,20 +21,21 @@ function IngredientsPage() {
       <h1>All Ingredients:</h1>
       {ingredients && (
         <Row>
-          {/* ESE-4 */}
-          {ingredients.map(ing => (
-            <PantryContext.Consumer key={ing?.strIngredient1}>
-              {
-                ({pantryList, toggleIngredientInPantry}) => <Tag name={ing?.strIngredient1} big
-                                                                 clickCallback={() => {
-                                                                   console.log("Tag is toggling: ", ing.strIngredient1)
-                                                                   toggleIngredientInPantry(ing.strIngredient1)
-                                                                 }}
-                                                                 selected={isInPantry(ing.strIngredient1, pantryList)}
-                                                                 type={{ className: isInPantry(ing.strIngredient1, pantryList) ? "success" : "" }}
+          <PantryContext.Consumer >
+            {
+              ({pantryList, toggleIngredientInPantry}) =>
+              {return ingredients.map(ing => (
+                <Tag name={ing?.strIngredient1} big
+                     clickCallback={() => {
+                       console.log("Tag is toggling: ", ing.strIngredient1)
+                       toggleIngredientInPantry(ing.strIngredient1)
+                     }}
+                     selected={isInPantry(ing.strIngredient1, pantryList)}
+                     type={{ className: isInPantry(ing.strIngredient1, pantryList) ? "success" : "" }}
                 />
-              }
-            </PantryContext.Consumer>
+              ))}
+            }
+          </PantryContext.Consumer>
           ))}
         </Row>
       )}
