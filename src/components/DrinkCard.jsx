@@ -7,12 +7,13 @@ import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
 import { getIngredients } from "../utils/dataHub"
 import { LanguageContext } from "../context/LanguageContext"
+import {FavouriteContext} from "../context/FavouriteContext"
 
 function DrinkCard({ drink, isDetail }) {
   const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
   const [favourite, setFavourite] = useState(false)
   const [infoShown, setInfoShown] = useState(isDetail)
-
+  const isFavourite = (id, array) => array.indexOf(id) > -1
   const cb_favourite_clicked = () => {
     setFavourite(!favourite)
   }
@@ -69,9 +70,18 @@ function DrinkCard({ drink, isDetail }) {
               {drink.strGlass && (
                 <TagClass icon={"fa-glass"} name={drink.strGlass} />
               )}
-              <span onClick={cb_favourite_clicked}>
-                <Tag icon={"fa-heart"} name={favourite ? "Favourite" : "Make favourite"} type={favourite ? {className: "success"} : {className: "disabled"}} />
-              </span>
+          <FavouriteContext.Consumer>
+            {
+              ({favouriteList, toggleFavouriteFunction}) => {
+                console.log("VAL: ", favouriteList)
+                  return (
+                      <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
+                  <Tag className={isFavourite(drink.idDrink, favouriteList) ? " cb-tag--selected" : ""} icon="fa-heart" name={isFavourite(drink.idDrink, favouriteList) ? "Favourite" : "Make favourite"} type={isFavourite(drink.idDrink, favouriteList) ? {className: "success"} : {className: "disabled"}} />
+                </span>
+                  )
+               }
+            }
+          </FavouriteContext.Consumer>
             </p>
             <LanguageContext.Consumer>
               {value => {
