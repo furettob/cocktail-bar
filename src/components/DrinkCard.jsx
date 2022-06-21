@@ -76,8 +76,11 @@ function DrinkCard({ drink, isDetail }) {
                 console.log("VAL: ", favouriteList)
                   return (
                       <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
-                  <Tag className={isFavourite(drink.idDrink, favouriteList) ? " cb-tag--selected" : ""} icon="fa-heart" name={isFavourite(drink.idDrink, favouriteList) ? "Favourite" : "Make favourite"} type={isFavourite(drink.idDrink, favouriteList) ? {className: "success"} : {className: "disabled"}} />
-                </span>
+                 {isFavourite(drink.idDrink, favouriteList) 
+                ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"disabled"}} /> 
+                : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
+                 }
+                  </span>
                   )
                }
             }
