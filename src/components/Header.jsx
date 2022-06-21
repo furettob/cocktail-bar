@@ -23,6 +23,12 @@ function Header({onLanguageSwitch, currentLang}) {
       >
         Favourites
       </NavLink>
+      <NavLink
+        to={"/ingredients"}
+        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
+      >
+        Ingredients
+      </NavLink>
       {["en", "de", "it", "es", "fr"].map( elem =>
         <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
               onClick={ () => onLanguageSwitch(elem.toLocaleLowerCase())}
