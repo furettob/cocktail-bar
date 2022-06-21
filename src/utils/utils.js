@@ -37,3 +37,26 @@ export function toggleFavourite(id) {
   }
   setFavourites(fav)
 }
+
+// getter for "pantryList"
+export function getPantryList() {
+  return getFromLocalStorage("pantryList") || []
+}
+// setter for "pantryList"
+export function setPantryList(pantryListArray) {
+  return setInLocalStorage("pantryList", pantryListArray)
+}
+
+export function toggleIngredientInPantry(name) {
+  const pl = getPantryList()
+  const index = pl.indexOf(name)
+  if (index > -1) {
+    console.log(`Removing ${name} from ${JSON.stringify(pl)}`)
+    pl.splice(index, 1)
+  } else {
+    console.log(`Adding ${name} to ${JSON.stringify(pl)}`)
+    pl.push(name)
+  }
+  setPantryList(pl)
+  return getPantryList()
+}

@@ -13,7 +13,7 @@ import PreferitiPage from "./pages/PreferitiPage"
 import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState} from "react"
-import {getFavourites} from "./utils/utils"
+import {getFavourites, getPantryList} from "./utils/utils"
 import IngredientsPage from "./pages/IngredientsPage"
 import { PantryProvider } from "./context/PantryContext"
 
@@ -22,9 +22,9 @@ function App() {
 
   return (
     <div className="App">
-      <FavouriteProvider value={getFavourites()}>
+      <FavouriteProvider value={ {favouriteList:getFavourites()} }>
         <LanguageProvider value={lang}>
-          <PantryProvider value={ {pantryList:['Rum', 'Light rum', 'Sugar']} }>
+          <PantryProvider value={ {pantryList:getPantryList()} }>
             <Router>
               <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
               <div className="cb-content">

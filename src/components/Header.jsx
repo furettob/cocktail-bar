@@ -12,12 +12,6 @@ function Header({onLanguageSwitch, currentLang}) {
         Drinks
       </NavLink>
       <NavLink
-        to={"/drink/11728"}
-        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
-      >
-        Martini
-      </NavLink>
-      <NavLink
         to={"/favourites"}
         className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
       >
