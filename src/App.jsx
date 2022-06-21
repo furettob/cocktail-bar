@@ -13,18 +13,15 @@ import PreferitiPage from "./pages/PreferitiPage"
 import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState} from "react"
-
+import {getFavourites} from "./utils/utils"
+import IngredientsPage from "./pages/IngredientsPage"
 
 function App() {
   const [lang, setLang] = useState("en")
 
   return (
     <div className="App">
-      <FavouriteProvider value={
-        {
-          favouriteList: ["11728"]
-        }
-      }>
+      <FavouriteProvider value={getFavourites()}>
         <LanguageProvider value={lang}>
           <Router>
             <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
@@ -38,6 +35,7 @@ function App() {
                   render={() => <AllCocktails />}/>
                 <Route path="/drink/:id" render={() => <DrinkDetail />} />
                 <Route path="/favourites" render={() => <PreferitiPage />} />
+                <Route path="/ingredients" render={() => <IngredientsPage />} />
                 <Route render={() => <Redirect to="/drinks" />} />
               </Switch>
               <Colophon />

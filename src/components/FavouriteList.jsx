@@ -16,14 +16,13 @@ function FavouriteList({favouriteList}) {
         drinkArray.push(d)
       }
       setDrinkList(drinkArray)
-    }, []
+    }, [favouriteList]
   )
 
   return <div>
-    { favouriteList.map( (elem, index) => <span className={"cb-p-24"}>{elem}</span>)}
     <div>
       {
-        drinkList.map( (drink) => <DrinkCard drink={drink} isDetail/>)
+        drinkList.map( (drink) => <DrinkCard drink={drink}/>)
       }
     </div>
   </div>

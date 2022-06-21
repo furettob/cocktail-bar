@@ -7,12 +7,13 @@ function PreferitiPage() {
 
   return (
     <div>
-      <h1>Favourites</h1>
       <Row>
-        Qui si aggiungerà l'array dei cocktail preferiti
         <FavouriteContext.Consumer>
           {
-            ({favouriteList, toggleFavouriteFunction}) => <FavouriteList favouriteList={favouriteList}></FavouriteList>
+            ({favouriteList}) => <>
+              <h1>Favourites ({favouriteList.length})</h1>
+              <FavouriteList favouriteList={favouriteList}></FavouriteList>
+            </>
           }
         </FavouriteContext.Consumer>
       </Row>
