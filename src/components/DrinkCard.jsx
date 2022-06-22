@@ -115,4 +115,4 @@ function DrinkCard({ drink, isDetail }) {
   )
 }
 
-export default DrinkCard
+export default  DrinkCard

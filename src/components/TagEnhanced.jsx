@@ -1,9 +1,8 @@
 import * as React from "react"
-import { useState } from "react"
+import withData from "../hocs/withDataExample"
+import withClock from "../hocs/withClockExample"
 
-function Tag({ name, type, icon, selected, big, clickCallback }) {
-
-  /* ESE-1 State: add state to manage selection */
+function Tag({ name, type, icon, data, formattedRange, selected, big, invertedw, clickCallback, children}) {
 
   return (
     <span
@@ -12,7 +11,8 @@ function Tag({ name, type, icon, selected, big, clickCallback }) {
         (type?.className ? " cb-tag--" + type.className : "") +
         (type?.decoration ? " cb-tag--" + type.decoration : "") +
         (selected ? " cb-tag--selected" : "") +
-        (big ? " cb-tag--big" : "")
+        (big ? " cb-tag--big" : "") +
+        (invertedw ? " cb-tag--invertedw" : "")
       }
       onClick={ clickCallback && typeof clickCallback === 'function' ? () => {
         clickCallback()
@@ -25,8 +25,12 @@ function Tag({ name, type, icon, selected, big, clickCallback }) {
         </span>
       )}
       {name}
+      {data && JSON.stringify(data)}
+      {formattedRange && <span>{formattedRange}</span>}
+      {children}
     </span>
   )
 }
 
-export default Tag
+export const TagWithData = withData(Tag)
+export const TagWithClock = withClock(Tag)

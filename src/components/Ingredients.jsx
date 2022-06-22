@@ -8,7 +8,7 @@ function Ingredients({ ingredients, summary }) {
   return (
     <div className={summary ? "" : "cb-ingredient-grid"}>
       <PantryContext.Consumer>
-      { ({pantryList, toggleIngredientInPantry}) => 
+      { ({pantryList}) =>
           { return ingredients.map((elem, index) =>
             summary ? (
               <span key={elem.ingredient+"_"+index} >
