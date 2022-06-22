@@ -9,18 +9,20 @@ function IngredientsPageWithFilter() {
 
   useEffect(async () => {
     const ing = await getAllIngredients()
+    console.log("Using effect::: ", ing)
     setIngredients(ing)
   }, [])
 
   return (
     <div>
       <h1>All Ingredients:</h1>
-      {ingredients && ingredients.length && (
+      {ingredients && ingredients.length > 0 && (
         <Row>
             <IngredientsWithFilter
               initialSet={ingredients}
               filterFunction={ (ing, searchString) => ing.strIngredient1.indexOf(searchString)  -1}
             />
+          {/*<div>Ingredients: {ingredients.length}</div>*/}
         </Row>
       )}
     </div>

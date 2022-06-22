@@ -17,6 +17,8 @@ export default function withFilter(WrappedComponent, initialQuery) {
 
     componentDidMount() {
       // this.setState(prevState => { return {...prevState, query: initialQuery, set:set}});
+      console.log("Mounted with prop: ", this.props.initialSet)
+      this.setState(prevState => { return {...prevState, set:this.props.initialSet}});
     }
 
     componentWillUnmount() {
