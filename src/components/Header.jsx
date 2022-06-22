@@ -1,8 +1,10 @@
 import * as React from "react"
-import { Fragment } from "react"
 import { NavLink } from "react-router-dom"
+import {TagWithData, TagWithClock} from "./TagEnhanced"
 
 function Header({onLanguageSwitch, currentLang}) {
+  console.log("test header --> log only once")
+
   return (
     <div className="cb-header">
       <NavLink
@@ -30,6 +32,10 @@ function Header({onLanguageSwitch, currentLang}) {
             {elem.toUpperCase()}
           </span>
       ) }
+      <span className={"cb-navlink"}>
+        <TagWithData big invertedw>sss</TagWithData>
+        <TagWithClock big invertedw name={"Live: "}/>
+      </span>
     </div>
   )
 }

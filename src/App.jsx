@@ -16,6 +16,7 @@ import {useState} from "react"
 import {getFavourites, getPantryList} from "./utils/utils"
 import IngredientsPage from "./pages/IngredientsPage"
 import { PantryProvider } from "./context/PantryContext"
+import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
 
 function App() {
   const [lang, setLang] = useState("en")
@@ -37,7 +38,7 @@ function App() {
                     render={() => <AllCocktails />}/>
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={() => <PreferitiPage />} />
-                  <Route path="/ingredients" render={() => <IngredientsPage />} />
+                  <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
                   <Route render={() => <Redirect to="/drinks" />} />
                 </Switch>
                 <Colophon />

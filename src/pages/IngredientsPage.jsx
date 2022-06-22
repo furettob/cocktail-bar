@@ -10,7 +10,6 @@ function IngredientsPage() {
 
   useEffect(async () => {
     const ing = await getAllIngredients()
-    // console.log("ING::::: ", ing)
     setIngredients(ing)
   }, [])
 
@@ -36,7 +35,6 @@ function IngredientsPage() {
               ))}
             }
           </PantryContext.Consumer>
-          ))}
         </Row>
       )}
     </div>
