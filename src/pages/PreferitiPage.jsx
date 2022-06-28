@@ -9,6 +9,7 @@ function FavouriteListWithFilterBase({ set, handleQueryChange, query}) {
     <div>
       <div className={"cb-mb-16"}>
         <input value={query} onChange={e => handleQueryChange(e)}/>
+        <label className={"cb-ml-16"}>It works with id (numerical)</label>
       </div>
       <FavouriteList favouriteList={set}/>
     </div>
