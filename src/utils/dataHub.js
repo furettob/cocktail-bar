@@ -39,8 +39,6 @@ export async function getDrinkById(id) {
     return { error: resp }
   }
 
-  console.log("DRINK DATA:::: ", resp.data.drinks[0])
-
   return resp.data.drinks[0]
 }
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function withFilter(WrappedComponent, initialQuery) {
+export default function withFilter(WrappedComponent, initialQuery, filterItems) {
   return class extends React.Component {
     constructor(props) {
       super(props);
@@ -10,15 +10,16 @@ export default function withFilter(WrappedComponent, initialQuery) {
     hqc = (e) => {
       e.preventDefault()
       this.setState(prevState => { return {...prevState, query: e.target.value}});
-      const newSet = this.props.initialSet.filter( ing => ing.strIngredient1.indexOf(e.target.value) > -1)
+      console.log("this.props.initialSet:: ", this.props.initialSet)
+      const newSet = this.props.initialSet.filter( (item) => filterItems(item, e.target.value))
       console.log("new set: ", newSet)
       this.setState(prevState => { return {...prevState, set: newSet}});
     }
 
     componentDidMount() {
       // this.setState(prevState => { return {...prevState, query: initialQuery, set:set}});
-      console.log("Mounted with prop: ", this.props.initialSet)
-      this.setState(prevState => { return {...prevState, set:this.props.initialSet}});
+      // console.log("Mounted with prop: ", this.props.initialSet)
+      // this.setState(prevState => { return {...prevState, set:this.props.initialSet}});
     }
 
     componentWillUnmount() {

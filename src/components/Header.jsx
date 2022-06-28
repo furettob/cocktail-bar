@@ -48,7 +48,7 @@ function Header({onLanguageSwitch, currentLang}) {
           </span>
       ) }
       <span className={"cb-navlink"}>
-        <TagWithData big invertedw>sss</TagWithData>
+        <TagWithData big invertedw>  S  </TagWithData>
         <TagWithClock big invertedw name={"Live: "}/>
       </span>
     </div>

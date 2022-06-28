@@ -2,6 +2,22 @@ import * as React from "react"
 import Row from "../components/Row"
 import { FavouriteContext } from "../context/FavouriteContext"
 import FavouriteList from "../components/FavouriteList"
+import withFilter from "../hocs/withFilter"
+
+function FavouriteListWithFilterBase({ set, handleQueryChange, query}) {
+  return (
+    <div>
+      <div className={"cb-mb-16"}>
+        <input value={query} onChange={e => handleQueryChange(e)}/>
+      </div>
+      <FavouriteList favouriteList={set}/>
+    </div>
+  )
+}
+
+const FavouriteListWithFilter = withFilter(FavouriteListWithFilterBase, "", (itemId, query) => {
+  return itemId.toString().indexOf(query)>-1
+})
 
 function PreferitiPage() {
 
@@ -12,7 +28,7 @@ function PreferitiPage() {
           {
             ({favouriteList}) => <>
               <h1>Favourites ({favouriteList.length})</h1>
-              <FavouriteList favouriteList={favouriteList}></FavouriteList>
+              <FavouriteListWithFilter initialSet={favouriteList} />
             </>
           }
         </FavouriteContext.Consumer>

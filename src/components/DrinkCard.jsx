@@ -1,26 +1,25 @@
 import * as React from "react"
-import { Fragment, useState } from "react"
+import { useState, useEffect} from "react"
 import Ingredients from "./Ingredients"
 import Tag from "./Tag"
-import TagClass from "./TagClass"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
 import { getIngredients } from "../utils/dataHub"
-import { LanguageContext } from "../context/LanguageContext"
-import {FavouriteContext} from "../context/FavouriteContext"
+import InfoSection from "./InfoSection"
 
 function DrinkCard({ drink, isDetail }) {
-  const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
   const [favourite, setFavourite] = useState(false)
-  const [infoShown, setInfoShown] = useState(isDetail)
-  const isFavourite = (id, array) => array.indexOf(id) > -1
   const cb_favourite_clicked = () => {
     setFavourite(!favourite)
   }
 
-  const cb_info_clicked = () => {
-    setInfoShown(!infoShown)
-  }
+  // [EXERCISE]-11 This effect is completely for learning sake
+  // What will happen if we delete the key attribute in DrinkCard, from the FavouriteList file?
+  useEffect( () => {
+      console.log("I'm mounting with drink: ", drink.strDrink)
+      return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink) }
+    }, []
+  )
 
   const ingredients = getIngredients(drink)
 
@@ -32,73 +31,14 @@ function DrinkCard({ drink, isDetail }) {
       {/* Text info */}
       <div className="cb-drink-card__text-container">
         <h2 className={"cb-drink-card__title"}>{drink.strDrink} - {drink.idDrink}</h2>
-        {/* ESE-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
+        {/* [EXERCISE]-1 "Challenging" "Simple" a seconda del numero di ingredienti */}
         <p className="cb-copy--muted cb-copy--bold">
           {ingredients.length >= 5 ? "Challenging" : "Simple"} - {ingredients.length} ingredients:
         </p>
         <Ingredients ingredients={ingredients} summary={!isDetail} withIntro />
 
-        {/* Info button */}
-        {!isDetail && (
-          <p>
-            <span
-              className={"cb-drink-card__show-more"}
-              onClick={cb_info_clicked}
-            >
-              {/* ESE-3 fa-minus oppure fa-plus */}
-              {infoShown ? <i className={"fa fa-minus"} /> : <i className={"fa fa-plus"} />}
-              &nbsp;
-              {infoShown ? "Less info" : "More info"}
-            </span>
-          </p>
-        )}
+        <InfoSection drink={drink} isDetail={isDetail}/>
 
-        {/* Details info */}
-        {infoShown && (
-          <Fragment>
-            <p>
-              <Tag
-                name={isAlcoholic ? "Alcoholic" : "Not alcoholic"}
-                type={isAlcoholic ? {className: "warning", decoration:"underline"} : {className: "success"}}
-              />
-              {drink.strTags &&
-              drink.strTags
-                .split(",")
-                .map(elem => <Tag key={elem} name={elem.trim()} />)}
-              {drink.strIBA && <Tag name={drink.strIBA} />}
-              {drink.strCategory && <Tag name={drink.strCategory} />}
-              {drink.strGlass && (
-                <TagClass icon={"fa-glass"} name={drink.strGlass} />
-              )}
-              <FavouriteContext.Consumer>
-                {
-                  ({favouriteList, toggleFavouriteFunction}) =>
-                    <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
-                         {isFavourite(drink.idDrink, favouriteList)
-                           ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} />
-                           : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
-                         }
-                  </span>
-                }
-              </FavouriteContext.Consumer>
-            </p>
-            <LanguageContext.Consumer>
-              {value => {
-                console.log("LANG val is ", value)
-                let instr = "strInstructions"
-                if (value !== "en") {
-                  instr = "strInstructions" + value.toUpperCase()
-                }
-
-                return drink[instr] ?
-                  <p>{drink[instr]}</p> :
-                  drink["strInstructions"] ?
-                    <p>{drink["strInstructions"]}</p> :
-                    <p>No description available</p>
-              }}
-            </LanguageContext.Consumer>
-          </Fragment>
-        )}
       </div>
       {/* Other info ESE-2 strImageAttribution strCreativeCommonsConfirmed (ES: Long Island Tea) */}
       {drink.strImageAttribution && (

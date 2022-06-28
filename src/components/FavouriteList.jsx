@@ -8,10 +8,8 @@ function FavouriteList({favouriteList}) {
   const [drinkList, setDrinkList] = useState([])
 
   useEffect(async () => {
-      console.log("I'm mounting with favouriteList ", favouriteList)
       let drinkArray = []
       for (let i in favouriteList) {
-        console.log(`Getting elem at ${i}:::: ${favouriteList[i]}`)
         const d = favouriteList.length > i ? await getDrinkById(favouriteList?.[i]) : null
         drinkArray.push(d)
       }
@@ -22,7 +20,7 @@ function FavouriteList({favouriteList}) {
   return <div>
     <div>
       {
-        drinkList.map( (drink) => <DrinkCard drink={drink} isDetail/>)
+        drinkList.map( (drink) => <DrinkCard drink={drink} isDetail key={drink.strDrink}/>)
       }
     </div>
   </div>
