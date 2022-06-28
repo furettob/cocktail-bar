@@ -9,7 +9,7 @@ function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
   const isFavourite = (id, array) => array.indexOf(id) > -1
 
   return (
-    <Fragment>
+    <Fragment> 
       <div className={"cb-drink-card__header"}>
         <FavouriteContext.Consumer>
           {
