@@ -4,13 +4,13 @@ import "font-awesome/css/font-awesome.min.css"
 import { Link } from "react-router-dom"
 import {FavouriteContext} from "../context/FavouriteContext"
 
-function DrinkHeader({ drink, favourite, cb_favourite_clicked, isDetail }) {
+function DrinkHeader({ drink, color, isDetail }) {
 
   const isFavourite = (id, array) => array.indexOf(id) > -1
 
   return (
     <Fragment> 
-      <div className={"cb-drink-card__header"}>
+      <div className={"cb-drink-card__header"} style={{ backgroundColor: color }}>
         <FavouriteContext.Consumer>
           {
             ({favouriteList, toggleFavouriteFunction}) =>

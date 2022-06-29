@@ -11,5 +11,67 @@
       {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
       {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
     ]
+  } ,{
+    "name": "Maria",
+    "lastname": "Bugni Duch",
+    "jobPosition": "Frontend developer",
+    "company": "netsurf",
+    "avatarUrl": "/img/stefano_avatar.jpeg",
+    "role": "Author",
+    "links": [
+      {"name": "Github", "logo": "fa fa-github", "url":"https://github.com/spensieri-s"},
+      {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
+      {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
+    ]
+  },{
+    "name": "Andrea",
+    "lastname": "Besso",
+    "jobPosition": "Frontend developer",
+    "company": "netsurf",
+    "avatarUrl": "/img/stefano_avatar.jpeg",
+    "role": "Author",
+    "links": [
+      {"name": "Github", "logo": "fa fa-github", "url":"https://github.com/spensieri-s"},
+      {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
+      {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
+    ]
+  },{
+    "name": "Marco",
+    "lastname": "Gaddo",
+    "jobPosition": "Frontend developer",
+    "company": "netsurf",
+    "avatarUrl": "/img/stefano_avatar.jpeg",
+    "role": "Author",
+    "links": [
+      {"name": "Github", "logo": "fa fa-github", "url":"https://github.com/spensieri-s"},
+      {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
+      {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
+    ]
+  },{
+    "name": "Alessandro",
+    "lastname": "Baruzzi",
+    "jobPosition": "Frontend developer",
+    "company": "netsurf",
+    "avatarUrl": "/img/stefano_avatar.jpeg",
+    "role": "Author",
+    "links": [
+      {"name": "Github", "logo": "fa fa-github", "url":"https://github.com/spensieri-s"},
+      {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
+      {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
+    ]
+  },
+  {
+    "name": "Manuel",
+    "lastname": "Gianetto",
+    "jobPosition": "Frontend developer",
+    "company": "netsurf",
+    "avatarUrl": "/img/stefano_avatar.jpeg",
+    "role": "Author",
+    "links": [
+      {"name": "Github", "logo": "fa fa-github", "url":"https://github.com/spensieri-s"},
+      {"name": "Linkedin", "logo": "fa fa-linkedin", "url":"https://www.linkedin.com/in/sspensieri/"},
+      {"name": "Docsity", "logo": "fa fa-globe", "url":"https://www.docsity.com"}
+    ]
   }
+ 
 ]

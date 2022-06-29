@@ -1,24 +1,13 @@
 import * as React from "react"
 import { NavLink } from "react-router-dom"
 import { TagWithData, TagWithClock, TagWithFuncClock } from "./TagEnhanced"
-import { Transition } from 'react-transition-group';
+import Tag from "./Tag"
+import { useState } from "react"
 
 function Header({onLanguageSwitch, currentLang}) {
   console.log("test header --> log only once")
 
-  const duration = 300;
-
-  const defaultStyle = {
-    transition: `opacity ${duration}ms ease-in-out`,
-    opacity: 0,
-  }
-
-  const transitionStyles = {
-    entering: { opacity: 1 },
-    entered:  { opacity: 1 },
-    exiting:  { opacity: 0 },
-    exited:  { opacity: 0 },
-  };
+  const [showClock, setShowClock] = useState(true)
 
   return (
     <div className="cb-header">
@@ -40,6 +29,12 @@ function Header({onLanguageSwitch, currentLang}) {
       >
         Ingredients
       </NavLink>
+      <NavLink
+      to={"/author"}
+        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
+      >
+        Author
+        </NavLink>
       {["en", "de", "it", "es", "fr"].map( elem =>
         <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
               onClick={ () => onLanguageSwitch(elem.toLocaleLowerCase())}
@@ -47,8 +42,8 @@ function Header({onLanguageSwitch, currentLang}) {
             {elem.toUpperCase()}
           </span>
       ) }
-      <span className={"cb-navlink"}>
-        <TagWithFuncClock big invertedw name={"Live: "}/>
+      <span className={"cb-navlink"} onClick={() => setShowClock(!showClock)}>
+        {showClock ? <TagWithFuncClock big invertedw name={"Live: "}/> : <Tag big invertedw  name={"paused"}/>}
       </span>
     </div>
   )
