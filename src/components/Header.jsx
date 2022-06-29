@@ -1,7 +1,6 @@
 import * as React from "react"
 import { NavLink } from "react-router-dom"
 import {TagWithData, TagWithClock} from "./TagEnhanced"
-import { Transition } from 'react-transition-group';
 
 function Header({onLanguageSwitch, currentLang}) {
   console.log("test header --> log only once")
@@ -40,6 +39,12 @@ function Header({onLanguageSwitch, currentLang}) {
       >
         Ingredients
       </NavLink>
+      <NavLink
+      to={"/author"}
+        className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
+      >
+        Author
+        </NavLink>
       {["en", "de", "it", "es", "fr"].map( elem =>
         <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
               onClick={ () => onLanguageSwitch(elem.toLocaleLowerCase())}

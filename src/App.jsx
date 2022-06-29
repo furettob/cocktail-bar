@@ -1,6 +1,6 @@
 import AllCocktails from "./pages/AllCocktails"
 import DrinkDetail from "./pages/DrinkDetail"
-import Colophon from "./components/ColophonComponents"
+import Author from "./pages/Author"
 import {
   BrowserRouter as Router,
   Route,
@@ -39,9 +39,11 @@ function App() {
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={() => <PreferitiPage />} />
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
+                  <Route path="/author" render={() => <Author />} />
                   <Route render={() => <Redirect to="/drinks" />} />
+                  
                 </Switch>
-                <Colophon />
+              
               </div>
             </Router>
           </PantryProvider>
