@@ -12,14 +12,16 @@ import Header from "./components/Header"
 import PreferitiPage from "./pages/PreferitiPage"
 import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
-import {useState} from "react"
+import { AuthContext, AuthProvider } from "./context/AuthContext"
+import {useState, useContext} from "react"
 import {getFavourites, getPantryList} from "./utils/utils"
-import IngredientsPage from "./pages/IngredientsPage"
 import { PantryProvider } from "./context/PantryContext"
 import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
+import LoginPage from "./pages/LoginPage"
 
-function App() {
+function InnerApp() {
   const [lang, setLang] = useState("en")
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="App">
@@ -27,7 +29,7 @@ function App() {
         <LanguageProvider value={lang}>
           <PantryProvider value={ {pantryList:getPantryList()} }>
             <Router>
-              <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
+              <Header user={user} onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
               <div className="cb-content">
                 <Switch>
                   <Route
@@ -39,6 +41,7 @@ function App() {
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={() => <PreferitiPage />} />
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
+                  <Route path="/login" render={() => <LoginPage />} />
                   <Route render={() => <Redirect to="/drinks" />} />
                 </Switch>
                 <Colophon />
@@ -51,4 +54,11 @@ function App() {
   )
 }
 
-export default App
+export default function App() {
+
+  return (
+    <AuthProvider>
+      <InnerApp/>
+    </AuthProvider>
+  )
+}

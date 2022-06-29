@@ -16,8 +16,8 @@ function DrinkCard({ drink, isDetail }) {
   // [EXERCISE]-11 This effect is completely for learning sake
   // What will happen if we delete the key attribute in DrinkCard, from the FavouriteList file?
   useEffect( () => {
-      console.log("I'm mounting with drink: ", drink.strDrink)
-      return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink) }
+    //console.log("I'm mounting with drink: ", drink.strDrink)
+    //return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink) }
     }, []
   )
 
