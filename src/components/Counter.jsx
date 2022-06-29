@@ -9,7 +9,7 @@ import CounterChild from "./CounterChild"
 
 function Counter({counter, setCounterCallback}) {
 
-  console.log("Re-rendering Counter")
+  // [EXERCISE] console.log("Re-rendering Counter")
 
   return (
     <div>

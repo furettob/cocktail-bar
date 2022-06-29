@@ -10,7 +10,7 @@ import {useState} from "react";
 
 function CounterChild({counter, setCounterCallback}) {
 
-  console.log("Re-rendering CounterChild")
+  // [EXERCISE]- console.log("Re-rendering CounterChild")
 
   return (
     <div>

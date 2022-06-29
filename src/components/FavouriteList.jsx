@@ -20,7 +20,7 @@ function FavouriteList({favouriteList}) {
   return <div>
     <div>
       {
-        drinkList.map( (drink) => <DrinkCard drink={drink} isDetail />)
+        drinkList.map( (drink) => <DrinkCard drink={drink} isDetail key={drink.strDrink}/>)
       }
     </div>
   </div>

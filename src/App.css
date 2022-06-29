@@ -367,6 +367,30 @@ a {
   padding-right: 8px;
 }
 
+/* cb-modal */
+.cb-modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all .4s;
+}
+.cb-modal > div.cb-modal-content {
+  width: 400px;
+  max-width: 80%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 2px solid #ebeced;
+}
 /************************************************************************/
 /* DESIGN SYSTEM
 /************************************************************************/
