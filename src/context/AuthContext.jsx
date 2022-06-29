@@ -10,11 +10,13 @@ const useAuth = () => {
   });
 
   function onChange(user) {
-    console.log("onChange context.js::: ", user)
+    console.log("onChange AuthContext.js::: ", user)
     setState({ initializing: false, user });
   }
 
   useEffect(() => {
+    // You pass in the function to call when the auth state changes
+    // You get as answer a "pointer" to unsubscribe
     const unsubscribe = app.auth().onAuthStateChanged(onChange);
     return () => unsubscribe();
   }, []);
@@ -24,7 +26,7 @@ const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const { initializing, user } = useAuth();
-  if (initializing) return null;
+  if (initializing) return <div>Auth loading</div>;
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

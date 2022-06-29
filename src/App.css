@@ -370,6 +370,30 @@ a {
 /************************************************************************/
 /* DESIGN SYSTEM
 /************************************************************************/
+/* MODAL */
+.cb-modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all .4s;
+}
+.cb-modal > div.cb-modal-content {
+  width: 400px;
+  max-width: 80%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 2px solid #ebeced;
+}
 
 /* REUSABLE CLASSES */
 .cb-hide-i {
@@ -1399,3 +1423,20 @@ a.cb-cta:active {
 }
 
 /* DESIGN SYSTEM END */
+
+
+/* TRANSITION */
+.my-node-enter {
+  opacity: 0;
+}
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}

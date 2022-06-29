@@ -1,6 +1,7 @@
 import * as React from "react"
 import withData from "../hocs/withDataExample"
 import withClock from "../hocs/withClockExample"
+import withFuncClock from "../hocs/withClockFunctionalExample"
 
 function Tag({ name, type, icon, data, formattedRange, selected, big, invertedw, clickCallback, children}) {
 
@@ -34,3 +35,4 @@ function Tag({ name, type, icon, data, formattedRange, selected, big, invertedw,
 
 export const TagWithData = withData(Tag)
 export const TagWithClock = withClock(Tag)
+export const TagWithFuncClock = withFuncClock(Tag)

@@ -73,3 +73,10 @@ export function getIngredients(drink) {
 
   return ingredients
 }
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+export async function testAsync(ms, testId) {
+  await sleep(ms)
+  return testId + "!!"
+}

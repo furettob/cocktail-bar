@@ -8,16 +8,18 @@ import { getIngredients } from "../utils/dataHub"
 import InfoSection from "./InfoSection"
 
 function DrinkCard({ drink, isDetail }) {
-  const [favourite, setFavourite] = useState(false)
-  const cb_favourite_clicked = () => {
-    setFavourite(!favourite)
-  }
+  const [color, setColor] = useState("#034d86")
+
 
   // [EXERCISE]-11 This effect is completely for learning sake
   // What will happen if we delete the key attribute in DrinkCard, from the FavouriteList file?
   useEffect( () => {
-    //console.log("I'm mounting with drink: ", drink.strDrink)
-    //return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink) }
+    console.log("I'm mounting with drink: ", drink.strDrink)
+    setTimeout(() => {
+      console.log("Calling setState on: ", drink.strDrink)
+      setColor("#458314")
+    },10000)
+    return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink) }
     }, []
   )
 
@@ -26,7 +28,7 @@ function DrinkCard({ drink, isDetail }) {
   return (
     <div className={"cb-drink-card"}>
       {/* Header */}
-      <DrinkHeader drink={drink} favourite={favourite} cb_favourite_clicked={cb_favourite_clicked} isDetail={isDetail}/>
+      <DrinkHeader drink={drink} isDetail={isDetail} color={color}/>
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">

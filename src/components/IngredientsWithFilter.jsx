@@ -4,22 +4,18 @@ import Tag from "./Tag"
 import withFilter from "../hocs/withFilter"
 import { useState } from "react"
 
-function Ingredients({ initialSet, set, handleQueryChange, query}) {
+function Ingredients(props) {
+
+  console.log("Render Ingredients with props: ", props)
+  const { initialSet, set, handleQueryChange, query, startsWith} = props
   const isInPantry = (name, pantryList) => pantryList.indexOf(name) > -1
-
-  const [startsWith, setStartWith] = useState(false)
-
-  const handleStartsWithChanged = (e) => {
-    console.log(`Changing from ${startsWith} to ${!startsWith} ...  `, e)
-    setStartWith(!startsWith)
-  }
 
   return (
     <div>
       <div>
         <div className={"cb-mb-16"}>
-          <input value={query} onChange={e => handleQueryChange(e)}/>
-          <input type={"checkbox"} checked={startsWith} onChange={e => handleStartsWithChanged(e)}/><span> Only Starts With</span>
+          <input value={query} onChange={e => handleQueryChange(e)} name={"query"}/>
+          <input type={"checkbox"} name="startsWith" value={startsWith} onChange={e => handleQueryChange(e)}/><span>Only Starts With</span>
         </div>
         <PantryContext.Consumer>
           {
@@ -42,4 +38,7 @@ function Ingredients({ initialSet, set, handleQueryChange, query}) {
   )
 }
 
-export default withFilter(Ingredients, "", (ingredient, query) => ingredient.strIngredient1.indexOf(query) > -1 )
+export default withFilter(Ingredients, "", (ingredient, formState) => {
+  console.log(formState)
+  return ingredient.strIngredient1.indexOf(formState.query) > -1
+} )

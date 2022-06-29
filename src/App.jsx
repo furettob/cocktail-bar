@@ -39,7 +39,7 @@ function InnerApp() {
                     path="/search/:query"
                     render={() => <AllCocktails />}/>
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
-                  <Route path="/favourites" render={() => <PreferitiPage />} />
+                  {user && <Route path="/favourites" render={() => <PreferitiPage />} />}
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
                   <Route path="/login" render={() => <LoginPage />} />
                   <Route render={() => <Redirect to="/drinks" />} />
