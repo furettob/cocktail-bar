@@ -1,6 +1,6 @@
 import * as React from "react"
 import { NavLink } from "react-router-dom"
-import {TagWithData, TagWithClock} from "./TagEnhanced"
+import { TagWithData, TagWithClock, TagWithFuncClock } from "./TagEnhanced"
 import { Transition } from 'react-transition-group';
 
 function Header({onLanguageSwitch, currentLang}) {
@@ -48,8 +48,7 @@ function Header({onLanguageSwitch, currentLang}) {
           </span>
       ) }
       <span className={"cb-navlink"}>
-        <TagWithData big invertedw>  S  </TagWithData>
-        <TagWithClock big invertedw name={"Live: "}/>
+        <TagWithFuncClock big invertedw name={"Live: "}/>
       </span>
     </div>
   )
