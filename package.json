@@ -19,6 +19,7 @@
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.24.0",
     "firebase": "^8.10.1",
+    "focus-trap-react": "^9.0.2",
     "font-awesome": "^4.7.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
