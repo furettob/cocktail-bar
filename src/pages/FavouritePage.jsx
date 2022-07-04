@@ -4,7 +4,7 @@ import { FavouriteContext } from "../context/FavouriteContext"
 import FavouriteList from "../components/FavouriteList"
 import withFilter from "../hocs/withFilter"
 
-function FavouriteListWithFilterBase({ set, handleQueryChange, query}) {
+function FavouriteListBase({ set, handleQueryChange, query}) {
   return (
     <div>
       <div className={"cb-mb-16"}>
@@ -16,7 +16,7 @@ function FavouriteListWithFilterBase({ set, handleQueryChange, query}) {
   )
 }
 
-const FavouriteListWithFilter = withFilter(FavouriteListWithFilterBase, "", (itemId, query) => {
+const FavouriteListWithFilter = withFilter(FavouriteListBase, "", (itemId, query) => {
   return itemId.toString().indexOf(query)>-1
 })
 
