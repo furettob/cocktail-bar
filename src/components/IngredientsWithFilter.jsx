@@ -2,28 +2,52 @@ import * as React from "react"
 import {PantryContext} from "../context/PantryContext"
 import Tag from "./Tag"
 import withFilter from "../hocs/withFilter"
-import { useState } from "react"
+import {Formik, Form, Field} from 'formik'
+import Row from "./Row"
 
-function Ingredients({ initialSet, set, handleQueryChange, query}) {
-  const isInPantry = (name, pantryList) => pantryList.indexOf(name) > -1
+function IngredientsBase({set, handleQueryParamsChange, initialValues}) {
 
-  const [startsWith, setStartWith] = useState(false)
-
-  const handleStartsWithChanged = (e) => {
-    console.log(`Changing from ${startsWith} to ${!startsWith} ...  `, e)
-    setStartWith(!startsWith)
-  }
+  let debounce = null
+  const debounceTime = 500
 
   return (
-    <div>
       <div>
-        <div className={"cb-mb-16"}>
-          <input value={query} onChange={e => handleQueryChange(e)}/>
-          <input type={"checkbox"} checked={startsWith} onChange={e => handleStartsWithChanged(e)}/><span> Only Starts With</span>
-        </div>
+        <Row>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={async values => {
+              clearTimeout(debounce)
+              debounce = setTimeout( () => {
+                console.log(JSON.stringify(values, null, 2))
+                handleQueryParamsChange(values)
+              }, debounceTime)
+            }}
+          >
+            { props => {
+              const changeAndSubmit = e => {
+                props.handleChange(e);
+                props.handleSubmit()
+              }
+              return (
+                <Form>
+                  <label htmlFor="query">Ingredient name</label>
+                  <Field id="query" name="query" placeholder="Start typing..." onChange={changeAndSubmit} />
+
+                  <label htmlFor="startsWith">Starts with</label>
+                  <Field id="startsWith" name="startsWith" type={"checkbox"} onChange={changeAndSubmit}/>
+
+                  <label htmlFor="caseSensitive">Case sensitive</label>
+                  <Field id="caseSensitive" name="caseSensitive" type={"checkbox"} onChange={changeAndSubmit}/>
+                </Form>
+              )
+            }
+            }
+          </Formik>
+        </Row>
+        <Row>
         <PantryContext.Consumer>
           {
-            ({pantryList, toggleIngredientInPantry}) =>
+            ({pantryList, toggleIngredientInPantry, isInPantry}) =>
 
             {return set.map(ing => (
               <Tag name={ing?.strIngredient1} big
@@ -36,10 +60,11 @@ function Ingredients({ initialSet, set, handleQueryChange, query}) {
             ))}
           }
         </PantryContext.Consumer>
-        <div>Ingredients: {set.length}/{initialSet.length}</div>
+        </Row>
       </div>
-    </div>
   )
 }
 
-export default withFilter(Ingredients, "", (ingredient, query) => ingredient.strIngredient1.indexOf(query) > -1 )
+const IngredientsWithFilter = withFilter(IngredientsBase)
+
+export default IngredientsWithFilter

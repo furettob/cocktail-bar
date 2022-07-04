@@ -1,32 +1,24 @@
 import React from "react"
 
-export default function withFilter(WrappedComponent, initialQuery, filterItems) {
+export default function withFilter(WrappedComponent) {
   return class extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {query:initialQuery, set:this.props.initialSet || []}
+      this.state = {formValues:{...this.props.initialValues}, set: this.props.initialSet || []}
     }
 
-    hqc = (e) => {
-      e.preventDefault()
-      this.setState(prevState => { return {...prevState, query: e.target.value}});
-      console.log("this.props.initialSet:: ", this.props.initialSet)
-      const newSet = this.props.initialSet.filter( (item) => filterItems(item, e.target.value))
-      console.log("new set: ", newSet)
-      this.setState(prevState => { return {...prevState, set: newSet}});
+    handleQueryParamsChange = (formValues) => {
+      this.setState(prevState => { return {...prevState, formValues:{...formValues}}});
     }
 
-    componentDidMount() {
-      // this.setState(prevState => { return {...prevState, query: initialQuery, set:set}});
-      // console.log("Mounted with prop: ", this.props.initialSet)
-      // this.setState(prevState => { return {...prevState, set:this.props.initialSet}});
-    }
-
-    componentWillUnmount() {
+    getSet = () => {
+      const newSet = this.props.initialSet.filter( (item) => this.props.filterItems(item, this.state.formValues))
+      console.log(`Filtering ${newSet.length} out of ${this.props.initialSet.length} items`)
+      return newSet
     }
 
     render() {
-      return <WrappedComponent set={this.state.set} handleQueryChange={this.hqc} query={this.state.query} {...this.props} />;
+      return <WrappedComponent set={this.getSet()} handleQueryParamsChange={this.handleQueryParamsChange} {...this.props} />;
     }
   };
 }

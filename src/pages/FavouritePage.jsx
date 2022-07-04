@@ -3,24 +3,49 @@ import Row from "../components/Row"
 import { FavouriteContext } from "../context/FavouriteContext"
 import FavouriteList from "../components/FavouriteList"
 import withFilter from "../hocs/withFilter"
+import { Field, Form, Formik } from "formik"
 
-function FavouriteListBase({ set, handleQueryChange, query}) {
+const initialValues={query:"1"}
+
+function FavouriteListBase({set, handleQueryParamsChange}) {
+
+  let debounce = null
+  const debounceTime = 500
+
   return (
     <div>
-      <div className={"cb-mb-16"}>
-        <input value={query} onChange={e => handleQueryChange(e)}/>
-        <label className={"cb-ml-16"}>It works with id (numerical)</label>
-      </div>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={async values => {
+          clearTimeout(debounce)
+          debounce = setTimeout( () => {
+            console.log(JSON.stringify(values, null, 2))
+            handleQueryParamsChange(values)
+          }, debounceTime)
+        }}
+      >
+        { props => {
+          const changeAndSubmit = e => {
+            props.handleChange(e);
+            props.handleSubmit()
+          }
+          return (
+            <Form>
+              <Field id="query" name="query" placeholder="Start typing..." onChange={changeAndSubmit} />
+              <label htmlFor={"query"} className={"cb-ml-16"}>It works with id (numerical)</label>
+            </Form>
+          )
+        }
+        }
+      </Formik>
       <FavouriteList favouriteList={set}/>
     </div>
   )
 }
 
-const FavouriteListWithFilter = withFilter(FavouriteListBase, "", (itemId, query) => {
-  return itemId.toString().indexOf(query)>-1
-})
+const FavouriteListWithFilter = withFilter(FavouriteListBase)
 
-function PreferitiPage() {
+function FavouritePage() {
 
   return (
     <div>
@@ -29,7 +54,15 @@ function PreferitiPage() {
           {
             ({favouriteList}) => <>
               <h1>Favourites ({favouriteList.length})</h1>
-              <FavouriteListWithFilter initialSet={favouriteList} />
+              <FavouriteListWithFilter
+                initialSet={favouriteList}
+                initialValues={initialValues}
+                filterItems={
+                  (itemId, formValues) => {
+                    return itemId.toString().indexOf(formValues.query)>-1
+                  }
+                }
+              />
             </>
           }
         </FavouriteContext.Consumer>
@@ -38,4 +71,4 @@ function PreferitiPage() {
   )
 }
 
-export default PreferitiPage
+export default FavouritePage
