@@ -35,9 +35,6 @@ function Header({onLanguageSwitch, currentLang}) {
       return (
         <SignoutModal onClose={() => setShowModal(false)}
                       onSubmit={() => handleSignout()}
-                      onClickAway={() => {
-                        console.log("Oh baby, don't click away!!!")
-                      }}
         />
       )
     }
