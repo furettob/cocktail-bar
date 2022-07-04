@@ -1,16 +1,15 @@
 import firebase from 'firebase/app';
 import 'firebase/auth'
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyArEHqy173PRbeEor_lwWCbAgFgCnkzCAs",
-  authDomain: "fb-goal-buddy.firebaseapp.com",
-  databaseURL: "https://fb-goal-buddy-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fb-goal-buddy",
-  storageBucket: "fb-goal-buddy.appspot.com",
-  messagingSenderId: "802169792867",
-  appId: "1:802169792867:web:654a3308c31b89c4f1cb56",
-  whatEnv: "env is sample"
-}
+  apiKey: "AIzaSyCnIM3kTbY4xAeeeSVBUdPmVozmBD9WkFA",
+  authDomain: "fb-cocktailbar.firebaseapp.com",
+  projectId: "fb-cocktailbar",
+  storageBucket: "fb-cocktailbar.appspot.com",
+  messagingSenderId: "911121121439",
+  appId: "1:911121121439:web:1634a668e922c1818e22aa"
+};
 
 // Initialize Firebase
 let app;
