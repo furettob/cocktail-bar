@@ -1,8 +1,24 @@
 import * as React from "react"
 import Row from "../components/Row"
 import { Field, FieldArray, Form, Formik, ErrorMessage} from "formik"
+import * as Yup from "yup";
 
 function AddCocktailPage() {
+
+  const SignupSchema = Yup.object().shape({
+    strDrink: Yup.string()
+      .min(20)
+      .required('Questo campo è obbligatorio'),
+    strInstructions: Yup.string()
+      .min(20)
+      .required('Questo campo è obbligatorio'),
+    strGlass: Yup.string().required('Questo campo è obbligatorio'),
+    arrayIngredients: Yup.array(
+        Yup.object().shape({
+          name: Yup.string().required('Il nome è obbligatorio'),
+        })
+      )
+  });
 
   const initialValues = {
     dateModified: null,
@@ -13,7 +29,7 @@ function AddCocktailPage() {
     strDrink: "Campari Beer", // input mandatory
     strDrinkAlternate: null, // input non mandatory
     strDrinkThumb: null, // "https://www.thecocktaildb.com/images/media/drink/xsqrup1441249130.jpg"
-    strGlass: "Beer mug", // select + autocomplete + field ?? "Beer mug"
+    strGlass: null, // select + autocomplete + field ?? "Beer mug"
     strIBA: null, //
     strImageAttribution: null,
     strImageSource: null,
@@ -33,19 +49,32 @@ function AddCocktailPage() {
         onSubmit={async values => {
           console.log("Submitting values::: ", values)
         }}
+        validationSchema={SignupSchema}
       >
         { props => {
           const changeAndSubmit = e => {
             props.handleChange(e);
             props.handleSubmit()
           }
-          const {values, handleChange, setFieldValue} = props
+          const {values, handleChange, setFieldValue, errors, touched} = props
           console.log("VALUES: ", JSON.stringify(values, null, 2))
           return (
             <Form>
               <Field id="strDrink" name="strDrink" placeholder="name" />
+              {errors.strDrink && touched.strDrink ? (
+                <div>{errors.strDrink}</div>
+              ) : null}
+
               <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" />
+              {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
+                <div>{errors.strDrinkAlternate}</div>
+              ) : null}
+
               <Field className="test" id="strInstructions" name="strInstructions" component="textarea" rows="4" placeholder="Instructions (English)" />
+              {errors.strInstructions && touched.strInstructions ? (
+                <div>{errors.strInstructions}</div>
+              ) : null}
+
               <Field as="select" name="strGlass">
                 <option value="Old-fashioned glass">Old-fashioned glass</option>
                 <option value="Collins glass">Collins glass</option>
@@ -54,6 +83,10 @@ function AddCocktailPage() {
                 <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
                 <option value="Pitcher">Pitcher</option>
               </Field>
+              {errors.strGlass && touched.strGlass ? (
+                <div>{errors.strGlass}</div>
+              ) : null}
+
               <label htmlFor="strAlcoholic">Alcoholic</label>
               <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={
                 e => {
@@ -77,6 +110,9 @@ function AddCocktailPage() {
                             placeholder="Name"
                             type="text"
                           />
+                          {errors.name && touched.name ? (
+                            <div>{errors.name}</div>
+                          ) : null}
                         </div>
                         <div className="col">
                           <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
