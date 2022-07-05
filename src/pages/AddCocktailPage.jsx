@@ -39,8 +39,8 @@ function AddCocktailPage() {
             props.handleChange(e);
             props.handleSubmit()
           }
-          console.log("PPP: ", props)
           const {values, handleChange, setFieldValue} = props
+          console.log("VALUES: ", JSON.stringify(values, null, 2))
           return (
             <Form>
               <Field id="strDrink" name="strDrink" placeholder="name" />
@@ -77,24 +77,15 @@ function AddCocktailPage() {
                             placeholder="Name"
                             type="text"
                           />
-                          <ErrorMessage
-                            name={`arrayIngredients.${index}.name`}
-                            component="div"
-                            className="field-error"
-                          />
                         </div>
                         <div className="col">
                           <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
                           <Field
-                            name={`arrayIngredients.${index}.email`}
+                            name={`arrayIngredients.${index}.measure`}
                             placeholder="Measure"
-                            type="email"
+                            type="measure"
                           />
-                          <ErrorMessage
-                            name={`friends.${index}.name`}
-                            component="div"
-                            className="field-error"
-                          />
+
                         </div>
                         <div className="col">
                           <input
