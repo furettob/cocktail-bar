@@ -16,7 +16,9 @@ export const PantryProvider = ({ value, children }) => {
     setPantryList(utilsToggleIngredientInPantry(name))
   }
 
+  const isInPantry = (name) => pantryList.indexOf(name) > -1
+
   return (
-    <PantryContext.Provider value={ {pantryList, toggleIngredientInPantry} }>{children}</PantryContext.Provider>
+    <PantryContext.Provider value={ {pantryList, toggleIngredientInPantry, isInPantry} }>{children}</PantryContext.Provider>
   );
 };

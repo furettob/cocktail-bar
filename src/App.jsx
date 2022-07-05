@@ -9,7 +9,7 @@ import {
 } from "react-router-dom"
 import "./App.css"
 import Header from "./components/Header"
-import PreferitiPage from "./pages/PreferitiPage"
+import FavouritePage from "./pages/FavouritePage"
 import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState, useContext} from "react"
@@ -24,7 +24,11 @@ import LoginPage from "./pages/LoginPage"
 function InnerApp() {
   const [lang, setLang] = useState("en")
 
-  const { user } = useContext(AuthContext)
+  const { initializing, user } = useContext(AuthContext)
+
+  if (initializing) {
+    return null
+  }
 
   return (
     <div className="App">
@@ -42,7 +46,7 @@ function InnerApp() {
                     path="/search/:query"
                     render={() => <AllCocktails />}/>
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
-                  {user && <Route path="/favourites" render={() => <PreferitiPage />} />}
+                  <Route path="/favourites" render={(user) => {return user ? <FavouritePage /> : <Redirect to="/drinks" />}} />
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
                   <Route path="/author" render={() => <Author />} />
                   <Route path="/login" render={() => <LoginPage />} />

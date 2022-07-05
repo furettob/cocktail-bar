@@ -13,8 +13,6 @@ function IngredientsPage() {
     setIngredients(ing)
   }, [])
 
-  const isInPantry = (name, pantryList) => pantryList.indexOf(name) > -1
-
   return (
     <div>
       <h1>All Ingredients:</h1>
@@ -22,15 +20,14 @@ function IngredientsPage() {
         <Row>
           <PantryContext.Consumer >
             {
-              ({pantryList, toggleIngredientInPantry}) =>
+              ({toggleIngredientInPantry, isInPantry}) =>
               {return ingredients.map(ing => (
                 <Tag name={ing?.strIngredient1} big
                      clickCallback={() => {
-                       console.log("Tag is toggling: ", ing.strIngredient1)
                        toggleIngredientInPantry(ing.strIngredient1)
                      }}
-                     selected={isInPantry(ing.strIngredient1, pantryList)}
-                     type={{ className: isInPantry(ing.strIngredient1, pantryList) ? "success" : "" }}
+                     selected={isInPantry(ing.strIngredient1)}
+                     type={{ className: isInPantry(ing.strIngredient1) ? "success" : "" }}
                 />
               ))}
             }
