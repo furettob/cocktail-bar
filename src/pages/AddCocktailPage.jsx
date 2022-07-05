@@ -46,6 +46,7 @@ const initialValues = {
   dateModified: null,
   idDrink: "",
   strAlcoholic: "Alcoholic", // checbox
+  isAlcoholic: "true", // checbox
   strCategory: "Beer", // select ?
   strCreativeCommonsConfirmed: "No", // checkbox
   strDrink: "Campari Beer", // input mandatory
@@ -79,8 +80,23 @@ return (
           props.handleSubmit()
         }
         const {values, handleChange, setFieldValue, errors, touched} = props
-        console.log("VALUES: ", values)
-        console.log("ERRORS: ", errors)
+        //console.log("VALUES: ", values)
+        //console.log("ERRORS: ", errors)
+
+        const isAlcoholicHandleChange = e => {
+          console.log("Setting ", e.target.value, typeof e.target.value)
+          if (e.target.value === "true") {
+            console.log("E is true")
+            setFieldValue("isAlcoholic", "false")
+            setFieldValue("strAlcoholic", "Non Alcoholic")
+          }
+          if (e.target.value === "false") {
+            console.log("E is false")
+            setFieldValue("isAlcoholic", "true")
+            setFieldValue("strAlcoholic", "Alcoholic")
+          }
+          handleChange(e)
+        }
         return (
           <Form>
             <Field id="strDrink" name="strDrink" placeholder="name" />
@@ -110,13 +126,12 @@ return (
               <div>{errors.strGlass}</div>
             ) : null}
 
-            <label htmlFor="strAlcoholic">Alcoholic</label>
-            <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={
-              e => {
-                handleChange(e)
-                const s = e.target.value ? "Non Alcoholic" : "Alcoholic"
-                setFieldValue("strAlcoholic", s)
-              }}/>
+            <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
+
+            <label htmlFor={"isAlcoholic"}>
+              {`${values.isAlcoholic}`}
+            <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
+            </label>
 
 
 
