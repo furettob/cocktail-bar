@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
 import {useParams} from "react-router-dom";
+import TagStylus from "../components/TagStylus"
 
 function AllCocktails() {
   const { query } = useParams()
@@ -43,6 +44,10 @@ function AllCocktails() {
       <h1>Search for an amazing cocktail</h1>
       <Row>
         <Searchbar cta={"Go!"} onClickCallback={cbSearchCallback} />
+      </Row>
+      <Row>
+        <TagStylus name={"test stylus"}/>
+        <TagStylus name={"test big"} big/>
       </Row>
       <Row intro={"Examples"}>
           <Counter counter={counter} setCounterCallback={setCounter}/>

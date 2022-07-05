@@ -19,7 +19,7 @@ import { PantryProvider } from "./context/PantryContext"
 import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
 import { AuthProvider, AuthContext } from "./context/AuthContext"
 import LoginPage from "./pages/LoginPage"
-
+import "./style.styl"
 
 function InnerApp() {
   const [lang, setLang] = useState("en")
