@@ -4,11 +4,10 @@ import IngredientDetailed from "./IngredientDetailed"
 import {PantryContext} from "../context/PantryContext"
 
 function Ingredients({ ingredients, summary }) {
-  const isInPantry = (name, pantryList) => pantryList.indexOf(name) > -1
   return (
     <div className={summary ? "" : "cb-ingredient-grid"}>
       <PantryContext.Consumer>
-      { ({pantryList}) =>
+      { ({pantryList, toggleIngredientInPantry, isInPantry}) =>
           { return ingredients.map((elem, index) =>
             summary ? (
               <span key={elem.ingredient+"_"+index} >
@@ -16,7 +15,7 @@ function Ingredients({ ingredients, summary }) {
                 {index < ingredients.length - 1 ? " · " : ""}
               </span>
             ) : (
-              <IngredientDetailed ingredient={elem} key={elem.ingredient+"_"+index} isInPantry={isInPantry(elem.ingredient, pantryList)}  />
+              <IngredientDetailed ingredient={elem} key={elem.ingredient+"_"+index} isInPantry={isInPantry(elem.ingredient, pantryList)} toggleIngredientInPantry={toggleIngredientInPantry} />
             )
           )}
       }
