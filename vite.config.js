@@ -8,5 +8,8 @@ export default defineConfig({
     hmr: {
       port: 443
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000
   }
 })
