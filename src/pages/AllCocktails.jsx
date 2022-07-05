@@ -2,7 +2,6 @@ import * as React from "react"
 import Row from "../components/Row"
 import DrinkCard from "../components/DrinkCard"
 import Searchbar from "../components/Searchbar"
-import Counter  from "../components/Counter"
 import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
@@ -36,16 +35,11 @@ function AllCocktails() {
     await searchDrink(searchStr);
   }
 
-  const [counter, setCounter] = useState(0)
-
   return (
     <div>
       <h1>Search for an amazing cocktail</h1>
       <Row>
         <Searchbar cta={"Go!"} onClickCallback={cbSearchCallback} />
-      </Row>
-      <Row intro={"Examples"}>
-          <Counter counter={counter} setCounterCallback={setCounter}/>
       </Row>
       {drinks && (
         <Row intro={"Cocktails you asked for:"}>
