@@ -61,10 +61,10 @@ function Header({onLanguageSwitch, currentLang}) {
         Ingredients
       </NavLink>
       <NavLink
-        to={"/author"}
+        to={"/addcocktail"}
         className={ isActive => "cb-navlink " + (isActive === true ? "cb-navlink--active" : "")}
       >
-        Author
+        Add
       </NavLink>
       {["en", "de", "it", "es", "fr"].map( elem =>
         <span className={"cb-navlink " + (elem === currentLang ? "cb-navlink--active" : "")}
