@@ -2,6 +2,7 @@ import * as React from "react"
 import 'font-awesome/css/font-awesome.min.css'
 
 function IngredientDetailed({ ingredient, isInPantry}) {
+  console.log(ingredient)
   return (
     <div className={"cb-ingredient"}>
       <div className={"cb-ingredient__image-container"}>
