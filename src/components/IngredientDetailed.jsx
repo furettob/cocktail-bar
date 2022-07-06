@@ -3,7 +3,6 @@ import 'font-awesome/css/font-awesome.min.css'
 import { Transition } from "react-transition-group"
 
 function IngredientDetailed({ ingredient, isInPantry, toggleIngredientInPantry}) {
-  console.log(ingredient)
 
   const duration = 4000
 
