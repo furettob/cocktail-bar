@@ -46,9 +46,6 @@ function AllCocktails() {
         <TagStylus name={"test stylus"}/>
         <TagStylus name={"test big"} big/>
       </Row>
-      <Row intro={"Examples"}>
-          <Counter counter={counter} setCounterCallback={setCounter}/>
-      </Row>
       {drinks && (
         <Row intro={"Cocktails you asked for:"}>
           {/* ESE-4 */}

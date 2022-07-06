@@ -1,5 +1,4 @@
 import * as React from "react"
-import './index.styl'
 
 function GridCol({ children, colSpan }) {
   return <div className={`cb-grid__col cb-grid__col--${colSpan}`}>{children}</div>

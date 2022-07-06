@@ -1,9 +1,13 @@
-* {
-  background-color #0a6a36 !important
-}
-
 .cb-grid
   display: grid
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: $cb-spacing-size--small
+  row-gap: $cb-spacing-size--small
 
-.cb-grid-col
-  align-self stretch
+.cb-grid__col
+  // esempio di istruzione minimale senza : ;
+  align-self center
+
+for num in (1..12)
+  .cb-grid__col--{num}
+    grid-column: span num
