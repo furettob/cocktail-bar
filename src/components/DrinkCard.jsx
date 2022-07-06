@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useState, useEffect} from "react"
 import Ingredients from "./Ingredients"
 import Tag from "./Tag"
 import DrinkHeader from "./DrinkHeader"
@@ -9,27 +8,12 @@ import InfoSection from "./InfoSection"
 
 function DrinkCard({ drink, isDetail }) {
 
-  const [color, setColor] = useState("#0477d2")
-
-  // [EXERCISE]-11 This effect is completely for learning sake
-  // What will happen if we delete the key attribute in DrinkCard, from the FavouriteList file?
-  useEffect( () => {
-      console.log("I'm mounting with drink: ", drink.strDrink)
-
-    const to = setTimeout( () => {
-      console.log("Calling timeout")
-      setColor("#458314")
-    }, 10000)
-      return () => { console.log("Cleaning up effect in DrinkCard: ", drink.strDrink); clearTimeout(to)}
-    }, []
-  )
-
   const ingredients = getIngredients(drink)
 
   return (
     <div className={"cb-drink-card"}>
       {/* Header */}
-      <DrinkHeader drink={drink} isDetail={isDetail} color={color}/>
+      <DrinkHeader drink={drink} isDetail={isDetail}/>
 
       {/* Text info */}
       <div className="cb-drink-card__text-container">

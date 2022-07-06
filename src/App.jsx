@@ -20,6 +20,8 @@ import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
 import { AuthProvider, AuthContext } from "./context/AuthContext"
 import LoginPage from "./pages/LoginPage"
 import "./style.styl"
+import AddCocktailPage from "./pages/AddCocktailPage"
+
 
 function InnerApp() {
   const [lang, setLang] = useState("en")
@@ -47,6 +49,7 @@ function InnerApp() {
                     render={() => <AllCocktails />}/>
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={(user) => {return user ? <FavouritePage /> : <Redirect to="/drinks" />}} />
+                  <Route path="/addcocktail" render={(user) => {return user ? <AddCocktailPage /> : <Redirect to="/drinks" />}} />
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
                   <Route path="/author" render={() => <Author />} />
                   <Route path="/login" render={() => <LoginPage />} />

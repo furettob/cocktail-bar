@@ -2,7 +2,6 @@ import * as React from "react"
 import Row from "../components/Row"
 import DrinkCard from "../components/DrinkCard"
 import Searchbar from "../components/Searchbar"
-import Counter  from "../components/Counter"
 import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
@@ -36,8 +35,6 @@ function AllCocktails() {
   const cbSearchCallback = async searchStr => {
     await searchDrink(searchStr);
   }
-
-  const [counter, setCounter] = useState(0)
 
   return (
     <div>
