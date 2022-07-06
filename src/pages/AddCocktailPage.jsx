@@ -88,7 +88,6 @@ function AddCocktailPage() {
             //console.log("ERRORS: ", errors)
 
             const isAlcoholicHandleChange = e => {
-              console.log("Setting ", e.target.value, typeof e.target.value)
               if (e.target.value === "true") {
                 console.log("E is true")
                 setFieldValue("isAlcoholic", "false")
