@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 import { getCocktails, getRandomCocktail } from "../utils/dataHub"
 import {useParams} from "react-router-dom";
-import TagStylus from "../components/TagStylus"
+import TagStylus from "../components/TagStylus/TagStylus"
 
 function AllCocktails() {
   const { query } = useParams()
