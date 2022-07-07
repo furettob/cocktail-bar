@@ -39,6 +39,7 @@
     "react-fontawesome": "^1.7.1",
     "react-router-dom": "^5.1.0",
     "react-transition-group": "^4.4.2",
+    "stylus": "^0.58.1",
     "vite": "^2.6.4",
     "watch": "^1.0.2",
     "yup": "^0.32.11"

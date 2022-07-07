@@ -3,6 +3,11 @@ import Row from "../components/Row"
 import { Field, FieldArray, Form, Formik, ErrorMessage} from "formik"
 import * as Yup from "yup";
 import { TextField } from "@mui/material"
+import Grid from "../components/Grid/Grid"
+import Input from "../components/Form/Input/Input"
+import Textarea from "../components/Form/Textarea/Textarea"
+import Select from "../components/Form/Select/Select"
+
 function AddCocktailPage() {
 
 
@@ -89,12 +94,10 @@ function AddCocktailPage() {
 
             const isAlcoholicHandleChange = e => {
               if (e.target.value === "true") {
-                console.log("E is true")
                 setFieldValue("isAlcoholic", "false")
                 setFieldValue("strAlcoholic", "Non Alcoholic")
               }
               if (e.target.value === "false") {
-                console.log("E is false")
                 setFieldValue("isAlcoholic", "true")
                 setFieldValue("strAlcoholic", "Alcoholic")
               }
@@ -102,97 +105,106 @@ function AddCocktailPage() {
             }
             return (
               <Form>
-                <Field id="strDrink" name="strDrink" placeholder="name" />
-                {errors.strDrink && touched.strDrink ? (
-                  <div>{errors.strDrink}</div>
-                ) : null}
+                <Grid>
+                  <Grid.Column colSpan={6}>
+                    <Field id="strDrink" name="strDrink" placeholder="name" as={Input}/>
+                    {errors.strDrink && touched.strDrink ? (
+                      <div>{errors.strDrink}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                    <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={Input}/>
+                    {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
+                      <div>{errors.strDrinkAlternate}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={12}>
+                    <Field id="strInstructions" name="strInstructions" as={Textarea} rows="4" placeholder="Instructions (English)" />
+                    {errors.strInstructions && touched.strInstructions ? (
+                      <div>{errors.strInstructions}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                    <Field as={Select} name="strGlass">
+                      <option value="Old-fashioned glass">Old-fashioned glass</option>
+                      <option value="Collins glass">Collins glass</option>
+                      <option value="Beer mug">Beer mug</option>
+                      <option value="Cocktail glass">Cocktail glass</option>
+                      <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
+                      <option value="Pitcher">Pitcher</option>
+                    </Field>
+                    {errors.strGlass && touched.strGlass ? (
+                      <div>{errors.strGlass}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                  <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
 
-                <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={TextField}/>
-                <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={CustomTestField}/>
-                {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
-                  <div>{errors.strDrinkAlternate}</div>
-                ) : null}
+                    <label htmlFor={"isAlcoholic"}>
+                      {`${values.isAlcoholic}`}
+                      <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
+                    </label>
+                  </Grid.Column>
 
-                <Field className="test" id="strInstructions" name="strInstructions" component="textarea" rows="4" placeholder="Instructions (English)" />
-                {errors.strInstructions && touched.strInstructions ? (
-                  <div>{errors.strInstructions}</div>
-                ) : null}
+                  <Grid.Column colSpan={12}>
+                    <FieldArray name="arrayIngredients">
+                      {({ remove, push }) => (
+                        <div>
+                          {values.arrayIngredients && values.arrayIngredients.length > 0 &&
+                          values.arrayIngredients.map((ingredientObj, index) => (
+                            <div className="row" key={index}>
+                              <div className="col">
+                                <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
+                                <Field
+                                  name={`arrayIngredients.${index}.name`}
+                                  placeholder="Name"
+                                  type="text"
+                                />
+                                {errors.name && touched.name ? (
+                                  <div>{errors.name}</div>
+                                ) : null}
+                              </div>
+                              <div className="col">
+                                <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
+                                <Field
+                                  name={`arrayIngredients.${index}.measure`}
+                                  placeholder="Measure"
+                                  type="measure"
+                                />
 
-                <Field as="select" name="strGlass">
-                  <option value="Old-fashioned glass">Old-fashioned glass</option>
-                  <option value="Collins glass">Collins glass</option>
-                  <option value="Beer mug">Beer mug</option>
-                  <option value="Cocktail glass">Cocktail glass</option>
-                  <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
-                  <option value="Pitcher">Pitcher</option>
-                </Field>
-                {errors.strGlass && touched.strGlass ? (
-                  <div>{errors.strGlass}</div>
-                ) : null}
-
-                <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
-
-                <label htmlFor={"isAlcoholic"}>
-                  {`${values.isAlcoholic}`}
-                  <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
-                </label>
-
-
-
-                <FieldArray name="arrayIngredients">
-                  {({ remove, push }) => (
-                    <div>
-                      {values.arrayIngredients && values.arrayIngredients.length > 0 &&
-                      values.arrayIngredients.map((ingredientObj, index) => (
-                        <div className="row" key={index}>
-                          <div className="col">
-                            <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
-                            <Field
-                              name={`arrayIngredients.${index}.name`}
-                              placeholder="Name"
-                              type="text"
-                            />
-                            {errors.name && touched.name ? (
-                              <div>{errors.name}</div>
-                            ) : null}
-                          </div>
-                          <div className="col">
-                            <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
-                            <Field
-                              name={`arrayIngredients.${index}.measure`}
-                              placeholder="Measure"
-                              type="measure"
-                            />
-
-                          </div>
-                          <div className="col">
-                            <input
-                              type="button"
-                              onClick={() => remove(index)}
-                              value={"X"}
-                            />
-                          </div>
+                              </div>
+                              <div className="col">
+                                <input
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                  value={"X"}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                          <input
+                            type="button"
+                            onClick={() => push({ name: '', measure: '' })}
+                            value={"New Ingredient"}
+                          />
                         </div>
-                      ))}
-                      <input
-                        type="button"
-                        onClick={() => push({ name: '', measure: '' })}
-                        value={"New Ingredient"}
-                      />
-                    </div>
-                  )}
-                </FieldArray>
-                {errors.arrayIngredients && touched.arrayIngredients ?
-                  <div>{errors.arrayIngredients}</div>
-                  : null
-                }
+                      )}
+                    </FieldArray>
+                    {errors.arrayIngredients && touched.arrayIngredients ?
+                      <div>{errors.arrayIngredients}</div>
+                      : null
+                    }
+                  </Grid.Column>
 
-                {errors.global ?
-                  <div>{errors.global}</div>
-                  : null
-                }
+                  <Grid.Column>
+                    {errors.global ?
+                      <div>{errors.global}</div>
+                      : null
+                    }
+                  </Grid.Column>
 
-                <input type={"submit"} value={"Add"}/>
+                  <input type={"submit"} value={"Add"}/>
+                </Grid>
               </Form>
             )
           }
