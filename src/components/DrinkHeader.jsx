@@ -6,14 +6,12 @@ import {FavouriteContext} from "../context/FavouriteContext"
 
 function DrinkHeader({ drink, isDetail }) {
 
-  const isFavourite = (id, array) => array.indexOf(id) > -1
-
   return (
     <Fragment> 
       <div className={"cb-drink-card__header"}>
         <FavouriteContext.Consumer>
           {
-            ({favouriteList, toggleFavouriteFunction}) =>
+            ({favouriteList, toggleFavouriteFunction, isFavourite}) =>
               <div
                   className={"cb-drink-card__favourite-button"}
                   onClick={() => toggleFavouriteFunction(drink.idDrink)}
@@ -21,7 +19,7 @@ function DrinkHeader({ drink, isDetail }) {
                   <div
                     className={"cb-ct--pointer"}
                   >
-                    <i className={"fa " + (isFavourite(drink.idDrink, favouriteList) ? "fa-heart" : "fa-heart-o")} />
+                    <i className={"fa " + (isFavourite(drink.idDrink, drink.strDrink, favouriteList) ? "fa-heart" : "fa-heart-o")} />
                   </div>
                 </div>
           }

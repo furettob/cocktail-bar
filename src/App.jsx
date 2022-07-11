@@ -14,7 +14,6 @@ import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState, useContext} from "react"
 import {getFavourites, getPantryList} from "./utils/utils"
-import IngredientsPage from "./pages/IngredientsPage"
 import { PantryProvider } from "./context/PantryContext"
 import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
 import { AuthProvider, AuthContext } from "./context/AuthContext"
@@ -37,7 +36,7 @@ function InnerApp() {
         <LanguageProvider value={lang}>
           <PantryProvider value={ {pantryList:getPantryList()} }>
             <Router>
-              <FavouriteProvider value={ {favouriteList:getFavourites()} }>
+              <FavouriteProvider value={ {favouriteList:user ? user?.customData?.favouriteList : []} }>
               <Header onLanguageSwitch={ newLang => {console.log("Switching to " + newLang); setLang(newLang) }} currentLang={lang} />
               <div className="cb-content">
                 <Switch>
@@ -49,7 +48,7 @@ function InnerApp() {
                     render={() => <AllCocktails />}/>
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={(user) => {return user ? <FavouritePage /> : <Redirect to="/drinks" />}} />
-                  <Route path="/addcocktail" render={(user) => {return user ? <AddCocktailPage /> : <Redirect to="/drinks" />}} />
+                  <Route path="/addcocktail" render={(user) => {return user ? <AddCocktailPage user={user}/> : <Redirect to="/drinks" />}} />
                   <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
                   <Route path="/author" render={() => <Author />} />
                   <Route path="/login" render={() => <LoginPage />} />

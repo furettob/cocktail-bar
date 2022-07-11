@@ -11,10 +11,10 @@ import {FavouriteContext} from "../context/FavouriteContext"
 import withToggle from "../hocs/withToggleExample"
 
 function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
+  console.log("DRINK::: ", drink, drink?.strAlcoholic)
   const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
   //const [infoShown, setInfoShown] = useState(isDetail)
   const infoShown = toggleStatus
-  const isFavourite = (id, array) => array.indexOf(id) > -1
 
   const cb_info_clicked = () => {
     //setInfoShown(!infoShown)
@@ -57,9 +57,9 @@ function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
               )}
               <FavouriteContext.Consumer>
                 {
-                  ({favouriteList, toggleFavouriteFunction}) =>
+                  ({favouriteList, toggleFavouriteFunction, isFavourite}) =>
                     <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
-                         {isFavourite(drink.idDrink, favouriteList)
+                         {isFavourite(drink.idDrink, drink.strDrink, favouriteList)
                            ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} />
                            : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
                          }

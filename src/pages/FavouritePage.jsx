@@ -55,11 +55,11 @@ function FavouritePage() {
             ({favouriteList}) => <>
               <h1>Favourites ({favouriteList.length})</h1>
               <FavouriteListWithFilter
-                initialSet={favouriteList}
+                initialSet={Object.keys(favouriteList)}
                 initialValues={initialValues}
                 filterItems={
                   (itemId, formValues) => {
-                    return itemId.toString().indexOf(formValues.query)>-1
+                    return true //itemId.toString().indexOf(formValues.query)>-1
                   }
                 }
               />

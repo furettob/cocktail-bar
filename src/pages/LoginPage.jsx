@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import {auth} from "../utils/firebase"
 import { useHistory, useLocation } from "react-router-dom";
 import Row from "../components/Row"
-import { addUserWithId, addStudent } from "../utils/api"
+import { addUserCustomDataWithId, getUserCustomData } from "../utils/api"
 import { AuthContext } from "../context/AuthContext"
 
 const LoginPage = () => {
@@ -12,8 +12,11 @@ const LoginPage = () => {
 
   const { user } = useContext(AuthContext)
 
+  console.log("AUTHCONTEXT USER::: ", user)
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("")
 
   const handleChange = (e, func) => {
     func(e.target.value)
@@ -29,10 +32,10 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      await auth.signInWithEmailAndPassword(email || "undistratto@gmail.com", password || "wwwwww")
-      redirect("/favourites")
+      const res = await auth.signInWithEmailAndPassword(email || "undistratto@gmail.com", password || "wwwwwwwww")
+      redirect("/login")
     } catch (e) {
-      console.error("ERRORE DI AUTENTICAZIONE AL LOGIN::: ", e)
+      console.error("ERROR AT LOGIN::: ", e)
     }
   }
 
@@ -41,45 +44,34 @@ const LoginPage = () => {
       const res = await auth.createUserWithEmailAndPassword(email, password)
       if (res?.user?.uid) {
         const uid = res?.user?.uid
-        console.log("createUserWithEmailAndPassword -----> ", uid)
-        addUserWithId(res?.user, {uid, email, username:"test"})
+        const userObj = await addUserCustomDataWithId(res?.user, {uid, email: email || "s" + Date.now() + "@email.it", username: username || "ciao"})
+        res.user["customData"] = userObj
       }
-      redirect("/favourites")
+      redirect("/login")
     } catch (e) {
-      console.error("ERRORE DI AUTENTICAZIONE AL SIGNUP::: ", e)
+      console.error("ERROR AT SIGNUP: ", e)
     }
   }
 
-  const handlePostSignup = async () => {
-    try {
-      console.log("USER IS: ", user.uid, email)
-      if (user?.uid) {
-        const uid = user?.uid
-        addUserWithId(user, {uid, email:"stefano.spensieri@test.te", username:"test"})
-      }
-    } catch (e) {
-      console.error("ERRORE DI AUTENTICAZIONE AL SIGNUP::: ", e)
-    }
-  }
-
-  // TODO: move the form in a specific component with state to avoid re-render of th ewhole page
+  // TODO: move the form in a specific component with state to avoid re-render of the whole page
 
   return (
     <div>
       {location?.state?.testo && (<Row intro={"Warning:"}>
         {location.state.testo}
       </Row>)}
-      <div>
+      <Row>
         <input placeholder={"Email..."} value={email} name={"email"}
                onChange={e => handleChange(e, setEmail)}/>
         <input placeholder={"Password"} value={password} name={"password"}
                type={"password"}
                onChange={e => handleChange(e, setPassword)}/>
-      </div>
+        <input placeholder={"Username"} value={username} name={"username"}
+               onChange={e => handleChange(e, setUsername)}/>
+      </Row>
       <div>
         <input type={"button"} onClick={handleLogin} value={"Login"}/>
         <input type={"button"} onClick={handleSignup} value={"Signup"}/>
-        <input type={"button"} onClick={handlePostSignup} value={"Post Signup"}/>
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
-import {getFavourites, setFavourites, toggleFavourite} from "../utils/utils"
+import {getFavourites, setFavourites} from "../utils/utils"
+import { toggleFavouriteDrink } from "../utils/api"
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./AuthContext"
 
@@ -9,21 +10,25 @@ export const FavouriteProvider = ({ value, children }) => {
   let history = useHistory();
   const { user } = useContext(AuthContext)
 
-  const [favouriteList, setFavouriteList] = useState(value?.favouriteList || [])
+  const [favouriteList, setFavouriteList] = useState(value?.favouriteList || {})
   // Upon loading - get an initial value for favourites
   useEffect( async () => {
-    console.log("Using FavouriteProvider effect")
-    let fav = getFavourites()
-    //console.log("FAV IS: ", fav)
+    console.log("Using FavouriteProvider effect: ", user)
+    let fav = user?.customData?.favouriteList || {} //getFavourites()
     setFavouriteList(fav)
     setFavourites(fav)
     console.log("Provider with value: ", fav)
-  },[])
+  },[user])
 
-  const toggleFavouriteFunction = (id) => {
+  const isFavourite = (drinkId, drinkName, favList) => {
+    return Object.keys(favList).indexOf(drinkId) > -1 || Object.keys(favList).findIndex( (id, index) => {
+     return favList[id]?.name?.toUpperCase() === drinkName.toUpperCase()
+    }) > -1
+  }
+
+  const toggleFavouriteFunction = async (id) => {
     if (user) {
-      toggleFavourite(id)
-      let fav = getFavourites()
+      const fav = await toggleFavouriteDrink(user, {drinkId:id, drinkName:"test", uid:user.uid})
       setFavouriteList(fav)
     } else {
       history.push({
@@ -37,6 +42,6 @@ export const FavouriteProvider = ({ value, children }) => {
   }
 
   return (
-    <FavouriteContext.Provider value={ {favouriteList, toggleFavouriteFunction} }>{children}</FavouriteContext.Provider>
+    <FavouriteContext.Provider value={ {favouriteList, toggleFavouriteFunction, isFavourite} }>{children}</FavouriteContext.Provider>
   );
 };

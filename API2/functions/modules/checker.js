@@ -60,8 +60,6 @@ exports.checkAuthorizedUser = async (request, response, claims) => {
         return false
     }
 
-    console.log("Decoded id token: ", decodedIdToken)
-
     if (claims) {
         for (let i in claims) {
             if (decodedIdToken[claims[i]]) {
@@ -74,7 +72,7 @@ exports.checkAuthorizedUser = async (request, response, claims) => {
         response.status(401).send({"error":em}) // 401 Unauthorized
         return false
     }
-    return true
+    return decodedIdToken
 }
 
 // Checks the presence of request.body and required data.

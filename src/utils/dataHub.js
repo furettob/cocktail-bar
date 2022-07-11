@@ -5,7 +5,7 @@ export async function getCocktails(searchStr) {
     "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchStr
   )
   if (!resp?.data || resp.data === "") {
-    console.log("ERROR::::: ")
+    console.log("ERROR::::: ", resp)
     return { error: resp }
   }
 

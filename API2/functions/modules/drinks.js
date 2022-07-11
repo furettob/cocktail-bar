@@ -3,47 +3,42 @@ const checker =  require('./checker')
 const cors = require('cors')({origin: true})
 const {admin} = require('./app')
 const crud = require("./crud")
+const {addCreatedByMeDrink} = require("./users")
 
 const db = admin.database()
 
-const entity = "user"
-const entities = "users"
-const basePath = "users/"
+const entity = "drink"
+const entities = "drinks"
+const basePath = "drinks/"
 
-// addUserWithId
-const addUserWithIdDataChecker = (request, response) => {
+// addDrink
+const addDrinkDataChecker = (request, response) => {
   if (!checker.checkDataPostReq(
     request,
     response,
     [
       "uid",
       "username",
-      "email"
+      "drink",
+      "drink.name"
     ])) {
     return false
   }
   return true
 }
-exports.addUserCustomDataWithId = functions.https.onRequest(async (request, response) => {
+exports.addDrink = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
     try {
-      if (checker.checkAuthorizedPostReq(request, response) && addUserWithIdDataChecker(request, response)) {
-        const { uid, username, email } = request.body
-        const target = {username, email, uid}
-        const elemAlreadyPresent = await db.ref(`${basePath}${uid}`).once("value")
-        if (!!elemAlreadyPresent.val() && false) {
-          response.status(403).send(
-            {
-              error:
-                `A ${entity} in ${basePath} with id ${uid} is already present, thus cannot be created`
-            }); // forbidden
-          return false
-        }
-        const userObj = Object.assign(target, { createdAt: Date.now() })
-        await db.ref(`${basePath}${uid}`).set(userObj)
+      if (checker.checkAuthorizedPostReq(request, response) && addDrinkDataChecker(request, response)) {
+        await checker.checkAuthorizedUser(request, response);
+        const { drink, uid, username} = request.body
+        const drinkRef = db.ref(`${basePath}`).push()
+        const drinkObj = Object.assign(drink, { createdAt: Date.now(), author:{uid, username}, id:drinkRef.key})
+        await addCreatedByMeDrink(uid, drink.name, drink.id)
+        await drinkRef.set(drinkObj)
         response.status(200).send({
-          msg: `Successfully created ${entity} in ${basePath} with id ${uid}`,
-          data: userObj
+          msg: `Successfully created ${entity} in ${basePath} with id ${drinkRef.key}`,
+          data: drinkObj
         });
         return true
       }
@@ -72,7 +67,7 @@ exports.toggleFavouriteDrink =  functions.https.onRequest(async (request, respon
   cors(request, response, async () => {
     try {
       if (checker.checkAuthorizedPostReq(request, response) && toggleFavouriteDrinkDataChecker(request, response)) {
-        const decToken = await checker.checkAuthorizedUser(request, response);
+        const decToken = await checker.checkAuthorizedUser(request, response)
         const { drinkId, drinkName, uid } = request.body
         const fl = await crud.getDoc(`${basePath}${decToken.user_id}/favouriteList`) || {}
         if (Object.keys(fl).indexOf(drinkId) > -1) {
@@ -81,6 +76,7 @@ exports.toggleFavouriteDrink =  functions.https.onRequest(async (request, respon
           fl[drinkId] = {name: drinkName}
         }
         await crud.setDoc(`${basePath}${uid}/favouriteList`, fl)
+        console.log("NEW FL:: ", fl)
         response.status(200).send({ data: fl });
       }
     } catch (e) {
@@ -88,12 +84,6 @@ exports.toggleFavouriteDrink =  functions.https.onRequest(async (request, respon
     }
   })
 })
-
-// set createdByMe list
-exports.addCreatedByMeDrink = async (uid, drinkName, drinkId) => {
-    await crud.setDoc(`${basePath}${uid}/createdByMeList/${drinkId}`, {name:drinkName})
-    return true
-}
 
 // getUser
 const getUserCustomDataDataChecker = (request, response) => {

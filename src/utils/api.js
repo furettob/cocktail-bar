@@ -33,47 +33,36 @@ const checkIdToken = async (user, verbose) => {
   return idToken
 }
 
-const getAxiosParams = async (functionName, user, params) => {
+const performAxiosAPICall = async (functionName, user, params) => {
   const idToken = await checkIdToken(user)
-  return {
-    url: apiUrl + "/" + functionName,
+  const axios_params = {
+    url: `${apiUrl}/${functionName}`,
       headers: {
-    "x-api-key": x_api_key,
+      "x-api-key": x_api_key,
       "access-token": idToken
   },
     data: {...params},
     method: "post"
   }
-}
-
-const getUserList = async (user) => {
-  const idToken = await checkIdToken(user)
-  const axios_params = {
-    url: apiUrl + "/getUserList",
-    headers: {
-      "x-api-key": x_api_key,
-      "access-token": idToken
-    },
-    method: "post"
-  }
-  const activities = await axios(axios_params)
-    .then( r => {
-      console.log("RRRRR: ", r)
-      return r.data
-    })
-    .catch(e => {
-      console.log( "Error : ", e);
-      return null
-    })
-  console.log("Received activities: ", activities)
-  return activities
-}
-
-const addUserWithId = async (user, params) => {
-  const axios_params = await getAxiosParams("addUserWithId", user, params)
   const res = await axios(axios_params)
-  console.log("RES: ", res)
-  return res
+  console.log(`${functionName} RES: `, res)
+  return res?.data?.data
 }
 
-export {getUserList, addUserWithId}
+// USER RELATED API
+const addUserCustomDataWithId = async (user, params) => {
+  return await performAxiosAPICall("addUserCustomDataWithId", user, params)
+}
+const getUserCustomData = async (user, params) => {
+  return await performAxiosAPICall("getUserCustomData", user, params)
+}
+const toggleFavouriteDrink = async (user, params) => {
+  return await performAxiosAPICall("toggleFavouriteDrink", user, params)
+}
+
+// DRINK RELATED API
+const addDrink = async (user, params) => {
+  return await performAxiosAPICall("addDrink", user, params)
+}
+
+export {getUserCustomData, addUserCustomDataWithId, toggleFavouriteDrink, addDrink}

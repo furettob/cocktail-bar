@@ -11,7 +11,7 @@ function FavouriteList({favouriteList}) {
       let drinkArray = []
       for (let i in favouriteList) {
         const d = favouriteList.length > i ? await getDrinkById(favouriteList?.[i]) : null
-        drinkArray.push(d)
+        d.idDrink && drinkArray.push(d)
       }
       setDrinkList(drinkArray)
     }, [favouriteList]

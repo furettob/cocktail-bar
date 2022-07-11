@@ -17,12 +17,6 @@ const firebaseConfig = {
 const admin = require('firebase-admin')
 admin.initializeApp(firebaseConfig)
 
-console.log(admin.database())
-
-console.log("RRRREF:::: ", admin.database().ref("users/").once("value"))
-
-//console.log("\n\nADMIN:::: ", admin)
-
 module.exports = {
   admin
 }

@@ -1,17 +1,15 @@
 const functions = require('firebase-functions').region('europe-west1')
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
-
 exports.checkConnection = functions.https.onRequest((request, response) => {
   response.send("Connection is live");
 });
 
-// DRINK ENTITY
+// USER ENTITY
 const users =  require('./modules/users')
-exports.addUserWithId = users.addUserWithId
+exports.addUserCustomDataWithId = users.addUserCustomDataWithId
+exports.getUserCustomData = users.getUserCustomData
+exports.toggleFavouriteDrink = users.toggleFavouriteDrink
 
+// DRINK ENTITY
+const drinks =  require('./modules/drinks')
+exports.addDrink = drinks.addDrink
