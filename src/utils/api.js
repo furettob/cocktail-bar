@@ -1,42 +1,58 @@
 import axios from "axios"
-import * as R from 'ramda'
-import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
+//import getEnvVars from '../environment';
+//const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "https://europe-west1-fb-cocktailbar-v2.cloudfunctions.net"}
+const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "http://localhost:3000/fb-cocktailbar-v2/europe-west1"}
 
-const x_api_key = "ajejebrazov"
-const apiUrl = ""
-
-const getFavouriteList = async (user) => {
-
-  if (R.isNil(user)) {
-    console.log("User is nil:: ", user)
-    return
-  }
-
+const checkIdToken = async (user, verbose) => {
   let idToken = user["Aa"]
 
-  console.log("\n\nI'm using token: ", idToken)
-  console.log(`Now is  ${Math.floor(Date.now()/1000)} - token expiration is::: ${user?.h?.b?.a}`)
-  console.log(`Now is  ${new Date(Date.now())} - token expiration is::: ${new Date(user?.h?.b?.a*1000)}`)
+  if (verbose) {
+    console.log("\n\nI'm using token: ", idToken)
+    console.log(`Now is  ${new Date(Date.now())} - token expiration is::: ${new Date(user?.h?.b?.a * 1000)}`)
+  }
 
   // If token will expire in the next 10 minutes, refresh it
   if (Math.floor(Date.now()/1000) + 600 > user?.h?.b?.a) {
-    console.log("Token will expire in less than 10 min: " + (user?.h?.b?.a - Math.floor(Date.now()/1000)) + " seconds")
     idToken = await user.getIdToken(/* forceRefresh */ true)
-  } else {
-    console.log("No need to refresh token")
   }
 
-  if (Math.floor(Date.now()/1000) < user?.h?.b?.a) {
-    console.log("Token will expire in " + (user?.h?.b?.a - Math.floor(Date.now()/1000)) + " seconds")
-  } else {
-    console.log("Token EXPIRED " + (Math.floor(Date.now()/1000) - user?.h?.b?.a) + " seconds ago")
+  if (verbose) {
+    if (Math.floor(Date.now() / 1000) + 600 > user?.h?.b?.a) {
+      console.log("Token will expire in less than 10 min: " + (user?.h?.b?.a - Math.floor(Date.now() / 1000)) + " seconds")
+    } else {
+      console.log("No need to refresh token")
+    }
+
+    if (Math.floor(Date.now()/1000) < user?.h?.b?.a) {
+      console.log("Token will expire in " + (user?.h?.b?.a - Math.floor(Date.now()/1000)) + " seconds")
+    } else {
+      console.log("Token EXPIRED " + (Math.floor(Date.now()/1000) - user?.h?.b?.a) + " seconds ago")
+    }
   }
+
+  return idToken
+}
+
+const getAxiosParams = async (functionName, user, params) => {
+  const idToken = await checkIdToken(user)
+  return {
+    url: apiUrl + "/" + functionName,
+      headers: {
+    "x-api-key": x_api_key,
+      "access-token": idToken
+  },
+    data: {...params},
+    method: "post"
+  }
+}
+
+const getUserList = async (user) => {
+  const idToken = await checkIdToken(user)
   const axios_params = {
-    url: apiUrl + "/addFavourite",
+    url: apiUrl + "/getUserList",
     headers: {
       "x-api-key": x_api_key,
-      "access-token": idToken+"aaaa"
+      "access-token": idToken
     },
     method: "post"
   }
@@ -53,4 +69,11 @@ const getFavouriteList = async (user) => {
   return activities
 }
 
-export {getFavouriteList}
+const addUserWithId = async (user, params) => {
+  const axios_params = await getAxiosParams("addUserWithId", user, params)
+  const res = await axios(axios_params)
+  console.log("RES: ", res)
+  return res
+}
+
+export {getUserList, addUserWithId}

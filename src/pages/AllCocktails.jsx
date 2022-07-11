@@ -4,7 +4,7 @@ import DrinkCard from "../components/DrinkCard"
 import Searchbar from "../components/Searchbar"
 import { useEffect, useState } from "react"
 
-import { getCocktails, getRandomCocktail } from "../utils/dataHub"
+import { getCocktails, getIngredients, getRandomCocktail } from "../utils/dataHub"
 import {useParams} from "react-router-dom";
 import TagStylus from "../components/TagStylus/TagStylus"
 
@@ -12,6 +12,7 @@ function AllCocktails() {
   const { query } = useParams()
 
   const [drinks, setDrinks] = useState(null)
+  const [drinksNewFormat, setDrinksNewFormat] = useState(null)
   const [randomDrink, setRandomDrink] = useState(null)
   const [queryString, setQueryString] = useState("")
 
@@ -19,7 +20,6 @@ function AllCocktails() {
     const randomDrink = await getRandomCocktail()
     console.log("RANDOM DRINK: ", randomDrink)
     setRandomDrink(randomDrink)
-
     if (query && query !== '') {
       await searchDrink(query);
     }
@@ -28,7 +28,42 @@ function AllCocktails() {
   const searchDrink = async searchStr => {
     setQueryString(searchStr)
     const drinks = await getCocktails(searchStr)
-    console.log("DRINKS FROM QUERY: ", drinks)
+    //console.log("DRINKS FROM QUERY: ", drinks)
+
+    for (var i in drinks) {
+      const od = drinks[i]
+
+      const nd = {}
+      // id decided by firebase
+      nd["isAlcoholic"] = od["strAlcoholic"] === "Alcoholic"
+      nd["category"] = od.strCategory
+      nd["tags"] = od.strTags ? od.strTags.split(",") : null
+      nd["creativeCommonsConfirmed"] = od.strCreativeCommonsConfirmed
+      nd["name"] = od.strDrink
+      nd["alternateName"] = od.strDrinkAlternate
+      nd["drinkThumbUrl"] = od.strDrinkThumb
+      nd["glass"] = od.strGlass
+      nd["isIBA"] = od.strIBA
+      nd["imageAttribution"] = od.strImageAttribution
+      nd["originalUrl"] = od.strImageSource
+      nd["instructionsEN"] = od.strInstructions
+      nd["instructionsDE"] = od.strInstructionsDE
+      nd["instructionsES"] = od.strInstructionsES
+      nd["instructionsFR"] = od.strInstructionsFR
+      nd["instructionsIT"] = od.strInstructionsIT
+
+      // create ingredients
+      nd["ingredients"] = getIngredients(od)
+
+      console.log("ND::: ", nd)
+
+      if (od.strVideo) {
+        console.log(`${od.strVideo} has strImageSource:: `, od.strVideo)
+      }
+
+    }
+
+
     setDrinks(drinks)
   }
 
