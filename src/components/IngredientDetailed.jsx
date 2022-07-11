@@ -63,7 +63,6 @@ function IngredientDetailed({ ingredient, isInPantry, toggleIngredientInPantry})
                   />
                 </span>
               }
-              <span>S: {state}</span>
             </div>
           </div>
         </div>

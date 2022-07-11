@@ -4,6 +4,7 @@ const cors = require('cors')({origin: true})
 const {admin} = require('./app')
 const crud = require("./crud")
 const {addCreatedByMeDrink} = require("./users")
+const { getStorage, ref, uploadBytes } = require("firebase/storage")
 
 const db = admin.database()
 
@@ -30,7 +31,7 @@ exports.addDrink = functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
     try {
       if (checker.checkAuthorizedPostReq(request, response) && addDrinkDataChecker(request, response)) {
-        await checker.checkAuthorizedUser(request, response);
+        /*await checker.checkAuthorizedUser(request, response);
         const { drink, uid, username} = request.body
         const drinkRef = db.ref(`${basePath}`).push()
         const drinkObj = Object.assign(drink, { createdAt: Date.now(), author:{uid, username}, id:drinkRef.key})
@@ -39,7 +40,31 @@ exports.addDrink = functions.https.onRequest(async (request, response) => {
         response.status(200).send({
           msg: `Successfully created ${entity} in ${basePath} with id ${drinkRef.key}`,
           data: drinkObj
-        });
+        });*/
+
+        const { drink, uid, username} = request.body
+
+        const bucket = admin.storage().bucket()
+        const c  = drink.thumbByteArray.split(",")[1]
+
+        const imageBuffer = new Uint8Array(Buffer.from(c, 'base64'))
+        const file = bucket.file(`thumbs/${drink.name}.png`);
+
+        file.save(
+          imageBuffer,
+          { resumable: false, metadata: { contentType: "image/png" } },
+          err => {
+            if (err) {
+              console.log("Error in upload file::: ", err)
+              throw new Error(err);
+            }
+            response.send({
+              success: true,
+              message: "File Successfully Uploaded..."
+            });
+          }
+        )
+
         return true
       }
     } catch (e) {

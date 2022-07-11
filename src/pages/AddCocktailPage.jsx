@@ -16,6 +16,10 @@ function AddCocktailPage() {
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string()
+  })
+
+  const SignupSchemaComplete = Yup.object().shape({
+    name: Yup.string()
       .min(2)
       .required('Questo campo è obbligatorio'),
     strInstructions: Yup.string()
@@ -80,8 +84,8 @@ function AddCocktailPage() {
         <Formik
           initialValues={initialValues}
           onSubmit={async values => {
-            console.log("Submitting values::: ", values)
-            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{name:values.name}})
+            console.log("Submitting values::: ", {...values})
+            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{...values}})
           }}
           validationSchema={SignupSchema}
         >
@@ -105,6 +109,28 @@ function AddCocktailPage() {
               }
               handleChange(e)
             }
+
+            const handleUpload = async (e) => {
+              let image = e.currentTarget.files[0];
+              const buffer = await image.arrayBuffer();
+
+              function getBase64(file) {
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = error => reject(error);
+                });
+              }
+
+              console.log("BUFFER::: ", buffer)
+              let byteArray = new Uint8Array(buffer)
+              console.log("BITARRAY: ", byteArray)
+              const x = await getBase64(image)
+              console.log(x)
+              setFieldValue("thumbByteArray", x);
+            }
+
             return (
               <Form>
                 <Grid>
@@ -140,7 +166,7 @@ function AddCocktailPage() {
                     ) : null}
                   </Grid.Column>
                   <Grid.Column colSpan={6}>
-                  <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
+                    <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
 
                     <label htmlFor={"isAlcoholic"}>
                       {`${values.isAlcoholic}`}
@@ -148,6 +174,10 @@ function AddCocktailPage() {
                     </label>
                   </Grid.Column>
 
+                  <Grid.Column colSpan={12}>
+                    <label htmlFor="file">File upload</label>
+                    <input id="file" name="file" type="file" onChange={handleUpload} className="form-control" />
+                  </Grid.Column>
                   <Grid.Column colSpan={12}>
                     <FieldArray name="arrayIngredients">
                       {({ remove, push }) => (
@@ -211,10 +241,10 @@ function AddCocktailPage() {
             )
           }
           }
-        </Formik>
-      </Row>
-    </>
-  )
-}
+            </Formik>
+            </Row>
+            </>
+            )
+            }
 
-export default AddCocktailPage
+            export default AddCocktailPage
