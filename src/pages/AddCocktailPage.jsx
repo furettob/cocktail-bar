@@ -85,9 +85,9 @@ function AddCocktailPage() {
           initialValues={initialValues}
           onSubmit={async values => {
             console.log("Submitting values::: ", {...values})
-            //addDrink(user, {uid: user.uid, username: user.customData.username, drink:{...values}})
+            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{...values}})
             console.log("CBM::: ", Object.keys(user.customData.createdByMeList).join(","))
-            getDrinksById(user, {drinkIdList:Object.keys(user.customData.createdByMeList).join(",")})
+            //getDrinksById(user, {drinkIdList:Object.keys(user.customData.createdByMeList).join(",")})
           }}
             validationSchema={SignupSchema}
             >
