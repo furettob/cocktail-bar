@@ -6,6 +6,5 @@ exports[`renders correctly 1`] = `
   onClick={null}
 >
   I'm testing
-   
 </span>
 `;

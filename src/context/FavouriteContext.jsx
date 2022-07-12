@@ -21,7 +21,7 @@ export const FavouriteProvider = ({ value, children }) => {
   },[user])
 
   const isFavourite = (drinkId, drinkName, favList) => {
-    return Object.keys(favList).indexOf(drinkId) > -1 || Object.keys(favList).findIndex( (id, index) => {
+   return Object.keys(favList).indexOf(drinkId) > -1 || Object.keys(favList).findIndex( (id, index) => {
      return favList[id]?.name?.toUpperCase() === drinkName.toUpperCase()
     }) > -1
   }

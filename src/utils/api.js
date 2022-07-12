@@ -1,7 +1,7 @@
 import axios from "axios"
 //import getEnvVars from '../environment';
-//const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "https://europe-west1-fb-cocktailbar-v2.cloudfunctions.net"}
-const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "http://localhost:3000/fb-cocktailbar-v2/europe-west1"}
+const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "https://europe-west1-fb-cocktailbar-v2.cloudfunctions.net"}
+//const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "http://localhost:3000/fb-cocktailbar-v2/europe-west1"}
 
 const checkIdToken = async (user, verbose) => {
   let idToken = user["Aa"]

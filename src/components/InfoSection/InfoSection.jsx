@@ -1,17 +1,12 @@
 import * as React from "react"
 import { Fragment, useState } from "react"
-import Ingredients from "./Ingredients"
-import Tag from "./Tag"
-import TagClass from "./TagClass"
-import DrinkHeader from "./DrinkHeader"
-import "font-awesome/css/font-awesome.min.css"
-import { getIngredients } from "../utils/dataHub"
-import { LanguageContext } from "../context/LanguageContext"
-import {FavouriteContext} from "../context/FavouriteContext"
-import withToggle from "../hocs/withToggleExample"
+import Tag from "../Tag"
+import TagClass from "../TagClass"
+import { LanguageContext } from "../../context/LanguageContext"
+import {FavouriteContext} from "../../context/FavouriteContext"
+import withToggle from "../../hocs/withToggleExample"
 
 function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
-  console.log("DRINK::: ", drink, drink?.strAlcoholic)
   const isAlcoholic = drink.strAlcoholic.toLowerCase() === "alcoholic"
   //const [infoShown, setInfoShown] = useState(isDetail)
   const infoShown = toggleStatus
@@ -59,7 +54,7 @@ function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
                 {
                   ({favouriteList, toggleFavouriteFunction, isFavourite}) =>
                     <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
-                         {isFavourite(drink.idDrink, drink.strDrink, favouriteList)
+                         {isFavourite && isFavourite(drink.idDrink, drink.strDrink, favouriteList)
                            ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} />
                            : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />
                          }
@@ -71,7 +66,7 @@ function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
               {value => {
                 let instr = "strInstructions"
                 if (value !== "en") {
-                  instr = "strInstructions" + value.toUpperCase()
+                  instr = "strInstructions" + (value && typeof value === "string" && value.toUpperCase())
                 }
 
                 return drink[instr] ?

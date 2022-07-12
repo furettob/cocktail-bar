@@ -4,7 +4,7 @@ import Tag from "./Tag"
 import DrinkHeader from "./DrinkHeader"
 import "font-awesome/css/font-awesome.min.css"
 import { getIngredients } from "../utils/dataHub"
-import InfoSection from "./InfoSection"
+import InfoSection from "./InfoSection/InfoSection"
 
 function DrinkCard({ drink, isDetail }) {
 
