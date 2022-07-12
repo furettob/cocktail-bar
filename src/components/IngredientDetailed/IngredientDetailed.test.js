@@ -14,7 +14,8 @@ it('IngredientDetailed not in pantry', () => {
   expect(queryByText(/Buy/i)).toBeTruthy();
   expect(queryByText(/Segna come comprato/i)).toBeTruthy();
 
-  // QUEST NON FUNZIONA; PERCHÈ? fireEvent.click(getByText(/Segna come comprato/i));
+  // QUESTO NON FUNZIONA; PERCHÈ? fireEvent.click(getByText(/Segna come comprato/i));
+  // idea: aggiungere un manager dello stato subito fuori.. unzionerà?
   // expect(queryByText(/Segna come terminato/i)).toBeTruthy();
 });
 
