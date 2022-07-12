@@ -1,5 +1,4 @@
 import * as React from "react"
-import './index.styl';
 
 function TagStylus({ name, type, icon, selected, big, clickCallback }) {
 

@@ -1,5 +1,4 @@
 import * as React from "react"
-import 'font-awesome/css/font-awesome.min.css'
 import { Transition } from "react-transition-group"
 
 function IngredientDetailed({ ingredient, isInPantry, toggleIngredientInPantry}) {
@@ -50,7 +49,7 @@ function IngredientDetailed({ ingredient, isInPantry, toggleIngredientInPantry})
                   <i className={"fa fa-check"} />
                   <input
                     type={"button"}
-                    value={"Segna come termianto"}
+                    value={"Segna come terminato"}
                     onClick={() => toggleIngredientInPantry(ingredient.ingredient)}
                   />
                 </span> :

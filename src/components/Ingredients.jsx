@@ -1,6 +1,6 @@
 import * as React from "react"
 import IngredientSummary from "./IngredientSummary"
-import IngredientDetailed from "./IngredientDetailed"
+import IngredientDetailed from "./IngredientDetailed/IngredientDetailed"
 import {PantryContext} from "../context/PantryContext"
 
 function Ingredients({ ingredients, summary }) {
