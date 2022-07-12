@@ -1,18 +1,19 @@
 import * as React from "react"
 import {useContext} from "react"
-import { AuthContext } from "../context/AuthContext"
+import {AuthContext} from "../context/AuthContext"
 import Row from "../components/Row"
-import { Field, FieldArray, Form, Formik} from "formik"
+import {Field, FieldArray, Form, Formik} from "formik"
 import * as Yup from "yup";
 import Grid from "../components/Grid/Grid"
 import Input from "../components/Form/Input/Input"
 import Textarea from "../components/Form/Textarea/Textarea"
 import Select from "../components/Form/Select/Select"
-import { addDrink, getDrinksById } from "../utils/api"
+import {addDrink, getDrinksById} from "../utils/api"
+import Checkbox from "../components/Form/Checkbox/Checkbox"
 
 function AddCocktailPage() {
 
-  const { user } = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string()
@@ -29,7 +30,8 @@ function AddCocktailPage() {
     arrayIngredients: Yup.array().test({
       message: 'Devono esserci almeno due ingredienti',
       test: arr => {
-        return arr.length >= 1},
+        return arr.length >= 1
+      },
     }).test({
       message: 'Tutti gli ingredienti devono avere un nome',
       test: arr => {
@@ -39,7 +41,8 @@ function AddCocktailPage() {
             //isCorrect = false
           }
         }
-        return isCorrect},
+        return isCorrect
+      },
     }),
   }).test('global-ok',
     "Non puoi servire un analcolico in un Margarita/Coupette glass",
@@ -77,6 +80,10 @@ function AddCocktailPage() {
     strInstructionsIT: "Usa un bicchiere da 450ml.\r\nAggiungi prima Campari.\r\nRiempi di birra."
   }
 
+  const cambioCheck = (event) => {
+    console.log('Checkbox', event.target.checked)
+  }
+
   return (
     <>
       <Row>
@@ -85,91 +92,98 @@ function AddCocktailPage() {
           initialValues={initialValues}
           onSubmit={async values => {
             console.log("Submitting values::: ", {...values})
-            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{...values}})
+            addDrink(user, {uid: user.uid, username: user.customData.username, drink: {...values}})
             console.log("CBM::: ", Object.keys(user.customData.createdByMeList).join(","))
             //getDrinksById(user, {drinkIdList:Object.keys(user.customData.createdByMeList).join(",")})
           }}
-            validationSchema={SignupSchema}
-            >
-          { props => {
+          validationSchema={SignupSchema}
+        >
+          {props => {
             const changeAndSubmit = e => {
-            props.handleChange(e);
-            props.handleSubmit()
-          }
+              props.handleChange(e);
+              props.handleSubmit()
+            }
             const {values, handleChange, setFieldValue, errors, touched} = props
             //console.log("VALUES: ", values)
             //console.log("ERRORS: ", errors)
 
             const isAlcoholicHandleChange = e => {
-            if (e.target.value === "true") {
-            setFieldValue("isAlcoholic", "false")
-            setFieldValue("strAlcoholic", "Non Alcoholic")
-          }
-            if (e.target.value === "false") {
-            setFieldValue("isAlcoholic", "true")
-            setFieldValue("strAlcoholic", "Alcoholic")
-          }
-            handleChange(e)
-          }
+              if (e.target.value === "true") {
+                setFieldValue("isAlcoholic", "false")
+                setFieldValue("strAlcoholic", "Non Alcoholic")
+              }
+              if (e.target.value === "false") {
+                setFieldValue("isAlcoholic", "true")
+                setFieldValue("strAlcoholic", "Alcoholic")
+              }
+              handleChange(e)
+            }
 
             const handleUpload = async (e) => {
-            let image = e.currentTarget.files[0];
-            const buffer = await image.arrayBuffer();
+              let image = e.currentTarget.files[0];
+              const buffer = await image.arrayBuffer();
 
-            function getBase64(file) {
-            return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-          });
-          }
+              function getBase64(file) {
+                return new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = error => reject(error);
+                });
+              }
 
-            console.log("BUFFER::: ", buffer)
-            let byteArray = new Uint8Array(buffer)
-            console.log("BITARRAY: ", byteArray)
-            const x = await getBase64(image)
-            console.log(x)
-            setFieldValue("thumbByteArray", x);
-          }
+              console.log("BUFFER::: ", buffer)
+              let byteArray = new Uint8Array(buffer)
+              console.log("BITARRAY: ", byteArray)
+              const x = await getBase64(image)
+              console.log(x)
+              setFieldValue("thumbByteArray", x);
+            }
 
             return (
-            <Form>
-            <Grid>
-            <Grid.Column colSpan={6}>
-            <Field id="name" name="name" placeholder="name" as={Input}/>
-          {errors.name && touched.name ? (
-            <div>{errors.name}</div>
-            ) : null}
-            </Grid.Column>
-            <Grid.Column colSpan={6}>
-            <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={Input}/>
-          {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
-            <div>{errors.strDrinkAlternate}</div>
-            ) : null}
-            </Grid.Column>
-            <Grid.Column colSpan={12}>
-            <Field id="strInstructions" name="strInstructions" as={Textarea} rows="4" placeholder="Instructions (English)" />
-          {errors.strInstructions && touched.strInstructions ? (
-            <div>{errors.strInstructions}</div>
-            ) : null}
-            </Grid.Column>
-            <Grid.Column colSpan={6}>
-            <Field as={Select} name="strGlass">
-            <option value="Old-fashioned glass">Old-fashioned glass</option>
-            <option value="Collins glass">Collins glass</option>
-            <option value="Beer mug">Beer mug</option>
-            <option value="Cocktail glass">Cocktail glass</option>
-            <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
-            <option value="Pitcher">Pitcher</option>
-            </Field>
-          {errors.strGlass && touched.strGlass ? (
-            <div>{errors.strGlass}</div>
-            ) : null}
-            </Grid.Column>
-            <Grid.Column colSpan={6}>
-            <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
-
+              <Form>
+                <Grid>
+                  <Grid.Column colSpan={6}>
+                    <Field id="name" name="name" placeholder="name" as={Input}/>
+                    {errors.name && touched.name ? (
+                      <div>{errors.name}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                    <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={Input}/>
+                    {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
+                      <div>{errors.strDrinkAlternate}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={12}>
+                    <Field id="strInstructions" name="strInstructions" as={Textarea} rows="4"
+                           placeholder="Instructions (English)"/>
+                    {errors.strInstructions && touched.strInstructions ? (
+                      <div>{errors.strInstructions}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                    <Field as={Select} name="strGlass">
+                      <option value="Old-fashioned glass">Old-fashioned glass</option>
+                      <option value="Collins glass">Collins glass</option>
+                      <option value="Beer mug">Beer mug</option>
+                      <option value="Cocktail glass">Cocktail glass</option>
+                      <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
+                      <option value="Pitcher">Pitcher</option>
+                    </Field>
+                    {errors.strGlass && touched.strGlass ? (
+                      <div>{errors.strGlass}</div>
+                    ) : null}
+                  </Grid.Column>
+                  <Grid.Column colSpan={6}>
+                    <Checkbox
+                      isChecked={values.isAlcoholic === 'true'}
+                      labelOn={'Alcoholic'}
+                      labelOff={'Non Alcoholic'}
+                      handleChange={cambioCheck}
+                      id={"checkAlcolico"}
+                    >
+                    </Checkbox>
             <label htmlFor={"isAlcoholic"}>
           {`${values.isAlcoholic}`}
             <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
