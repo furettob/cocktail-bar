@@ -4,7 +4,6 @@ const cors = require('cors')({origin: true})
 const {admin} = require('./app')
 const crud = require("./crud")
 const {addCreatedByMeDrink} = require("./users")
-const { getStorage, ref, uploadBytes } = require("firebase/storage")
 
 const db = admin.database()
 
@@ -70,164 +69,37 @@ exports.addDrink = functions.https.onRequest(async (request, response) => {
   })
 });
 
-// toggleFavouriteDrink
-const toggleFavouriteDrinkDataChecker = (request, response) => {
-  if (!checker.checkDataPostReq(
-    request,
-    response,
-    [
-      "uid",
-      "drinkId",
-      "drinkName"
-    ])) {
-    return false
-  }
-  return true
-}
-exports.toggleFavouriteDrink =  functions.https.onRequest(async (request, response) => {
-  cors(request, response, async () => {
-    try {
-      if (checker.checkAuthorizedPostReq(request, response) && toggleFavouriteDrinkDataChecker(request, response)) {
-        const decToken = await checker.checkAuthorizedUser(request, response)
-        const { drinkId, drinkName, uid } = request.body
-        const fl = await crud.getDoc(`${basePath}${decToken.user_id}/favouriteList`) || {}
-        if (Object.keys(fl).indexOf(drinkId) > -1) {
-          delete fl[drinkId]
-        } else {
-          fl[drinkId] = {name: drinkName}
-        }
-        await crud.setDoc(`${basePath}${uid}/favouriteList`, fl)
-        console.log("NEW FL:: ", fl)
-        response.status(200).send({ data: fl });
-      }
-    } catch (e) {
-      response.status(500).send({ error: e });
-    }
-  })
-})
-
 // getUser
-const getUserCustomDataDataChecker = (request, response) => {
+const getDrinksByIdDataChecker = (request, response) => {
   if (!checker.checkDataPostReq(
     request,
     response,
     [
-      "uid"
+      "drinkIdList"
     ])) {
     return false
   }
   return true
 }
-exports.getUserCustomData =  functions.https.onRequest(async (request, response) => {
+exports.getDrinksById =  functions.https.onRequest(async (request, response) => {
   cors(request, response, async () => {
     try {
-      if (checker.checkAuthorizedPostReq(request, response) && getUserCustomDataDataChecker(request, response)) {
-        const { uid } = request.body
-        const res = await this.getUserCRUD(uid)
-        response.status(200).send({ data: res });
+      if (checker.checkAuthorizedPostReq(request, response) && getDrinksByIdDataChecker(request, response)) {
+        // NO need to check user
+        const { drinkIdList } = request.body
+        const drinks = []
+        const splittedList = drinkIdList.split(",")
+        for (let i in splittedList) {
+          const res = await this.getDrinkCRUD(splittedList[i])
+          drinks.push(res)
+        }
+        response.status(200).send({ data: drinks });
       }
     } catch (e) {
       response.status(500).send({ error: e });
     }
   })
 })
-exports.getUserCRUD = async (uid) => {
-    return await crud.getDoc(`${basePath}${uid}`)
+exports.getDrinkCRUD = async (id) => {
+    return await crud.getDoc(`${basePath}${id}`)
 }
-
-// getUserList
-const getUserListChecker = async (request, response) => {
-    if (!checker.checkAuthorizedPostReq(request, response)) {
-        return false
-    }
-    if (!checker.checkDataPostReq(
-        request,
-        response,
-        [])) {
-        return false
-    }
-    const isUserAuthorized = await checker.checkAuthorizedUser(request, response)
-
-    return isUserAuthorized
-}
-exports.getUserList =  functions.https.onRequest(async (request, response) => {
-    cors(request, response, async () => {
-        try {
-            const proceed = await getUserListChecker(request, response)
-            if (proceed) {
-                const res = await db.ref(`${basePath}`).once('value');
-                response.status(200).send({data: res});
-            }
-        } catch (e) {
-            response.status(500).send({error: e});
-        }
-    })
-})
-
-// updateUser
-const updateUserDataChecker = (request, response) => {
-    if (!request || !request.body) {
-        response.status(400).end(); // 400 Bad Request
-        return false;
-    }
-    if (
-        !!request.body.uid &&
-        !!request.body.updatedData
-    ) {
-        return true;
-    } else {
-        response.status(400).send({"error":"missing uid or updatedData param in request"}); // 400 Bad Request
-        return false;
-    }
-}
-exports.updateUser = functions.https.onRequest(async (request, response) => {
-    try {
-        if(checker.checkAuthorizedPostReq(request, response) && updateUserDataChecker(request, response)) {
-            const {uid} = request.body
-            const updatedData = request.body.updatedData
-            const userUpdated = await crud.updateDoc(`${basePath}${uid}`, uid, updatedData)
-            if (!userUpdated) {
-                response.status(404).send({
-                    data: `There is no ${entity} with id ${uid} in the ${basePath} path`
-                });
-            } else {
-                response.status(200).send({
-                    data: `Successfully updated ${entity} with id ${uid}`
-                });
-            }
-            return updatedData
-        }
-    } catch (e) {
-        response.status(500).send({error: e});
-    }
-});
-
-// deleteUser
-const deleteUserDataChecker = (request, response) => {
-    if (!request || !request.body) {
-        response.status(400).end(); // 400 Bad Request
-        return false
-    }
-    if (
-        !!request.body.uid
-    ) {
-        return true
-    } else {
-        response.status(400).send({"error":"missing uid param in request"}); // 400 Bad Request
-        return false
-    }
-}
-exports.deleteUser = functions.https.onRequest(async (request, response) => {
-    try {
-        if(checker.checkAuthorizedPostReq(request, response) && deleteUserDataChecker(request, response)) {
-            const {uid} = request.body
-            await db.ref(`users/www`).set(null) // delete() does not work
-            response.status(200).send({
-                data: `Successfully deleted ${entity} with id ${uid}`
-            });
-            return uid
-        }
-    } catch (e) {
-        response.status(500).send({error: e});
-    }
-});

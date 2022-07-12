@@ -13,3 +13,4 @@ exports.toggleFavouriteDrink = users.toggleFavouriteDrink
 // DRINK ENTITY
 const drinks =  require('./modules/drinks')
 exports.addDrink = drinks.addDrink
+exports.getDrinksById = drinks.getDrinksById

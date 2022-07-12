@@ -108,9 +108,13 @@ const getUserCustomDataDataChecker = (request, response) => {
   return true
 }
 exports.getUserCustomData =  functions.https.onRequest(async (request, response) => {
+  console.log("a")
   cors(request, response, async () => {
+    console.log("aa")
     try {
+      console.log("b")
       if (checker.checkAuthorizedPostReq(request, response) && getUserCustomDataDataChecker(request, response)) {
+        console.log("c")
         const { uid } = request.body
         const res = await this.getUserCRUD(uid)
         response.status(200).send({ data: res });
