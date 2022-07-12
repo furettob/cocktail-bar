@@ -64,5 +64,8 @@ const toggleFavouriteDrink = async (user, params) => {
 const addDrink = async (user, params) => {
   return await performAxiosAPICall("addDrink", user, params)
 }
+const getDrinksById = async (user, params) => {
+  return await performAxiosAPICall("getDrinksById", user, params)
+}
 
-export {getUserCustomData, addUserCustomDataWithId, toggleFavouriteDrink, addDrink}
+export {getUserCustomData, addUserCustomDataWithId, toggleFavouriteDrink, addDrink, getDrinksById}

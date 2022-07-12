@@ -8,13 +8,17 @@ import Grid from "../components/Grid/Grid"
 import Input from "../components/Form/Input/Input"
 import Textarea from "../components/Form/Textarea/Textarea"
 import Select from "../components/Form/Select/Select"
-import { addDrink } from "../utils/api"
+import { addDrink, getDrinksById } from "../utils/api"
 
 function AddCocktailPage() {
 
   const { user } = useContext(AuthContext)
 
   const SignupSchema = Yup.object().shape({
+    name: Yup.string()
+  })
+
+  const SignupSchemaComplete = Yup.object().shape({
     name: Yup.string()
       .min(2)
       .required('Questo campo è obbligatorio'),
@@ -80,141 +84,169 @@ function AddCocktailPage() {
         <Formik
           initialValues={initialValues}
           onSubmit={async values => {
-            console.log("Submitting values::: ", values)
-            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{name:values.name}})
+            console.log("Submitting values::: ", {...values})
+            addDrink(user, {uid: user.uid, username: user.customData.username, drink:{...values}})
+            console.log("CBM::: ", Object.keys(user.customData.createdByMeList).join(","))
+            //getDrinksById(user, {drinkIdList:Object.keys(user.customData.createdByMeList).join(",")})
           }}
-          validationSchema={SignupSchema}
-        >
+            validationSchema={SignupSchema}
+            >
           { props => {
             const changeAndSubmit = e => {
-              props.handleChange(e);
-              props.handleSubmit()
-            }
+            props.handleChange(e);
+            props.handleSubmit()
+          }
             const {values, handleChange, setFieldValue, errors, touched} = props
             //console.log("VALUES: ", values)
             //console.log("ERRORS: ", errors)
 
             const isAlcoholicHandleChange = e => {
-              if (e.target.value === "true") {
-                setFieldValue("isAlcoholic", "false")
-                setFieldValue("strAlcoholic", "Non Alcoholic")
-              }
-              if (e.target.value === "false") {
-                setFieldValue("isAlcoholic", "true")
-                setFieldValue("strAlcoholic", "Alcoholic")
-              }
-              handleChange(e)
-            }
+            if (e.target.value === "true") {
+            setFieldValue("isAlcoholic", "false")
+            setFieldValue("strAlcoholic", "Non Alcoholic")
+          }
+            if (e.target.value === "false") {
+            setFieldValue("isAlcoholic", "true")
+            setFieldValue("strAlcoholic", "Alcoholic")
+          }
+            handleChange(e)
+          }
+
+            const handleUpload = async (e) => {
+            let image = e.currentTarget.files[0];
+            const buffer = await image.arrayBuffer();
+
+            function getBase64(file) {
+            return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+          });
+          }
+
+            console.log("BUFFER::: ", buffer)
+            let byteArray = new Uint8Array(buffer)
+            console.log("BITARRAY: ", byteArray)
+            const x = await getBase64(image)
+            console.log(x)
+            setFieldValue("thumbByteArray", x);
+          }
+
             return (
-              <Form>
-                <Grid>
-                  <Grid.Column colSpan={6}>
-                    <Field id="name" name="name" placeholder="name" as={Input}/>
-                    {errors.name && touched.name ? (
-                      <div>{errors.name}</div>
-                    ) : null}
-                  </Grid.Column>
-                  <Grid.Column colSpan={6}>
-                    <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={Input}/>
-                    {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
-                      <div>{errors.strDrinkAlternate}</div>
-                    ) : null}
-                  </Grid.Column>
-                  <Grid.Column colSpan={12}>
-                    <Field id="strInstructions" name="strInstructions" as={Textarea} rows="4" placeholder="Instructions (English)" />
-                    {errors.strInstructions && touched.strInstructions ? (
-                      <div>{errors.strInstructions}</div>
-                    ) : null}
-                  </Grid.Column>
-                  <Grid.Column colSpan={6}>
-                    <Field as={Select} name="strGlass">
-                      <option value="Old-fashioned glass">Old-fashioned glass</option>
-                      <option value="Collins glass">Collins glass</option>
-                      <option value="Beer mug">Beer mug</option>
-                      <option value="Cocktail glass">Cocktail glass</option>
-                      <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
-                      <option value="Pitcher">Pitcher</option>
-                    </Field>
-                    {errors.strGlass && touched.strGlass ? (
-                      <div>{errors.strGlass}</div>
-                    ) : null}
-                  </Grid.Column>
-                  <Grid.Column colSpan={6}>
-                  <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
+            <Form>
+            <Grid>
+            <Grid.Column colSpan={6}>
+            <Field id="name" name="name" placeholder="name" as={Input}/>
+          {errors.name && touched.name ? (
+            <div>{errors.name}</div>
+            ) : null}
+            </Grid.Column>
+            <Grid.Column colSpan={6}>
+            <Field id="strDrinkAlternate" name="strDrinkAlternate" placeholder="Alternate name" as={Input}/>
+          {errors.strDrinkAlternate && touched.strDrinkAlternate ? (
+            <div>{errors.strDrinkAlternate}</div>
+            ) : null}
+            </Grid.Column>
+            <Grid.Column colSpan={12}>
+            <Field id="strInstructions" name="strInstructions" as={Textarea} rows="4" placeholder="Instructions (English)" />
+          {errors.strInstructions && touched.strInstructions ? (
+            <div>{errors.strInstructions}</div>
+            ) : null}
+            </Grid.Column>
+            <Grid.Column colSpan={6}>
+            <Field as={Select} name="strGlass">
+            <option value="Old-fashioned glass">Old-fashioned glass</option>
+            <option value="Collins glass">Collins glass</option>
+            <option value="Beer mug">Beer mug</option>
+            <option value="Cocktail glass">Cocktail glass</option>
+            <option value="Margarita/Coupette glass">Margarita/Coupette glass</option>
+            <option value="Pitcher">Pitcher</option>
+            </Field>
+          {errors.strGlass && touched.strGlass ? (
+            <div>{errors.strGlass}</div>
+            ) : null}
+            </Grid.Column>
+            <Grid.Column colSpan={6}>
+            <label htmlFor="strAlcoholic">{`${values.strAlcoholic}`} </label>
 
-                    <label htmlFor={"isAlcoholic"}>
-                      {`${values.isAlcoholic}`}
-                      <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
-                    </label>
-                  </Grid.Column>
+            <label htmlFor={"isAlcoholic"}>
+          {`${values.isAlcoholic}`}
+            <Field id="isAlcoholic" name="isAlcoholic" type={"checkbox"} onChange={isAlcoholicHandleChange}/>
+            </label>
+            </Grid.Column>
 
-                  <Grid.Column colSpan={12}>
-                    <FieldArray name="arrayIngredients">
-                      {({ remove, push }) => (
-                        <div>
-                          {values.arrayIngredients && values.arrayIngredients.length > 0 &&
-                          values.arrayIngredients.map((ingredientObj, index) => (
-                            <div className="row" key={index}>
-                              <div className="col">
-                                <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
-                                <Field
-                                  name={`arrayIngredients.${index}.name`}
-                                  placeholder="Name"
-                                  type="text"
-                                />
-                                {errors.name && touched.name ? (
-                                  <div>{errors.name}</div>
-                                ) : null}
-                              </div>
-                              <div className="col">
-                                <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
-                                <Field
-                                  name={`arrayIngredients.${index}.measure`}
-                                  placeholder="Measure"
-                                  type="measure"
-                                />
+            <Grid.Column colSpan={12}>
+            <label htmlFor="file">File upload</label>
+            <input id="file" name="file" type="file" onChange={handleUpload} className="form-control" />
+            </Grid.Column>
+            <Grid.Column colSpan={12}>
+            <FieldArray name="arrayIngredients">
+          {({ remove, push }) => (
+            <div>
+          {values.arrayIngredients && values.arrayIngredients.length > 0 &&
+            values.arrayIngredients.map((ingredientObj, index) => (
+            <div className="row" key={index}>
+            <div className="col">
+            <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
+            <Field
+            name={`arrayIngredients.${index}.name`}
+            placeholder="Name"
+            type="text"
+            />
+          {errors.name && touched.name ? (
+            <div>{errors.name}</div>
+            ) : null}
+            </div>
+            <div className="col">
+            <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
+            <Field
+            name={`arrayIngredients.${index}.measure`}
+            placeholder="Measure"
+            type="measure"
+            />
 
-                              </div>
-                              <div className="col">
-                                <input
-                                  type="button"
-                                  onClick={() => remove(index)}
-                                  value={"X"}
-                                />
-                              </div>
-                            </div>
-                          ))}
-                          <input
-                            type="button"
-                            onClick={() => push({ name: '', measure: '' })}
-                            value={"New Ingredient"}
-                          />
-                        </div>
-                      )}
-                    </FieldArray>
-                    {errors.arrayIngredients && touched.arrayIngredients ?
-                      <div>{errors.arrayIngredients}</div>
-                      : null
-                    }
-                  </Grid.Column>
+            </div>
+            <div className="col">
+            <input
+            type="button"
+            onClick={() => remove(index)}
+            value={"X"}
+            />
+            </div>
+            </div>
+            ))}
+            <input
+            type="button"
+            onClick={() => push({ name: '', measure: '' })}
+            value={"New Ingredient"}
+            />
+            </div>
+            )}
+            </FieldArray>
+          {errors.arrayIngredients && touched.arrayIngredients ?
+            <div>{errors.arrayIngredients}</div>
+            : null
+          }
+            </Grid.Column>
 
-                  <Grid.Column>
-                    {errors.global ?
-                      <div>{errors.global}</div>
-                      : null
-                    }
-                  </Grid.Column>
+            <Grid.Column>
+          {errors.global ?
+            <div>{errors.global}</div>
+            : null
+          }
+            </Grid.Column>
 
-                  <input type={"submit"} value={"Add"}/>
-                </Grid>
-              </Form>
+            <input type={"submit"} value={"Add"}/>
+            </Grid>
+            </Form>
             )
           }
           }
-        </Formik>
-      </Row>
-    </>
-  )
-}
+            </Formik>
+            </Row>
+            </>
+            )
+          }
 
 export default AddCocktailPage

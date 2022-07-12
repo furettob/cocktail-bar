@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IngredientDetailed  from '../components/IngredientDetailed';
+import IngredientDetailed  from './IngredientDetailed';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
