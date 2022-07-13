@@ -25,6 +25,15 @@ export function setFavourites(favourtesArray) {
   return setInLocalStorage("favourites", favourtesArray)
 }
 
+// getter for "favourites"
+export function getDailyCocktail() {
+  return getFromLocalStorage("dailyDrink")
+}
+// setter for "favourites"
+export function setDailyCocktail(d) {
+  return setInLocalStorage("dailyDrink", d)
+}
+
 export function toggleFavourite(id) {
   const fav = getFavourites()
   const index = fav.indexOf(id)

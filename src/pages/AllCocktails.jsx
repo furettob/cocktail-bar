@@ -4,21 +4,37 @@ import DrinkCard from "../components/DrinkCard"
 import Searchbar from "../components/Searchbar"
 import { useEffect, useState } from "react"
 
-import { getCocktails, getIngredients, getRandomCocktail } from "../utils/dataHub"
+import { getCocktails, getDrinkById, getIngredients, getRandomCocktail } from "../utils/dataHub"
 import {useParams} from "react-router-dom";
 import TagStylus from "../components/TagStylus/TagStylus"
+import {getDailyCocktail, setDailyCocktail} from "../utils/utils"
 
 function AllCocktails() {
   const { query } = useParams()
 
   const [drinks, setDrinks] = useState(null)
-  const [drinksNewFormat, setDrinksNewFormat] = useState(null)
   const [randomDrink, setRandomDrink] = useState(null)
   const [queryString, setQueryString] = useState("")
 
+  const getRandomCocktailOrCache = async () => {
+    const cached = getDailyCocktail()
+    if (cached?.cocktailObj) {
+      // console.log("Returning cached cocktail::: ", cached.cocktailObj.strDrink)
+      // per i test, cambia ogni 5 minuti
+      if (Date.now() - cached.date < 300000) {
+        return cached.cocktailObj
+      } else {
+        console.log("A cached object is present, but it will be refreshed")
+      }
+    }
+    const newDailyCocktail = await getRandomCocktail()
+    // console.log("Setting new::: ", newDailyCocktail)
+    setDailyCocktail({cocktailObj:newDailyCocktail, date:Date.now()})
+    return newDailyCocktail
+  }
+
   useEffect(async () => {
-    const randomDrink = await getRandomCocktail()
-    console.log("RANDOM DRINK: ", randomDrink)
+    const randomDrink = await getRandomCocktailOrCache()
     setRandomDrink(randomDrink)
     if (query && query !== '') {
       await searchDrink(query);

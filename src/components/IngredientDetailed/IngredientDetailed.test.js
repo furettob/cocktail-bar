@@ -10,13 +10,8 @@ it('IngredientDetailed not in pantry', () => {
   const {queryByText, getByText} = render(
     <IngredientDetailed isInPantry={false} ingredient={{ingredient: "Pineapple juice", measure: "1 oz"}}/>,
   );
-
   expect(queryByText(/Buy/i)).toBeTruthy();
   expect(queryByText(/Segna come comprato/i)).toBeTruthy();
-
-  // QUESTO NON FUNZIONA; PERCHÈ? fireEvent.click(getByText(/Segna come comprato/i));
-  // idea: aggiungere un manager dello stato subito fuori.. unzionerà?
-  // expect(queryByText(/Segna come terminato/i)).toBeTruthy();
 });
 
 
