@@ -1,7 +1,10 @@
 const functions = require('firebase-functions').region('europe-west1')
+const cors = require('cors')({origin: true})
 
 exports.checkConnection = functions.https.onRequest((request, response) => {
-  response.send("Connection is live");
+  cors(request, response, () => {
+    response.send({data:{msg:"Connection is live", data:"Connection is live"}});
+  })
 });
 
 // USER ENTITY

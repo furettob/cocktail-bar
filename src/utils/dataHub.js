@@ -15,7 +15,6 @@ export async function getCocktails(searchStr) {
 }
 
 export async function getRandomCocktail() {
-  console.log("getRandomCocktail")
   const resp = await Axios.get(
     "https://www.thecocktaildb.com/api/json/v1/1/random.php"
   )
@@ -23,14 +22,10 @@ export async function getRandomCocktail() {
     console.log("ERROR::::: ")
     return { error: resp }
   }
-
-  console.log("RANDOM COCKTAIL DATA:::: ", resp)
-
   return resp.data.drinks
 }
 
 export async function getDrinkById(id) {
-  console.log("getDrinkById ", id)
   const resp = await Axios.get(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
   )
@@ -40,6 +35,18 @@ export async function getDrinkById(id) {
   }
 
   return resp.data.drinks[0]
+}
+
+export async function getIngredientByName(name) {
+  const resp = await Axios.get(
+    `https:/www.thecocktaildb.com/api/json/v1/1/search.php?i=${name.toLowerCase()}`
+  )
+  if (!resp?.data || resp.data === "") {
+    console.log("ERROR::::: ")
+    return { error: resp }
+  }
+
+  return resp.data.ingredients[0]
 }
 
 export async function getAllIngredients() {

@@ -1,7 +1,7 @@
 import axios from "axios"
 //import getEnvVars from '../environment';
-const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "https://europe-west1-fb-cocktailbar-v2.cloudfunctions.net"}
-//const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "http://localhost:3000/fb-cocktailbar-v2/europe-west1"}
+//const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "https://europe-west1-fb-cocktailbar-v2.cloudfunctions.net"}
+const { x_api_key, apiUrl } = {x_api_key:"ajeje", apiUrl: "http://localhost:3000/fb-cocktailbar-v2/europe-west1"}
 
 const checkIdToken = async (user, verbose) => {
   let idToken = user["Aa"]
@@ -34,7 +34,7 @@ const checkIdToken = async (user, verbose) => {
 }
 
 const performAxiosAPICall = async (functionName, user, params) => {
-  const idToken = await checkIdToken(user)
+  const idToken = user ? await checkIdToken(user) : ""
   const axios_params = {
     url: `${apiUrl}/${functionName}`,
       headers: {
@@ -45,7 +45,7 @@ const performAxiosAPICall = async (functionName, user, params) => {
     method: "post"
   }
   const res = await axios(axios_params)
-  console.log(`${functionName} RES: `, res)
+  //console.log(`${functionName} RES: `, res)
   return res?.data?.data
 }
 
@@ -67,5 +67,8 @@ const addDrink = async (user, params) => {
 const getDrinksById = async (user, params) => {
   return await performAxiosAPICall("getDrinksById", user, params)
 }
+const checkConnection = async (user, params) => {
+  return await performAxiosAPICall("checkConnection", null, params)
+}
 
-export {getUserCustomData, addUserCustomDataWithId, toggleFavouriteDrink, addDrink, getDrinksById}
+export {getUserCustomData, addUserCustomDataWithId, toggleFavouriteDrink, addDrink, getDrinksById, checkConnection}
