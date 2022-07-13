@@ -10,7 +10,8 @@ function FavouriteList({favouriteList}) {
   useEffect(async () => {
       let drinkArray = []
       for (let i in favouriteList) {
-        const d = favouriteList.length > i ? await getDrinkById(favouriteList?.[i]) : null
+        const drinkId = typeof favouriteList?.[i] === "string" ? favouriteList?.[i] : favouriteList?.[i]?.id
+        const d = favouriteList.length > i ? await getDrinkById(drinkId) : null
         d.idDrink && drinkArray.push(d)
       }
       setDrinkList(drinkArray)

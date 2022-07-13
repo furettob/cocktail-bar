@@ -14,7 +14,7 @@ function DrinkHeader({ drink, isDetail }) {
             ({favouriteList, toggleFavouriteFunction, isFavourite}) =>
               <div
                   className={"cb-drink-card__favourite-button"}
-                  onClick={() => toggleFavouriteFunction(drink.idDrink)}
+                  onClick={() => toggleFavouriteFunction(drink.idDrink, drink.strDrink)}
                 >
                   <div
                     className={"cb-ct--pointer"}

@@ -5,7 +5,7 @@ import FavouriteList from "../components/FavouriteList"
 import withFilter from "../hocs/withFilter"
 import { Field, Form, Formik } from "formik"
 
-const initialValues={query:"1"}
+const initialValues={query:""}
 
 function FavouriteListBase({set, handleQueryParamsChange}) {
 
@@ -55,11 +55,11 @@ function FavouritePage() {
             ({favouriteList}) => <>
               <h1>Favourites ({favouriteList.length})</h1>
               <FavouriteListWithFilter
-                initialSet={Object.keys(favouriteList)}
+                initialSet={Object.keys(favouriteList).map(id => { return {id:id, name:favouriteList[id]?.name}})}
                 initialValues={initialValues}
                 filterItems={
-                  (itemId, formValues) => {
-                    return true //itemId.toString().indexOf(formValues.query)>-1
+                  (item, formValues) => {
+                    return item.id.toString().indexOf(formValues.query)>-1 || item.name.toString().indexOf(formValues.query)>-1
                   }
                 }
               />

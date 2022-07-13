@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import {getFavourites, setFavourites} from "../utils/utils"
+import {setFavourites} from "../utils/utils"
 import { toggleFavouriteDrink } from "../utils/api"
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./AuthContext"
@@ -26,9 +26,9 @@ export const FavouriteProvider = ({ value, children }) => {
     }) > -1
   }
 
-  const toggleFavouriteFunction = async (id) => {
+  const toggleFavouriteFunction = async (id,name) => {
     if (user) {
-      const fav = await toggleFavouriteDrink(user, {drinkId:id, drinkName:"test", uid:user.uid})
+      const fav = await toggleFavouriteDrink(user, {drinkId:id, drinkName:name||"", uid:user.uid})
       setFavouriteList(fav)
     } else {
       history.push({
