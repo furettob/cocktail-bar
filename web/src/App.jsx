@@ -13,9 +13,9 @@ import FavouritePage from "./pages/FavouritePage"
 import { LanguageProvider} from "./context/LanguageContext"
 import { FavouriteProvider } from "./context/FavouriteContext"
 import {useState, useContext} from "react"
-import {getFavourites, getPantryList} from "./utils/utils"
+import {getPantryList} from "./utils/utils"
 import { PantryProvider } from "./context/PantryContext"
-import IngredientsPageWithFilter from "./pages/IngredientsPageWithFilter"
+import UserPage from "./pages/UserPage"
 import { AuthProvider, AuthContext } from "./context/AuthContext"
 import LoginPage from "./pages/LoginPage"
 import "./style.styl"
@@ -49,7 +49,8 @@ function InnerApp() {
                   <Route path="/drink/:id" render={() => <DrinkDetail />} />
                   <Route path="/favourites" render={(user) => {return user ? <FavouritePage /> : <Redirect to="/drinks" />}} />
                   <Route path="/addcocktail" render={(user) => {return user ? <AddCocktailPage user={user}/> : <Redirect to="/drinks" />}} />
-                  <Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />
+                  <Route path="/user" render={(user) => {return user ? <UserPage user={user}/> : <Redirect to="/drinks" />}} />
+                  {/*<Route path="/ingredients" render={() => <IngredientsPageWithFilter />} />*/}
                   <Route path="/author" render={() => <Author />} />
                   <Route path="/login" render={() => <LoginPage />} />
                   <Route render={() => <Redirect to="/drinks" />} />

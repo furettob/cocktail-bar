@@ -4,9 +4,8 @@ import DrinkCard from "../components/DrinkCard"
 import Searchbar from "../components/Searchbar"
 import { useEffect, useState } from "react"
 
-import { getCocktails, getDrinkById, getIngredients, getRandomCocktail } from "../utils/dataHub"
+import { getCocktails, getIngredients, getRandomCocktail } from "../utils/dataHub"
 import {useParams} from "react-router-dom";
-import TagStylus from "../components/TagStylus/TagStylus"
 import {getDailyCocktail, setDailyCocktail} from "../utils/utils"
 
 function AllCocktails() {
@@ -88,10 +87,6 @@ function AllCocktails() {
       <h1>Search for an amazing cocktail</h1>
       <Row>
         <Searchbar cta={"Go!"} onClickCallback={cbSearchCallback} />
-      </Row>
-      <Row>
-        <TagStylus name={"test stylus"}/>
-        <TagStylus name={"test big"} big/>
       </Row>
       {drinks && (
         <Row intro={"Cocktails you asked for:"}>
