@@ -27,6 +27,8 @@
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "firebase": "^8.10.1",
     "focus-trap-react": "^9.0.2",
     "font-awesome": "^4.7.0",
