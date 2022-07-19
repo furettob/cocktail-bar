@@ -11,6 +11,7 @@ import Select from "../components/Form/Select/Select"
 import {addDrink, getDrinksById} from "../utils/api"
 import Checkbox from "../components/Form/Checkbox/Checkbox"
 import Aligner from "../components/Aligner/Aligner"
+import Button from "../components/Form/Button/Button"
 
 function AddCocktailPage() {
 
@@ -220,10 +221,10 @@ function AddCocktailPage() {
 
                             </div>
                             <div className="col">
-                              <input
+                              <Button
                                 type="button"
                                 onClick={() => remove(index)}
-                                value={"X"}
+                                label={"X"}
                               />
                             </div>
                           </div>
@@ -250,6 +251,10 @@ function AddCocktailPage() {
                 </Grid.Column>
 
                 <input type={"submit"} value={"Add"}/>
+                  <Button
+                    onClick={() => {console.log("fjfjfjf")}}
+                    label={"Add"}
+                  />
               </Grid>
           </Form>
           )
