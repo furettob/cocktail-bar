@@ -187,77 +187,86 @@ function AddCocktailPage() {
                         id={"checkAlcolico"}
                       />
                     </Aligner>
-                </Grid.Column>
+                  </Grid.Column>
 
-                <Grid.Column colSpan={12}>
-                  <label htmlFor="file">File upload</label>
-                  <input id="file" name="file" type="file" onChange={handleUpload} className="form-control" />
-                </Grid.Column>
-                <Grid.Column colSpan={12}>
-                  <FieldArray name="arrayIngredients">
-                    {({ remove, push }) => (
-                      <div>
-                        {values.arrayIngredients && values.arrayIngredients.length > 0 &&
-                        values.arrayIngredients.map((ingredientObj, index) => (
-                          <div className="row" key={index}>
-                            <div className="col">
-                              <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
-                              <Field
-                                name={`arrayIngredients.${index}.name`}
-                                placeholder="Name"
-                                type="text"
-                              />
-                              {errors.name && touched.name ? (
-                                <div>{errors.name}</div>
-                              ) : null}
+                  <Grid.Column colSpan={12}>
+                    <label htmlFor="file">File upload</label>
+                    <input id="file" name="file" type="file" onChange={handleUpload} className="form-control" />
+                  </Grid.Column>
+                  <Grid.Column colSpan={12}>
+                    <FieldArray name="arrayIngredients">
+                      {({ remove, push }) => (
+                        <div>
+                          {values.arrayIngredients && values.arrayIngredients.length > 0 &&
+                          values.arrayIngredients.map((ingredientObj, index) => (
+                            <div className="row" key={index}>
+                              <div className="col">
+                                <label htmlFor={`arrayIngredients.${index}.name`}>Name</label>
+                                <Field
+                                  name={`arrayIngredients.${index}.name`}
+                                  placeholder="Name"
+                                  type="text"
+                                />
+                                {errors.name && touched.name ? (
+                                  <div>{errors.name}</div>
+                                ) : null}
+                              </div>
+                              <div className="col">
+                                <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
+                                <Field
+                                  name={`arrayIngredients.${index}.measure`}
+                                  placeholder="Measure"
+                                  type="measure"
+                                />
+
+                              </div>
+                              <div className="col">
+                                <Button
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                  label={"X"}
+                                />
+                              </div>
                             </div>
-                            <div className="col">
-                              <label htmlFor={`arrayIngredients.${index}.measure`}>Measure</label>
-                              <Field
-                                name={`arrayIngredients.${index}.measure`}
-                                placeholder="Measure"
-                                type="measure"
-                              />
+                          ))}
+                          <input
+                            type="button"
+                            onClick={() => push({ name: '', measure: '' })}
+                            value={"New Ingredient"}
+                          />
+                        </div>
+                      )}
+                    </FieldArray>
+                    {errors.arrayIngredients && touched.arrayIngredients ?
+                      <div>{errors.arrayIngredients}</div>
+                      : null
+                    }
+                  </Grid.Column>
 
-                            </div>
-                            <div className="col">
-                              <Button
-                                type="button"
-                                onClick={() => remove(index)}
-                                label={"X"}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                        <input
-                          type="button"
-                          onClick={() => push({ name: '', measure: '' })}
-                          value={"New Ingredient"}
-                        />
-                      </div>
-                    )}
-                  </FieldArray>
-                  {errors.arrayIngredients && touched.arrayIngredients ?
-                    <div>{errors.arrayIngredients}</div>
-                    : null
-                  }
-                </Grid.Column>
+                  <Grid.Column>
+                    {errors.global ?
+                      <div>{errors.global}</div>
+                      : null
+                    }
+                  </Grid.Column>
 
-                <Grid.Column>
-                  {errors.global ?
-                    <div>{errors.global}</div>
-                    : null
-                  }
-                </Grid.Column>
+                  <Grid.Column colSpan={12}>
 
-                <input type={"submit"} value={"Add"}/>
-                  <Button
-                    onClick={() => {console.log("fjfjfjf")}}
-                    label={"Add"}
-                  />
-              </Grid>
-          </Form>
-          )
+                    <input type={"submit"} value={"Add"}/>
+                    <Button
+                      onClick={() => {console.log("fjfjfjf")}}
+                      label={"Add"}
+                    />
+                    <Button
+                      onClick={() => {console.log("fjfjfjf")}}
+                      label={"Add"}
+                      inverted
+                      fluid
+                    />
+                  </Grid.Column>
+                </Grid>
+              </Form>
+            )
           }
           }
         </Formik>
