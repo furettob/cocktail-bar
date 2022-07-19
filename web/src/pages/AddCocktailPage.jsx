@@ -10,6 +10,7 @@ import Textarea from "../components/Form/Textarea/Textarea"
 import Select from "../components/Form/Select/Select"
 import {addDrink, getDrinksById} from "../utils/api"
 import Checkbox from "../components/Form/Checkbox/Checkbox"
+import Aligner from "../components/Aligner/Aligner";
 
 function AddCocktailPage() {
 
@@ -176,6 +177,9 @@ function AddCocktailPage() {
                     ) : null}
                   </Grid.Column>
                   <Grid.Column colSpan={6}>
+                    <Aligner
+                      allineamento={'right'}
+                    >
                       <Checkbox
                         isChecked={values.isAlcoholic === 'true'}
                         labelOn={'Alcoholic'}
@@ -183,15 +187,16 @@ function AddCocktailPage() {
                         handleChange={cambioCheck}
                         id={"checkAlcolico"}
                       />
+                    </Aligner>
                   </Grid.Column>
 
                   <Grid.Column colSpan={12}>
                     <label htmlFor="file">File upload</label>
-                    <input id="file" name="file" type="file" onChange={handleUpload} className="form-control" />
+                    <input id="file" name="file" type="file" onChange={handleUpload} className="form-control"/>
                   </Grid.Column>
                   <Grid.Column colSpan={12}>
                     <FieldArray name="arrayIngredients">
-                      {({ remove, push }) => (
+                      {({remove, push}) => (
                         <div>
                           {values.arrayIngredients && values.arrayIngredients.length > 0 &&
                           values.arrayIngredients.map((ingredientObj, index) => (
@@ -227,7 +232,7 @@ function AddCocktailPage() {
                           ))}
                           <input
                             type="button"
-                            onClick={() => push({ name: '', measure: '' })}
+                            onClick={() => push({name: '', measure: ''})}
                             value={"New Ingredient"}
                           />
                         </div>
