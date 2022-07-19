@@ -1,0 +1,25 @@
+.cb-image
+  width: 2*$cb-spacing-size--huge
+
+.cb-image__inner
+  width 100%
+  padding-bottom: 100%
+  height: 0
+  background-size: contain
+  border-radius: 50%
+  //border: $cb-copy-size--small solid $white
+  /* Deve essere uguale al border-width */
+  //margin-left: -1*$cb-copy-size--small
+  background-color #23282c
+  overflow hidden
+  position relative
+  box-sizing border-box
+
+.cb-image__placeholder
+  position absolute
+  top 50%
+  left 50%
+  transform translateX(-50%) translateY(-50%)
+  font-size $cb-spacing-size--huge
+  color $white
+  text-transform uppercase
