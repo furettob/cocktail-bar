@@ -1422,4 +1422,9 @@ a.cb-cta:active {
   border-width: 8px;
 }
 
+.cb-generic-card {
+  margin: 10px;
+  padding: 10px;
+}
+
 /* DESIGN SYSTEM END */

@@ -11,6 +11,7 @@ import Select from "../components/Form/Select/Select"
 import {addDrink, getDrinksById} from "../utils/api"
 import Checkbox from "../components/Form/Checkbox/Checkbox"
 import Aligner from "../components/Aligner/Aligner";
+import GenericCard from "../components/GenericCard"
 
 function AddCocktailPage() {
 
@@ -87,6 +88,7 @@ function AddCocktailPage() {
 
   return (
     <>
+    <GenericCard>
       <Row>
         <h1>Add cocktail</h1>
         <Formik
@@ -262,6 +264,7 @@ function AddCocktailPage() {
           }
         </Formik>
       </Row>
+      </GenericCard>
     </>
   )
 }
