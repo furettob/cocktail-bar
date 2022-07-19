@@ -53,7 +53,7 @@ function InfoSection({ drink, isDetail, toggleStatus, toggleFunction }) {
               <FavouriteContext.Consumer>
                 {
                   ({favouriteList, toggleFavouriteFunction, isFavourite}) =>
-                    <span onClick={() => toggleFavouriteFunction(drink.idDrink)}>
+                    <span onClick={() => toggleFavouriteFunction(drink.idDrink, drink.strDrink)}>
                          {isFavourite && isFavourite(drink.idDrink, drink.strDrink, favouriteList)
                            ? <Tag selected icon="fa-heart" name="Favourite" type={{className:"success"}} />
                            : <Tag icon="fa-heart" name="Make favourite" type={{className:"disabled"}} />

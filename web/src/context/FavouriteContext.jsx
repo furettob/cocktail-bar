@@ -26,9 +26,9 @@ export const FavouriteProvider = ({ value, children }) => {
     }) > -1
   }
 
-  const toggleFavouriteFunction = async (id) => {
+  const toggleFavouriteFunction = async (id, name) => {
     if (user) {
-      const fav = await toggleFavouriteDrink(user, {drinkId:id, drinkName:"test", uid:user.uid})
+      const fav = await toggleFavouriteDrink(user, {drinkId:id, drinkName:name, uid:user.uid})
       setFavouriteList(fav)
     } else {
       history.push({
