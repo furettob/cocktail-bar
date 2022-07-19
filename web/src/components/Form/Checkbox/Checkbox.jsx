@@ -5,7 +5,7 @@ function Checkbox(props) {
 
   const [isChecked, setIsChecked] = useState(props.isChecked)
 
-  console.log('IN CHE STATO SONO?', isChecked)
+  //console.log('IN CHE STATO SONO?', isChecked)
 
   return (
     <Fragment>

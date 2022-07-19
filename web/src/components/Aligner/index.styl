@@ -1,0 +1,22 @@
+.cb-aligner
+  width: 100%
+  height: 100%
+  display: flex
+
+.cb-aligner[class*="--top-"]
+  align-items: flex-start
+
+.cb-aligner[class*="--bottom-"]
+  align-items: flex-end
+
+.cb-aligner[class*="--center-"]
+  align-items: center
+
+.cb-aligner[class$="-left"]
+  justify-content: flex-start
+
+.cb-aligner[class$="-right"]
+  justify-content: flex-end
+
+.cb-aligner[class$="-center"]
+  justify-content: center
