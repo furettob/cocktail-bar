@@ -44,6 +44,7 @@
     "react-router-dom": "^5.1.0",
     "react-test-renderer": "^17.0.0",
     "react-transition-group": "^4.4.2",
+    "storybook": "^6.5.9",
     "stylus": "^0.58.1",
     "vite": "^2.6.4",
     "watch": "^0.13.0",
