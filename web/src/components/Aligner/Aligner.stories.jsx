@@ -13,6 +13,4 @@ export default {
 };
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = (args) => <div style={{width:"300px", height:"200px", backgroundColor:"#eee"}}><Aligner {...args}>content</Aligner></div>
-
-export const Detailed = Template.bind({});
+export const Template = (args) => <div style={{width:"300px", height:"200px", backgroundColor:"#eee"}}><Aligner {...args}>content</Aligner></div>
