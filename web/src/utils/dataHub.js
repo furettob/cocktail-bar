@@ -69,6 +69,7 @@ export function getIngredients(drink) {
     .map((elem, index) => {
       if (drink["strIngredient" + index]) {
         return {
+          id: encodeURIComponent(drink["strIngredient" + index].toLowerCase()),
           ingredient: drink["strIngredient" + index],
           measure: drink["strMeasure" + index]
             ? drink["strMeasure" + index].trim()

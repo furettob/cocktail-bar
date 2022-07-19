@@ -18,14 +18,10 @@ function AllCocktails() {
 
   const getRandomCocktailOrCache = async () => {
     const cached = getDailyCocktail()
-    if (cached?.cocktailObj) {
+    if (cached?.cocktailObj && cached?.date && Date.now() - cached.date < 86400000) {
       // console.log("Returning cached cocktail::: ", cached.cocktailObj.strDrink)
-      // per i test, cambia ogni 5 minuti
-      if (Date.now() - cached.date < 300000) {
+      // 86400000 = 24 hours
         return cached.cocktailObj
-      } else {
-        console.log("A cached object is present, but it will be refreshed")
-      }
     }
     const newDailyCocktail = await getRandomCocktail()
     // console.log("Setting new::: ", newDailyCocktail)
@@ -57,11 +53,11 @@ function AllCocktails() {
       nd["creativeCommonsConfirmed"] = od.strCreativeCommonsConfirmed
       nd["name"] = od.strDrink
       nd["alternateName"] = od.strDrinkAlternate
-      nd["drinkThumbUrl"] = od.strDrinkThumb
+      nd["thumbUrl"] = od.strDrinkThumb
       nd["glass"] = od.strGlass
       nd["isIBA"] = od.strIBA
       nd["imageAttribution"] = od.strImageAttribution
-      nd["originalUrl"] = od.strImageSource
+      nd["thumbSourceUrl"] = od.strImageSource
       nd["instructionsEN"] = od.strInstructions
       nd["instructionsDE"] = od.strInstructionsDE
       nd["instructionsES"] = od.strInstructionsES
@@ -73,8 +69,8 @@ function AllCocktails() {
 
       console.log("ND::: ", nd)
 
-      if (od.strVideo) {
-        console.log(`${od.strVideo} has strImageSource:: `, od.strVideo)
+      if (od.strImageSource) {
+        console.log(`${od.strImageSource} has strImageSource:: `, od.strImageSource)
       }
 
     }

@@ -1,0 +1,24 @@
+# BASIC VERSION: IT WORKS WITH THE REMOTE ENDPOINT
+# OF FIREBASE FUNCIONS
+# IT REFLECTS CODEBASE CHANGES AT RUNTIME
+
+version: "3.9"
+services:
+  web:
+    image: node:14.18.0-alpine
+    command: sh -c "yarn install && yarn build --watch | yarn serve --host"
+    ports:
+      - 3001:3001
+    environment:
+      APIENDPOINT: remote
+    working_dir: /web
+    volumes:
+      - ./web/:/web
+  api:
+    image: node:14.18.0-alpine
+    command: sh -c "yarn global add firebase-tools && pwd && ls && cd functions && pwd && ls && npm install && firebase serve --token 1//09uptTTCbv-r1CgYIARAAGAkSNwF-L9IrbDraj862B9cLfmU3nbifY8xsPI4sKDmc9bU0XcIWHw1sO8StCk98CDZhHnzVpRd89Lg"
+    ports:
+      - 3000:3000
+    working_dir: /API
+    volumes:
+      - ./API/:/API

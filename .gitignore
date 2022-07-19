@@ -1,8 +1,12 @@
+*/node_modules
 node_modules
-.DS_Store
-dist
+web/node_modules
+*/.DS_Store
+*/dist
 dist-ssr
 *.local
 .idea
+.DS_Store
+web/.DS_store
 yarn-error.log
 yarn.lock

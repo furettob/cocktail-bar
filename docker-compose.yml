@@ -1,0 +1,17 @@
+# BASIC VERSION: IT WORKS WITH THE REMOTE ENDPOINT
+# OF FIREBASE FUNCIONS
+# IT REFLECTS CODEBASE CHANGES AT RUNTIME
+
+version: "3.9"
+services:
+  web:
+    image: node:14.18.0-alpine
+    command: sh -c "yarn install && yarn build --watch | yarn serve --host"
+    ports:
+      - 3001:3001
+    working_dir: /web
+    environment:
+      APIENDPOINT: remote
+    volumes:
+      - ./web/:/web
+
