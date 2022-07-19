@@ -10,8 +10,6 @@ import Textarea from "../components/Form/Textarea/Textarea"
 import Select from "../components/Form/Select/Select"
 import {addDrink, getDrinksById} from "../utils/api"
 import Checkbox from "../components/Form/Checkbox/Checkbox"
-import Aligner from "../components/Aligner/Aligner"
-import Button from "../components/Form/Button/Button"
 
 function AddCocktailPage() {
 
@@ -178,7 +176,6 @@ function AddCocktailPage() {
                     ) : null}
                   </Grid.Column>
                   <Grid.Column colSpan={6}>
-                    <Aligner align={"center-right"}>
                       <Checkbox
                         isChecked={values.isAlcoholic === 'true'}
                         labelOn={'Alcoholic'}
@@ -186,7 +183,6 @@ function AddCocktailPage() {
                         handleChange={cambioCheck}
                         id={"checkAlcolico"}
                       />
-                    </Aligner>
                   </Grid.Column>
 
                   <Grid.Column colSpan={12}>
@@ -253,16 +249,6 @@ function AddCocktailPage() {
                   <Grid.Column colSpan={12}>
 
                     <input type={"submit"} value={"Add"}/>
-                    <Button
-                      onClick={() => {console.log("fjfjfjf")}}
-                      label={"Add"}
-                    />
-                    <Button
-                      onClick={() => {console.log("fjfjfjf")}}
-                      label={"Add"}
-                      inverted
-                      fluid
-                    />
                   </Grid.Column>
                 </Grid>
               </Form>
